@@ -103,7 +103,7 @@ Proxy is a great building block for creating other innovative solutions.
   * It does bytecode manipulation with cglib similarly to how Proxy does the same with Javassist
   * It is missing features like: __recursive interception__ and __delegation__ and **object interception**
 
-## User guide 
+## User Guide 
 **Under Construction**:  https://ericsson.github.io/proxy
 
 ## How to Propose Changes
