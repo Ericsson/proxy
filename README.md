@@ -21,7 +21,8 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 --->
 
 # Proxy
-A small yet powerful interception library that lets you manipulate existing objects and classes behavior, It's achieving this by using [javassist](http://jboss-javassist.github.io/javassist/) to do bytecode manipulation
+A small yet powerful interception library that lets you manipulate existing objects and classes behavior runtime, 
+It's achieving this by using [javassist](http://jboss-javassist.github.io/javassist/) to do bytecode manipulation,
 Proxy has a [fluent](http://en.wikipedia.org/wiki/Fluent_interface) interception API:
 
 ```java
@@ -78,6 +79,7 @@ public class FluentExample {
 
 Proxy is a highly general-purpose library that solve a typical Java development problem (Runtime change of behavior for classes and objects) that no other open source solution does today.
 Proxy is powerful interception library that lets you manipulate existing objects and classes(by internally using bytecode manipulation). 
+
 Using Proxy can allow you to architecturally implement your code completely differently using it’s features like:
 
 * Building complex object from small objects.
