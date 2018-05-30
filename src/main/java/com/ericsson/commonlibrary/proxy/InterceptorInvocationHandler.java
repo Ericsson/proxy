@@ -1,5 +1,4 @@
-MIT License
-
+/*
 Copyright (c) 2018 Ericsson
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -18,4 +17,35 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+package com.ericsson.commonlibrary.proxy;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+
+/**
+ * A {@link Interceptor} that adapts standard InvocationHandler for java to the
+ * interceptor interface
+ * 
+ * @author Elis Edlund (elis.edlund@ericsson.com)
+ */
+final class InterceptorInvocationHandler implements Interceptor {
+
+    private final InvocationHandler invocationHandler;
+
+    InterceptorInvocationHandler(InvocationHandler invocationHandler) {
+        this.invocationHandler = invocationHandler;
+    }
+
+    /**
+     * Adapts the interceptor call to the InvocationHandler
+     */
+    @Override
+    public Object intercept(Invocation invocation) throws Throwable {
+        Object target = invocation.getThis();
+        Method method = invocation.getMethod();
+        Object[] args = invocation.getParameters();
+        return invocationHandler.invoke(target, method, args);
+    }
+}

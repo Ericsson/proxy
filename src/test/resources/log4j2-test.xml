@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info" xmlns="http://logging.apache.org/log4j/2.0/config">
+
+    <Appenders>
+        <Console name="DefaultConsoleAppender" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="%d{DEFAULT} (%F:%L)%5p %X{id}: %m%n%ex{full}" />
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Root level="TRACE">
+            <AppenderRef ref="DefaultConsoleAppender" />
+        </Root>
+    </Loggers>
+
+</Configuration>

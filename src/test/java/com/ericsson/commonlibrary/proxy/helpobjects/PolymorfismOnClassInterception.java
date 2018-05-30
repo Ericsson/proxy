@@ -1,5 +1,4 @@
-MIT License
-
+/*
 Copyright (c) 2018 Ericsson
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -18,4 +17,28 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+package com.ericsson.commonlibrary.proxy.helpobjects;
+
+public class PolymorfismOnClassInterception {
+
+    public PolymorfismOnClassInterception() {}
+
+    public String returnString1() {
+        return "1";
+    }
+
+    public String returnString2() {
+        return "2";
+    }
+
+    public String returnString1Times2() {
+        return returnString1() + returnString1();
+    }
+
+    public String returnString2Times2() {
+        return returnString2() + returnString2();
+    }
+
+}

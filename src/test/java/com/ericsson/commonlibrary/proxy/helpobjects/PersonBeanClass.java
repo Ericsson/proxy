@@ -1,5 +1,4 @@
-MIT License
-
+/*
 Copyright (c) 2018 Ericsson
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -18,4 +17,50 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+package com.ericsson.commonlibrary.proxy.helpobjects;
+
+public class PersonBeanClass {
+
+    public String getName() {
+        return null;
+    }
+
+    public String getAddress() {
+        return null;
+    }
+
+    public String getPhoneNumber() {
+        return null;
+    }
+
+    public boolean isMale() {
+        return false;
+    }
+
+    public int getAge() {
+        return 0;
+    }
+
+    public Integer getAgeInteger() {
+        return null;
+    }
+
+    public void setName(String name) {}
+
+    public void setAddress(String address) {
+
+    }
+
+    public void setPhoneNumber(String phoneNumber) {}
+
+    public void setMale(boolean male) {}
+
+    public void setAge(int i) {
+
+    }
+
+    public void setAgeInteger(Integer i) {}
+
+}

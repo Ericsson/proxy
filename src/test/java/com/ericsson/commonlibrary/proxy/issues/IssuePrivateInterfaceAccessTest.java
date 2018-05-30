@@ -1,5 +1,4 @@
-MIT License
-
+/*
 Copyright (c) 2018 Ericsson
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -18,4 +17,33 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+package com.ericsson.commonlibrary.proxy.issues;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.testng.annotations.Test;
+
+import com.ericsson.commonlibrary.proxy.Proxy;
+import com.ericsson.commonlibrary.proxy.issues.packagescope.PrivateInterfaceImpl;
+
+public class IssuePrivateInterfaceAccessTest {
+
+    @Test
+    public void privateInterfaceAccessIssueClassDelegateTest() throws Exception {
+        ArrayList delegate = Proxy.delegate(ArrayList.class, new PrivateInterfaceImpl());
+    }
+
+    @Test
+    public void privateInterfaceAccessIssueObjectDelegateTest() throws Exception {
+        ArrayList delegate = Proxy.delegate(new ArrayList(), new PrivateInterfaceImpl());
+    }
+
+    @Test
+    public void privateInterfaceAccessIssueChangeInterfaceTest() throws Exception {
+        List changeInterface = Proxy.changeInterface(List.class, new PrivateInterfaceImpl());
+    }
+
+}

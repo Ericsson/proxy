@@ -1,5 +1,4 @@
-MIT License
-
+/*
 Copyright (c) 2018 Ericsson
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -18,4 +17,21 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+package com.ericsson.commonlibrary.proxy.helpobjects;
+
+public class ConstructorThrowsException {
+
+    public static final String DO_NOT_CRASH = "DONOTCRASH";
+
+    public ConstructorThrowsException(int i) throws Exception {
+        throw new Exception();
+    }
+
+    public ConstructorThrowsException(StringBuilder o) throws Exception {
+        if (!DO_NOT_CRASH.equals(o.toString())) {
+            throw new Exception();
+        }
+    }
+}
