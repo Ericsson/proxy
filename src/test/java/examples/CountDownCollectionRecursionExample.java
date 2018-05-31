@@ -31,8 +31,8 @@ import com.ericsson.commonlibrary.proxy.Interceptor;
 import com.ericsson.commonlibrary.proxy.Invocation;
 import com.ericsson.commonlibrary.proxy.Proxy;
 
-public class CountDownCollectionRecursionExample {
 
+public class CountDownCollectionRecursionExample {
     public static void main(String[] args) {
         //Anonymous class, should usually be put in a separate class.
         Interceptor countDown = new Interceptor() {

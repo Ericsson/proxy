@@ -1,0 +1,22 @@
+/**
+ * Make anchors links work as expected.(not hidden by menu)
+ */
+:target {
+    display: block;    
+    position: relative;     
+    top: -57px;
+    visibility: hidden;
+}
+/**
+ * Put some space before each new section
+ */
+.section h2 {
+    padding-top: 20px;
+}
+.section h3 {
+    padding-top: 20px;
+}
+.section h4 {
+    padding-top: 10px;
+    padding-left: 8px;
+}

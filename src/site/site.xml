@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/DECORATION/1.4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/DECORATION/1.4.0 http://maven.apache.org/xsd/decoration-1.4.0.xsd">
+    <version position="right" />
+
+    <bannerLeft>
+        <name>${project.name}</name>
+        <href>./index.html</href>
+        <!-- <src>./images/logo.png</src>  -->
+    </bannerLeft>
+
+
+	<!-- The look and feel with syntax highlighting etc. -->
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-fluido-skin</artifactId>
+        <version>1.7</version>
+    </skin>
+    <custom>
+        <fluidoSkin>
+            <sourceLineNumbersEnabled>false</sourceLineNumbersEnabled>
+            <topBarEnabled>true</topBarEnabled>
+            <sideBarEnabled>false</sideBarEnabled>
+            <topBarContainerStyle>width: 98%;</topBarContainerStyle>
+            <topBarIcon>
+                <name>Ericsson</name>
+                <alt>Ericsson</alt>
+                <src>./images/ericsson-logo.png</src>
+                <href>./index.html</href>
+            </topBarIcon>
+        </fluidoSkin>
+    </custom>
+
+	<!-- How the top menu should look like -->
+    <body>
+        <menu name="${project.name}">
+            <item name="User Guide" href="index.html" />
+            <item name="Project Information" href="./project-info.html" />
+            <item name="Javadoc" href="./apidocs/index.html" />
+            <item name="View Source" href="./xref/index.html" />
+            <item name="Get Source" href="./source-repository.html" />
+        </menu>
+    </body>
+
+</project>
