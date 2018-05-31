@@ -1,24 +1,21 @@
 /*
-Copyright (c) 2018 Ericsson
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
+ * Copyright (c) 2018 Ericsson
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 package com.ericsson.commonlibrary.proxy;
 
 import java.lang.reflect.InvocationHandler;
@@ -60,6 +57,7 @@ public final class Proxy {
      * to the delegator objects passed in as parameters. Notice that you can get polymorphic
      * behavior with this delegation method.
      * 
+     * @param <T> target object type
      * @param proxyInterface interface/class of the returned class.
      * @param delegates Objects that implements the methods that should be used as delegate methods.
      * @return a proxy object that delegates method calls to it's delegates.
@@ -96,6 +94,7 @@ public final class Proxy {
      * delegate objects passed in as parameters.
      * Warning your proxy will not behave polymorphically.
      * 
+     * @param <T> target object type
      * @param objectThatShouldDelegate object that should delegate to other
      *        objects.
      * @param delegates Objects that that implements some methods.
@@ -121,6 +120,7 @@ public final class Proxy {
      * the setX method will be generated.
      * These generated set methods will only be available with reflection.
      * 
+     * @param <T> target object type
      * @param classToProxy the interface/abstract you want to create a java bean from.
      * @return a concrete usable java bean object.
      */
@@ -135,6 +135,7 @@ public final class Proxy {
      * the setX method will be generated.
      * These generated set methods will only be available with reflection.
      * 
+     * @param <T> target object type
      * @param classToProxy the interface/abstract you want to create a java bean from.
      * @param primitiveDefaultIsException if primitives should default to exceptions instead of (0,
      *        false 0L etc)
@@ -161,33 +162,37 @@ public final class Proxy {
      * Add a performance timer to a object. The performance timer uses slf4j to
      * print stats about a method invocations.
      * 
-     * @param objectToBenchmark
-     * @return
+     * @param <T> target object type
+     * @param objectToBenchmark object that will be intercepted with method timings.
+     * @return a proxy object
      */
     public static <T> T addTimerToMethods(T objectToBenchmark) {
         return intercept(objectToBenchmark, INTERCEPTOR_METHOD_TIMER);
     }
 
-    
     /**
      * Set a MDC key to a specific value while inside the object.
      * 
-     * @param objectToLogg
-     * @return
+     * @param <T> target object type
+     * @param objectInNeedOfMdc object to add mdc logging to.
+     * @param key mdc key
+     * @param value mdc value
+     * @return a proxy object
      */
-    public static <T> T mdcLogging(T objectToLog, String key, String value) {
-        if (Util.isClassSafeFromPublicVariableProblems(objectToLog.getClass())) {
-            return intercept(objectToLog, new InterceptorMdc(key, value));
+    public static <T> T mdcLogging(T objectInNeedOfMdc, String key, String value) {
+        if (Util.isClassSafeFromPublicVariableProblems(objectInNeedOfMdc.getClass())) {
+            return intercept(objectInNeedOfMdc, new InterceptorMdc(key, value));
         } else {
-            logger.debug("Was not able to add mdc logging to {} ", objectToLog.getClass());
-            return objectToLog;
+            logger.debug("Was not able to add mdc logging to {} ", objectInNeedOfMdc.getClass());
+            return objectInNeedOfMdc;
         }
     }
 
     /**
      * Let's you add an interceptor recursively to a existing object. Meaning that the interceptor
      * will add itself to every returned object.
-     * 
+     
+     * @param <T> target object type
      * @param objectToIntercept the object you what do add a interceptor recursively to.
      * @param interceptor the interceptor you want to add.
      * @return a proxy object with the interceptor added.
@@ -206,6 +211,7 @@ public final class Proxy {
      * which methods the inteceptor should intercept and if no method is
      * specified all methods will be intercepted.
      * 
+     * @param <T> target object type
      * @param objectToIntercept the object you what do add a interceptor to.
      * @param interceptor the interceptor you want to add.
      * @param methodsToIntercept varargs of the methods you want the interceptor
@@ -239,9 +245,10 @@ public final class Proxy {
      * Lets you add a InvocationHandler to a existing object. It possible to
      * specify which methods the invocationHandler should intercept and if no
      * method is specified all methods will be intercepted.
-     * 
+     
+     * @param <T> target object type
      * @param objectToIntercept the object you what do add a interceptor to.
-     * @param InvocationHandler the interceptor you want to add.
+     * @param invocationHandler the interceptor you want to add.
      * @param methodsToIntercept varargs of the methods you want the interceptor
      *        to intercept. Specifying none means that it will intercept all.
      * @return a proxy object with the interceptor added.
@@ -257,7 +264,8 @@ public final class Proxy {
      * It's
      * possible to specify which methods the inteceptor should intercept. if no method is
      * specified all methods will be intercepted.
-     * 
+     
+     * @param <T> target object type
      * @param classToIntercept the class/interface you what do add a interceptor to.
      * @param interceptor the interceptor you want to add.
      * @param methodsToIntercept varargs of the methods you want the interceptor
@@ -285,9 +293,10 @@ public final class Proxy {
      * Lets you add a InvocationHandler to a classes/interfaces. It possible to
      * specify which methods the invocationHandler should intercept and if no
      * method is specified all methods will be intercepted.
-     * 
+     
+     * @param <T> target object type
      * @param classToIntercept the class/interface you what do add a interceptor to.
-     * @param InvocationHandler the interceptor you want to add.
+     * @param invocationHandler the interceptor you want to add.
      * @param methodsToIntercept varargs of the methods you want the interceptor
      *        to intercept. Specifying none means that it will intercept all.
      * @return a proxy object with the interceptor added.
@@ -302,8 +311,8 @@ public final class Proxy {
      * Returns the same proxy object as you passed in but with the {@link InterceptableProxy}
      * interface
      * 
-     * @param proxy
-     * @return the proxy but with the {@link InterceptableProxy} interface.
+     * @param proxy an object that is already has been proxied.
+     * @return the provided object but with the {@link InterceptableProxy} interface.
      */
     public static InterceptableProxy getProxyInterface(Object proxy) {
         if (proxy instanceof InterceptableProxy) {
@@ -317,9 +326,11 @@ public final class Proxy {
      * Allows you to change the interface of a object to one that it does not
      * implement. Duck Typing,
      * 
-     * @param newInterface
-     * @param objectToChangeInterfaceOn
-     * @return
+     * @param <T> target object type
+     * @param newInterface the new java interface proxy should implement.
+     * @param objectToChangeInterfaceOn object that could that has methods an unimplemented
+     *        interface has.
+     * @return a proxy object with another interface than the original.
      */
     public static <T> T changeInterface(Class<T> newInterface,
             final Object objectToChangeInterfaceOn) {

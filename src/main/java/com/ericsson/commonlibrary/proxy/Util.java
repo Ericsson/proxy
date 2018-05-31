@@ -1,24 +1,21 @@
 /*
-Copyright (c) 2018 Ericsson
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
+ * Copyright (c) 2018 Ericsson
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 package com.ericsson.commonlibrary.proxy;
 
 import java.io.File;
@@ -60,6 +57,7 @@ public final class Util {
     /**
      * Check if the given object implements the given set of interfaces.
      * 
+     * @param <T> target object type
      * @param object to check if it implement interfaces
      * @param interfaces that the object should implement
      * @return if the object implements all interfaces
@@ -136,8 +134,8 @@ public final class Util {
      * Check if two methods have the same signature. Return type(not part of the
      * signature) and declaring class is ignored
      * 
-     * @param method
-     * @param method2
+     * @param method first method to compare
+     * @param method2 second method to compare
      * @return if the methods was equals or not.
      */
     public static boolean methodSignatureEquals(Method method, final Method method2) {
@@ -154,7 +152,7 @@ public final class Util {
     /**
      * Checks if a method is declared in an Abstract class or interface
      * 
-     * @param method
+     * @param method to check
      * @return true if its declared in an Abstract class or interface
      */
     public static boolean isMethodDeclaredInInterfaceOrAnAbstractMethod(Method method) {
@@ -164,7 +162,7 @@ public final class Util {
     /**
      * Checks if a method is an abstract or declared in interface(and not a default implementation)
      *
-     * @param method
+     * @param method to check
      * @return true if it has a implementation(which might be empty!)
      */
     public static boolean isMethodWithImplementation(Method method) {
@@ -177,7 +175,7 @@ public final class Util {
     /**
      * Check if the provided class is and interface or and abstract class.
      * 
-     * @param clazz
+     * @param clazz to check
      * @return true if interface or abstract class
      */
     public static boolean isClassAInterfaceOrAbstract(Class<?> clazz) {
@@ -188,7 +186,7 @@ public final class Util {
      * Check if the method is a toString() hashcode() or equals(o) method,
      * These are the non final methods of Object.class
      * 
-     * @param method
+     * @param method to check
      * @return true if one of these methods
      */
     public static boolean isToStringOrHashcodeOrEqualsMethod(Method method) {
@@ -206,8 +204,9 @@ public final class Util {
      * Like all primitives type(and object variants) Enums,Files and some simple Collections support
      * to convert comma separated string into List of one of the supported simple types.
      * 
-     * @param stringToCast
-     * @param classToCastTo
+     * @param <T> target object type
+     * @param stringToCast the string that you want to convert to another type.
+     * @param classToCastTo resulting Clas of the object you want to convert the String to
      * @param invocation only needed for Collection types.
      * @return actual object with the provided type.
      */
@@ -223,8 +222,9 @@ public final class Util {
      * Utility method to help convert a String to an actual object of other common types.
      * Like all primitives type(and object variants) Enums, Files.
      * 
-     * @param stringToCast
-     * @param classToCastTo
+     * @param <T> target object type
+     * @param stringToCast the string that you want to convert to another type.
+     * @param classToCastTo resulting Clas of the object you want to convert the String to
      * @return actual object with the provided type.
      */
     public static <T> T castStringValueToObject(String stringToCast, Class<T> classToCastTo) {
@@ -237,8 +237,9 @@ public final class Util {
      * support
      * to convert comma separated string into List of one of the supported simple types.
      * 
-     * @param stringToCast
-     * @param classToCastTo
+     * @param <T> target object type
+     * @param stringToCast the string that you want to convert to another type.
+     * @param classToCastTo resulting Clas of the object you want to convert the String to
      * @param method only needed for Collection types.
      * @return actual object with the provided type.
      */
@@ -296,25 +297,27 @@ public final class Util {
 
     /**
      * Will default null values for collections types (and arrays) to an empty variant of that type.
-     * 
-     * @param valueClass
-     * @param value
+     *
+     * @param <T> target object type
+     * @param collectionClass the collection class
+     * @param value the collection which will be unchanged and this method will only return a empty
+     *        collection if the this given value is null.
      * @return original value or empty collections instead of null
      */
-    public static <T> T defaultToEmptyCollectionsOnNullValue(Class<T> valueClass, T value) {
+    public static <T> T defaultToEmptyCollectionsOnNullValue(Class<T> collectionClass, T value) {
         if (value != null) {
             return value;
-        } else if (valueClass.equals(List.class)) {
+        } else if (collectionClass.equals(List.class)) {
             return (T) Collections.emptyList();
-        } else if (valueClass.equals(Map.class)) {
+        } else if (collectionClass.equals(Map.class)) {
             return (T) Collections.emptyMap();
-        } else if (valueClass.equals(Set.class)) {
+        } else if (collectionClass.equals(Set.class)) {
             return (T) Collections.emptySet();
-        } else if (valueClass.equals(Properties.class)) {
+        } else if (collectionClass.equals(Properties.class)) {
             return (T) new Properties();
-        } else if (valueClass.isArray()) {
-            return (T) Array.newInstance(valueClass.getComponentType(), 0);
-        } else if (Collection.class.isAssignableFrom(valueClass)) {
+        } else if (collectionClass.isArray()) {
+            return (T) Array.newInstance(collectionClass.getComponentType(), 0);
+        } else if (Collection.class.isAssignableFrom(collectionClass)) {
             return (T) Collections.emptyList();
         }
         return value;
@@ -397,10 +400,11 @@ public final class Util {
 
     /**
      * Get the generic return type of the provided method,
-     * Meaning the String.class from a method like "public List<String> method()"
-     * and String.class from a method like "public Map<String,Integer> method()"
+     * Meaning the String.class from a method like  {@code public List<String> method() }
      * 
-     * @param method
+     * and String.class from a method like  {@code public Map<String,Integer> method() }
+     * 
+     * @param method to fetch return type from
      * @return generic type of the return type
      */
     public static Class<?> getGenericTypeOfReturnType(Method method) {
@@ -413,9 +417,9 @@ public final class Util {
 
     /**
      * Get the second generic return type of the provided method,
-     * Meaning the Integer.class from a method like "public Map<String,Integer> method()"
+     * Meaning the Integer.class from a method like: {@code public Map<String,Integer> method()}
      * 
-     * @param method
+     * @param method to fetch return type from
      * @return second generic type of the return type
      */
     public static Class<?> getSecondGenericTypeOfReturnType(Method method) {
@@ -509,10 +513,11 @@ public final class Util {
     }
 
     /**
-     * Concat two arrays into one.
+     * Concatenate two arrays into one.
+     * The passed in arrays will be unaltered. They will only be used in construction of a new array
      * 
-     * @param firstArray
-     * @param varargsArrays
+     * @param firstArray the first array
+     * @param varargsArrays the other arrays to concat to one large array
      * @return a new merged array
      */
     static <T> T[] concatArrays(final T[] firstArray, final T[]... varargsArrays) {
