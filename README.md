@@ -21,7 +21,7 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 --->
 [![Build Status](https://travis-ci.org/Ericsson/proxy.svg?branch=master)](https://travis-ci.org/Ericsson/proxy)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/Ericsson/proxy)
-[![maven](https://img.shields.io/badge/maven-site-green.svg)](https://github.com/Ericsson/proxy)
+[![maven](https://img.shields.io/badge/maven-site-green.svg)](https://ericsson.github.io/proxy/)
 
 # Proxy
 A small yet powerful interception library that lets you manipulate existing objects and classes behavior runtime, 

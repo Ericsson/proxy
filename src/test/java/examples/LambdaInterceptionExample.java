@@ -37,10 +37,10 @@ public class LambdaInterceptionExample {
         //        after method: log param: 321
 
         //lambda without return.
-        SomeImpl obj3 = with(SomeImpl.class)
-                .interceptAll((i) -> System.out.println("Replace method invocation: " + i.getMethodName()))
-                .get();
-        obj3.log("12345");
+//        SomeImpl obj3 = with(SomeImpl.class)
+//                .interceptAll((i) -> System.out.println("Replace method invocation: " + i.getMethodName()))
+//                .get(); //TODO why does maven have problem with compiling this? 
+//        obj3.log("12345");
         //Console output:
         //        Replace method invocation: log
     }
