@@ -28,6 +28,7 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     <packaging>jar</packaging>
     <name>Proxy</name>
     <description>A small yet powerful interception library that lets you manipulate existing objects and classes behavior runtime, It's achieving this by using javassist to do bytecode manipulation</description>
+    <url>${scm.repo.url.web}</url>
     <organization>
         <name>Ericsson</name>
         <url>http://www.ericsson.com/</url>
