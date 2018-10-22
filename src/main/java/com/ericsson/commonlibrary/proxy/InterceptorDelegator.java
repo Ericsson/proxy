@@ -57,6 +57,7 @@ final class InterceptorDelegator implements Interceptor {
                         object);
                 if (methodToRun != null
                         && !isMethodDeclaredInObjectClass(methodToRun)) {
+                    methodToRun.setAccessible(true);
                     return methodToRun.invoke(object, args);
                 }
             }
