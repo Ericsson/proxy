@@ -37,7 +37,6 @@
             <item name="User Guide" href="index.html" />
             <item name="Project Information" href="./project-info.html" />
             <item name="Javadoc" href="./apidocs/index.html" />
-            <item name="View Source" href="https://github.com/Ericsson/proxy" />
             <item name="Get Source" href="./source-repository.html" />
         </menu>
     </body>
