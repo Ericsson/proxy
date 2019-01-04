@@ -54,7 +54,7 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         <testng.version>6.14.2</testng.version>
         <log4j2.version>2.10.0</log4j2.version>
         <objenesis.version>2.6</objenesis.version>
-        <javassist.version>3.23.1-GA</javassist.version> 
+        <javassist.version>3.24.1-GA</javassist.version> 
     
         <!-- Plugin versions -->
         <maven.deploy.plugin.version>2.8.2</maven.deploy.plugin.version>
