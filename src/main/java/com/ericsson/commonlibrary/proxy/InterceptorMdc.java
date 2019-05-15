@@ -46,11 +46,16 @@ final class InterceptorMdc implements Interceptor {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
+        String originalValue = MDC.get(key);
         MDC.put(key, value);
         try {
             return Util.tryToAddInterceptorToObject(invocation.invoke(), this, invocation, false);
         } finally {
-            MDC.remove(key);
+            if (originalValue == null) {
+                MDC.remove(key);
+            } else {
+                MDC.put(key, originalValue);
+            }
         }
     }
 }
