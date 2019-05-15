@@ -26,8 +26,8 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
 /**
- * A {@link Interceptor} that lets add/removed MDC logging information to the context of your object
- * and its child objects
+ * A {@link Interceptor} that add/restores/removes MDC logging information to the context of your
+ * object and its child objects
  * 
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */
