@@ -53,7 +53,7 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         <slf4j.version>1.7.25</slf4j.version>
         <testng.version>6.14.2</testng.version>
         <log4j2.version>2.10.0</log4j2.version>
-        <objenesis.version>2.6</objenesis.version>
+        <objenesis.version>3.0.1</objenesis.version>
         <javassist.version>3.24.1-GA</javassist.version> 
     
         <!-- Plugin versions -->
