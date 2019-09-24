@@ -58,7 +58,7 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     
         <!-- Plugin versions -->
         <maven.deploy.plugin.version>2.8.2</maven.deploy.plugin.version>
-        <maven.javadoc.plugin.version>2.10.3</maven.javadoc.plugin.version>
+        <maven.javadoc.plugin.version>3.1.0</maven.javadoc.plugin.version>
         <maven.source.plugin.version>2.4</maven.source.plugin.version> <!-- Problems with 3.0.0 and 3.0.1 being slow. -->
         <maven.jar.plugin.version>2.6</maven.jar.plugin.version> <!-- Problems with 2.4, 3.0.0 and 3.0.2 being slow. -->
         <maven.release.plugin.version>2.5.3</maven.release.plugin.version>
