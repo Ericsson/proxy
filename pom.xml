@@ -53,12 +53,12 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         <slf4j.version>1.7.25</slf4j.version>
         <testng.version>6.14.2</testng.version>
         <log4j2.version>2.10.0</log4j2.version>
-        <objenesis.version>2.6</objenesis.version>
+        <objenesis.version>3.0.1</objenesis.version>
         <javassist.version>3.24.1-GA</javassist.version> 
     
         <!-- Plugin versions -->
         <maven.deploy.plugin.version>2.8.2</maven.deploy.plugin.version>
-        <maven.javadoc.plugin.version>2.10.3</maven.javadoc.plugin.version>
+        <maven.javadoc.plugin.version>3.1.0</maven.javadoc.plugin.version>
         <maven.source.plugin.version>2.4</maven.source.plugin.version> <!-- Problems with 3.0.0 and 3.0.1 being slow. -->
         <maven.jar.plugin.version>2.6</maven.jar.plugin.version> <!-- Problems with 2.4, 3.0.0 and 3.0.2 being slow. -->
         <maven.release.plugin.version>2.5.3</maven.release.plugin.version>
@@ -191,6 +191,9 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven.javadoc.plugin.version}</version>
+                <configuration>
+                    <source>8</source>
+                </configuration>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
