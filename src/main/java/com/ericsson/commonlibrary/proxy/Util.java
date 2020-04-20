@@ -272,7 +272,7 @@ public final class Util {
             return (T) Enum.valueOf((Class<Enum>) classToCastTo.asSubclass(Enum.class), stringToCast.trim());
         } else if (classToCastTo.equals(Class.class)) {
             try {
-                return (T) Class.forName(stringToCast);
+                return (T) Thread.currentThread().getContextClassLoader().loadClass(stringToCast);
             } catch (ClassNotFoundException e) {
                 throw new IllegalArgumentException("Classname: '" + stringToCast + "' does not seem to exist", e);
             }

@@ -109,7 +109,7 @@ final class InterceptableProxyFactory {
 
         CtClass cc = null;
         try {
-            return Class.forName(javaBean.getCanonicalName() + ADDITIONAL_METHODS_SUFFIX);
+            return Thread.currentThread().getContextClassLoader().loadClass(javaBean.getCanonicalName() + ADDITIONAL_METHODS_SUFFIX);
         } catch (ClassNotFoundException e) { //NOSONAR
             LOG.trace(javaBean.getCanonicalName() + ADDITIONAL_METHODS_SUFFIX + " did not exist. Creates one");
             cc = createNewClass(javaBean);
