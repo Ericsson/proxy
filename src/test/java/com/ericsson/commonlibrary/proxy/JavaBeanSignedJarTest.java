@@ -32,6 +32,9 @@ import java.net.URL;
 import org.testng.annotations.Test;
 
 public class JavaBeanSignedJarTest {
+	private static final String TCSH = "/bin/tcsh";
+    private static final String BASH = "/bin/bash";
+    
 	private String shellPath;
 
     @Test
@@ -71,23 +74,13 @@ public class JavaBeanSignedJarTest {
     
     private String getShellPath() {
     	if (shellPath == null) {    		
-    		String line;        
-    		//default shell path is /bin/tcsh
-    		shellPath = "/bin/tcsh";
-    		try {
-    			Process proc = Runtime.getRuntime().exec("which tcsh"); //NOSONAR
-    			BufferedReader input = new BufferedReader(new InputStreamReader(
-    					proc.getInputStream()));
-    			
-    			while ((line = input.readLine()) != null) {
-    				if (!line.trim().isEmpty() && line.trim().contains("tcsh")) {
-    					shellPath = line.trim();
-    					break;
-    				}
-    			}
-    		} catch (IOException e) {
-    			System.err.println("can not get tcsh shell path of current server!" + e.toString());
-    		}
+    		if (new File(TCSH).exists()) {
+                shellPath = TCSH;
+            } else if (new File(BASH).exists()) {
+                shellPath = BASH;
+            } else {
+                throw new RuntimeException("Didn't find any usable shell program");
+            }
     	}
         return shellPath;
     }

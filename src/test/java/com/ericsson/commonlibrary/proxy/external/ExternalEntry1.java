@@ -23,6 +23,7 @@ package com.ericsson.commonlibrary.proxy.external;
 
 import java.lang.reflect.Method;
 
+import com.ericsson.commonlibrary.proxy.JavaBeanSignedJarTest;
 import com.ericsson.commonlibrary.proxy.Proxy;
 
 /**

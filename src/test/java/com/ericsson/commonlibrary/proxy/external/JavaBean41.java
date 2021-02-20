@@ -21,9 +21,11 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 package com.ericsson.commonlibrary.proxy.external;
 
+import com.ericsson.commonlibrary.proxy.JavaBeanSignedJarTest;
+
 /**
  * This is the example class of the class <b>JavaBean4</b> in src/test/resources/external.jar and external-sign.jar.
- * The signed jar - external-sign.jar is used for generating class from singed jar, covered in {@link JavaBeanSignedJarTest}
+ * The signed jar - external-sign.jar is used for generating class from singed jar, covered in {@link JavaBeanSignedJarTest}.
  *
  */
 public interface JavaBean41 {
