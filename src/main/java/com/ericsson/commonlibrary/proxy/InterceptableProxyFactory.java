@@ -123,7 +123,7 @@ final class InterceptableProxyFactory {
         }
         try {
         	double javaSpecVersion = Double.parseDouble(System.getProperty("java.specification.version"));
-        	if (javaSpecVersion > 1.8) {
+        	if (javaSpecVersion > 10) { // Use different API on Java11 and later versions.
         		return cc.toClass(javaBean);
         	} else {        		
         		return cc.toClass(Thread.currentThread().getContextClassLoader(), javaBean.getProtectionDomain());
