@@ -122,7 +122,12 @@ final class InterceptableProxyFactory {
             }
         }
         try {
-            return cc.toClass();
+        	double javaSpecVersion = Double.parseDouble(System.getProperty("java.specification.version"));
+        	if (javaSpecVersion > 10) { // Use different API on Java11 and later versions.
+        		return cc.toClass(javaBean);
+        	} else {        		
+        		return cc.toClass(Thread.currentThread().getContextClassLoader(), javaBean.getProtectionDomain());
+        	}
         } catch (CannotCompileException e) {
             LOG.warn(
                     "Was not able to create new proxy class. Will use the provided one instead which won't have the additional methods.",

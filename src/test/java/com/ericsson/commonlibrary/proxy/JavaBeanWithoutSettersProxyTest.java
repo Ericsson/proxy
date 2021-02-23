@@ -141,21 +141,5 @@ public class JavaBeanWithoutSettersProxyTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public static interface JavaBean2 {
-
-        String getName();
-    }
-
-    public interface JavaBean3 {
-
-        String getName();
-    }
-
-    public interface JavaBeanIsMethod {
-
-        boolean isTrue();
-
-    }
+    }    
 }
