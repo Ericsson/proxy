@@ -355,8 +355,8 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	</issueManagement>
 
 	<ciManagement>
-		<system>Travis CI</system>
-		<url>https://travis-ci.org/Ericsson/proxy</url>
+		<system>Github Actions</system>
+		<url>https://github.com/Ericsson/${project.artifactId}/actions</url>
 	</ciManagement>
 
 </project>
