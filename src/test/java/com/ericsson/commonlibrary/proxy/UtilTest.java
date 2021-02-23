@@ -61,7 +61,8 @@ public class UtilTest {
             methodError = UtilTest.class.getDeclaredMethod("methodError", null);
             methodListSize = List.class.getDeclaredMethod("size", null);
             methodAbstractListGet = AbstractList.class.getDeclaredMethod("get", int.class);
-        } catch (NoSuchMethodException | SecurityException e) {}
+        } catch (NoSuchMethodException | SecurityException e) {
+        }
     }
 
     public List<Void> method1() {

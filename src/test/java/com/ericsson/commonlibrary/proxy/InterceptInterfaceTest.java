@@ -38,8 +38,7 @@ public class InterceptInterfaceTest {
 
     @Test
     public void interceptToString17TimesIssue() throws Exception {
-        PersonBean bean = Proxy.intercept(PersonBean.class,
-                interceptor);
+        PersonBean bean = Proxy.intercept(PersonBean.class, interceptor);
         for (int i = 0; i < 10; i++) {
             System.out.println("i:" + i + bean.toString());
         }
@@ -51,8 +50,7 @@ public class InterceptInterfaceTest {
 
     @Test
     public void interceptToString17TimesIssueClass() throws Exception {
-        PersonBeanClass bean = Proxy.intercept(PersonBeanClass.class,
-                interceptor);
+        PersonBeanClass bean = Proxy.intercept(PersonBeanClass.class, interceptor);
         for (int i = 0; i < 10; i++) {
             System.out.println("i:" + i + bean.toString());
         }

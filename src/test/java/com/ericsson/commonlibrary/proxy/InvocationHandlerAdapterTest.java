@@ -33,10 +33,8 @@ import org.testng.annotations.Test;
 public class InvocationHandlerAdapterTest {
 
     @Test
-    public void testInvocationHandlerAdapter() throws SecurityException,
-            NoSuchMethodException {
-        List<String> list = Proxy.intercept(new ArrayList<String>(),
-                new MyInvoctionHandler(),
+    public void testInvocationHandlerAdapter() throws SecurityException, NoSuchMethodException {
+        List<String> list = Proxy.intercept(new ArrayList<String>(), new MyInvoctionHandler(),
                 List.class.getMethod("get", int.class));
         assertEquals(list.get(5), "get5");
     }
@@ -44,8 +42,7 @@ public class InvocationHandlerAdapterTest {
     private class MyInvoctionHandler implements InvocationHandler {
 
         @Override
-        public Object invoke(Object proxy, Method method, Object[] args)
-                throws Throwable {
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             return "" + method.getName() + args[0];
         }
 

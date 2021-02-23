@@ -28,20 +28,21 @@ import com.ericsson.commonlibrary.proxy.Proxy;
 
 /**
  * This is the example class of the class <b>ExternalEntry</b> in src/test/resources/external.jar and external-sign.jar.
- * The signed jar - external-sign.jar is used for generating class from singed jar, covered in {@link JavaBeanSignedJarTest}.
+ * The signed jar - external-sign.jar is used for generating class from singed jar, covered in
+ * {@link JavaBeanSignedJarTest}.
  *
  */
 public class ExternalEntry1 {
 
-	public static void main(String[] args) {
-		JavaBean41 proxyBean = Proxy.javaBean(JavaBean41.class);
-		invokeSetName(proxyBean, "nisse");
+    public static void main(String[] args) {
+        JavaBean41 proxyBean = Proxy.javaBean(JavaBean41.class);
+        invokeSetName(proxyBean, "nisse");
         if ("nisse".equals(proxyBean.getName())) {
-        	System.out.println("Setter for proxy bean works.");
+            System.out.println("Setter for proxy bean works.");
         }
-	}
+    }
 
-	private static void invokeSetName(Object proxyBean, String name) {
+    private static void invokeSetName(Object proxyBean, String name) {
         Method method = null;
         try {
             method = proxyBean.getClass().getMethod("setName", String.class);

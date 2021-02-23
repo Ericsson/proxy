@@ -25,8 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A {@link Interceptor} that lets you create javabean without providing a
- * implementation.
+ * A {@link Interceptor} that lets you create javabean without providing a implementation.
  * 
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */
@@ -52,15 +51,13 @@ final class InterceptorJavaBean implements Interceptor {
         String methodName = invocation.getMethodName();
 
         if (methodName.startsWith("get")) {
-            String name = methodName
-                    .substring(XET_LENGTH);
+            String name = methodName.substring(XET_LENGTH);
             return getValue(invocation, name);
         } else if (methodName.startsWith("is")) {
             String name = methodName.substring(IS_LENGTH);
             return getValue(invocation, name);
         } else if (methodName.startsWith("set")) {
-            String name = methodName
-                    .substring(XET_LENGTH);
+            String name = methodName.substring(XET_LENGTH);
             map.put(name, invocation.getParameter0());
             return null;
         }
@@ -94,7 +91,7 @@ final class InterceptorJavaBean implements Interceptor {
         private static char defaultChar;
 
         private PrimitiveDefaultValue() {
-            //hidden
+            // hidden
         }
 
         public static Object getValue(Class<?> clazz) {

@@ -141,5 +141,5 @@ public class JavaBeanWithoutSettersProxyTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }    
+    }
 }

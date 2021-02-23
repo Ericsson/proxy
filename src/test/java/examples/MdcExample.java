@@ -18,10 +18,12 @@ public class MdcExample {
         objectToLog2 = Proxy.mdcLogging(objectToLog2, "instance", "inst02");
         objectToLog2.log("Hello World2");
 
-        //Expected output:
-        //2013-06-25 10:40:17,374 Logger:com.ericsson.commonlibrary.proxy.examples.MdcExample$SomeImpl [id001.inst01] Hello World
-        //2013-06-25 10:40:17,376 Logger:com.ericsson.commonlibrary.proxy.examples.MdcExample$SomeImpl [id001.inst02] Hello World2
-        //log4j configured: log4j.appender.A1.layout.ConversionPattern=%d{ISO8601} Logger:%c [%X{id}.%X{instance}] %m\n
+        // Expected output:
+        // 2013-06-25 10:40:17,374 Logger:com.ericsson.commonlibrary.proxy.examples.MdcExample$SomeImpl [id001.inst01]
+        // Hello World
+        // 2013-06-25 10:40:17,376 Logger:com.ericsson.commonlibrary.proxy.examples.MdcExample$SomeImpl [id001.inst02]
+        // Hello World2
+        // log4j configured: log4j.appender.A1.layout.ConversionPattern=%d{ISO8601} Logger:%c [%X{id}.%X{instance}] %m\n
     }
 
     public static class SomeImpl {

@@ -108,8 +108,7 @@ public class InterceptObjectTest {
             }
         };
 
-        List<String> list = Proxy.intercept(new ArrayList<String>(),
-                addInterceptor);
+        List<String> list = Proxy.intercept(new ArrayList<String>(), addInterceptor);
         Proxy.intercept(list, addInterceptor);
         Proxy.intercept(list, addInterceptor);
         list.add("hello");
@@ -147,8 +146,7 @@ public class InterceptObjectTest {
             }
         };
 
-        List<String> list = Proxy.intercept(new ArrayList<String>(),
-                addInterceptor);
+        List<String> list = Proxy.intercept(new ArrayList<String>(), addInterceptor);
         Proxy.intercept(list, addInterceptor);
 
         list.add("hello");
@@ -184,8 +182,7 @@ public class InterceptObjectTest {
             }
         };
 
-        List<String> list = Proxy.intercept(new ArrayList<String>(),
-                addInterceptor);
+        List<String> list = Proxy.intercept(new ArrayList<String>(), addInterceptor);
         Proxy.intercept(list, emptyInterceptor);
         Proxy.intercept(list, addInterceptor);
 
@@ -202,8 +199,7 @@ public class InterceptObjectTest {
 
     @Test
     public void oneInterceptor() throws Exception {
-        List<String> list = Proxy.intercept(new ArrayList<String>(),
-                size10Interceptor);
+        List<String> list = Proxy.intercept(new ArrayList<String>(), size10Interceptor);
         assertEquals(list.size(), 10);
     }
 
@@ -214,8 +210,7 @@ public class InterceptObjectTest {
         arrayList.add("world");
         assertEquals(arrayList.size(), 2);
 
-        List<String> listproxy = Proxy.intercept(arrayList,
-                sizeTimesTwoInterceptor);
+        List<String> listproxy = Proxy.intercept(arrayList, sizeTimesTwoInterceptor);
         assertEquals(arrayList.size(), 2);
         assertEquals(listproxy.size(), 4);
 
@@ -231,8 +226,7 @@ public class InterceptObjectTest {
 
     @Test
     public void ableToInterceptObjectWithNonEmptyConstructor() throws Exception {
-        NonEmptyConstructor obj = Proxy.intercept(new NonEmptyConstructor(
-                "Hello"), emptyInterceptor);
+        NonEmptyConstructor obj = Proxy.intercept(new NonEmptyConstructor("Hello"), emptyInterceptor);
     }
 
     @Test
@@ -240,22 +234,19 @@ public class InterceptObjectTest {
         Size10 size10 = new Size10();
         WrapperObject wrapperObject = new NonEmptyConstructorWithObject.WrapperObject(size10);
         NonEmptyConstructorWithObject nonEmptyConstructorWithObject = new NonEmptyConstructorWithObject(wrapperObject);
-        NonEmptyConstructorWithObject obj = Proxy.intercept(nonEmptyConstructorWithObject,
-                emptyInterceptor);
+        NonEmptyConstructorWithObject obj = Proxy.intercept(nonEmptyConstructorWithObject, emptyInterceptor);
     }
 
     @Test
     public void defaultValueIfNoInterceptorChangesAnything() throws Exception {
-        NonEmptyConstructor obj = Proxy.intercept(new NonEmptyConstructor(
-                "Hello1"), emptyInterceptor, NonEmptyConstructor.class
-                        .getMethod("get"));
+        NonEmptyConstructor obj = Proxy.intercept(new NonEmptyConstructor("Hello1"), emptyInterceptor,
+                NonEmptyConstructor.class.getMethod("get"));
         assertEquals(obj.get(), "Hello1");
     }
 
     @Test
     public void oneSingleMethodInterceptor() throws Exception {
-        List<String> list = Proxy.intercept(new ArrayList<String>(),
-                return10InterceptorWithoutMethodFiltering,
+        List<String> list = Proxy.intercept(new ArrayList<String>(), return10InterceptorWithoutMethodFiltering,
                 List.class.getMethod("size"));
         assertEquals(list.size(), 10);
         assertTrue(list.add("hello"));
@@ -263,14 +254,12 @@ public class InterceptObjectTest {
 
     @Test
     public void twoSingleMethodInterceptor() throws Exception {
-        List<String> list = Proxy.intercept(new ArrayList<String>(),
-                return10InterceptorWithoutMethodFiltering,
+        List<String> list = Proxy.intercept(new ArrayList<String>(), return10InterceptorWithoutMethodFiltering,
                 List.class.getMethod("size"));
         assertEquals(list.size(), 10);
         assertTrue(list.add("hello"));
 
-        list = Proxy.intercept(list,
-                returnFalseInterceptorWithoutMethodFiltering,
+        list = Proxy.intercept(list, returnFalseInterceptorWithoutMethodFiltering,
                 List.class.getMethod("add", Object.class));
 
         assertEquals(list.size(), 10);
@@ -283,8 +272,7 @@ public class InterceptObjectTest {
         List<String> list = Proxy.addTimerToMethods(new ArrayList<String>());
         list.size();
         list.add("shortstring");
-        list
-                .add("LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOONNNNNNNNNNGGGGGGGGGGGGGGGGGGGGG");
+        list.add("LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOONNNNNNNNNNGGGGGGGGGGGGGGGGGGGGG");
         list.get(0);
     }
 
@@ -296,56 +284,50 @@ public class InterceptObjectTest {
 
     @Test
     public void constructorNeverCalledOnConstructionOfProxyObjects() throws Exception {
-        ConstructorThrowsException obj = Proxy.intercept(new ConstructorThrowsException(
-                new StringBuilder(ConstructorThrowsException.DO_NOT_CRASH)),
+        ConstructorThrowsException obj = Proxy.intercept(
+                new ConstructorThrowsException(new StringBuilder(ConstructorThrowsException.DO_NOT_CRASH)),
                 emptyInterceptor);
     }
 
     @Test(expectedExceptions = NullPointerException.class)
     public void objectMethodThrowingException() throws Exception {
-        ContainsThrowsException obj = Proxy.intercept(new ContainsThrowsException(),
-                emptyInterceptor);
+        ContainsThrowsException obj = Proxy.intercept(new ContainsThrowsException(), emptyInterceptor);
         obj.contains("");
     }
 
     @Test
     public void objectMethodThrowingExceptionAndInterceptorTryingToCatchIt() throws Exception {
-        ContainsThrowsException obj = Proxy.intercept(new ContainsThrowsException(),
-                new Interceptor() {
+        ContainsThrowsException obj = Proxy.intercept(new ContainsThrowsException(), new Interceptor() {
 
-                    @Override
-                    public Object intercept(Invocation invocation) throws Throwable {
-                        try {
-                            return invocation.invoke();
-                        } catch (Exception e) {
-                            return true;
-                        }
-                    }
-                });
+            @Override
+            public Object intercept(Invocation invocation) throws Throwable {
+                try {
+                    return invocation.invoke();
+                } catch (Exception e) {
+                    return true;
+                }
+            }
+        });
         Assert.assertTrue(obj.contains(""));
     }
 
     @Test
     public void twoInterceptors() {
-        List<String> list = Proxy.intercept(new ArrayList<String>(),
-                size10Interceptor);
+        List<String> list = Proxy.intercept(new ArrayList<String>(), size10Interceptor);
         Proxy.intercept(list, sizeTimesTwoInterceptor);
         assertEquals(list.size(), 20);
 
-        List<String> list2 = Proxy.intercept(new ArrayList<String>(),
-                sizeTimesTwoInterceptor);
+        List<String> list2 = Proxy.intercept(new ArrayList<String>(), sizeTimesTwoInterceptor);
         Proxy.intercept(list2, size10Interceptor);
         assertEquals(list2.size(), 10);
     }
 
     @Test
     public void SameInterceptorOnTwoObjects() {
-        List<String> list = Proxy.intercept(new ArrayList<String>(),
-                size10Interceptor);
+        List<String> list = Proxy.intercept(new ArrayList<String>(), size10Interceptor);
         assertEquals(list.size(), 10);
 
-        List<String> list2 = Proxy.intercept(new ArrayList<String>(),
-                size10Interceptor);
+        List<String> list2 = Proxy.intercept(new ArrayList<String>(), size10Interceptor);
         assertEquals(list2.size(), 10);
         assertEquals(list.size(), 10);
     }

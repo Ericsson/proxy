@@ -241,8 +241,7 @@ public class UtilCastStringValueToObjectTest {
     @Test
     public void castStringValueToMethodReturnTypeMapTest() throws Exception {
         Method method = this.getClass().getDeclaredMethod("mapStringInt", null);
-        Map<String, Integer> map = Util.castStringValueToMethodReturnType("one=1,two=2,three=3",
-                Map.class, method);
+        Map<String, Integer> map = Util.castStringValueToMethodReturnType("one=1,two=2,three=3", Map.class, method);
         assertEquals(map.get("one"), (Integer) 1);
         assertEquals(map.get("two"), (Integer) 2);
         assertEquals(map.get("three"), (Integer) 3);
@@ -251,8 +250,7 @@ public class UtilCastStringValueToObjectTest {
     @Test
     public void castStringValueToMethodReturnTypeEmptyMapTest() throws Exception {
         Method method = this.getClass().getDeclaredMethod("mapStringInt", null);
-        Map<String, Integer> map = Util.castStringValueToMethodReturnType("",
-                Map.class, method);
+        Map<String, Integer> map = Util.castStringValueToMethodReturnType("", Map.class, method);
         assertTrue(map.isEmpty());
     }
 
@@ -288,8 +286,6 @@ public class UtilCastStringValueToObjectTest {
     }
 
     enum MyEnum {
-        Val1,
-        Val2,
-        Val3;
+        Val1, Val2, Val3;
     }
 }

@@ -34,7 +34,7 @@ import com.ericsson.commonlibrary.proxy.Proxy;
 
 public class DisabledIssueMissingGenericTypeInfoForInterceptedTest {
 
-    //TODO should work when https://issues.jboss.org/browse/JASSIST-219 is fixed.
+    // TODO should work when https://issues.jboss.org/browse/JASSIST-219 is fixed.
     @Test(enabled = false)
     public void verifySameReturnTypeObject() throws SecurityException, NoSuchMethodException {
         MinimalObject minimal = new MinimalObject();
@@ -61,7 +61,7 @@ public class DisabledIssueMissingGenericTypeInfoForInterceptedTest {
 
     }
 
-    //TODO should work when https://issues.jboss.org/browse/JASSIST-219 is fixed.
+    // TODO should work when https://issues.jboss.org/browse/JASSIST-219 is fixed.
     @Test(enabled = false)
     public void verifySameReturnTypeInterface() throws SecurityException, NoSuchMethodException {
         Method method = MinimalInterface.class.getMethod("getReferences");
@@ -127,6 +127,7 @@ public class DisabledIssueMissingGenericTypeInfoForInterceptedTest {
 
     public static class MinimalReference {
 
-        public MinimalReference() {}
+        public MinimalReference() {
+        }
     }
 }

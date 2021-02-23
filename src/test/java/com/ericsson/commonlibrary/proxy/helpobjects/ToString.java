@@ -29,7 +29,8 @@ public class ToString {
         this.string = string;
     }
 
-    public ToString() {}
+    public ToString() {
+    }
 
     @Override
     public String toString() {

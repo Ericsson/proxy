@@ -23,9 +23,9 @@ package com.ericsson.commonlibrary.proxy.helpobjects;
 
 public abstract class JavaBeanAbstract {
 
-    //    public JavaBeanA() {
+    // public JavaBeanA() {
     //
-    //    }
+    // }
 
     public abstract String getName();
 }

@@ -55,8 +55,8 @@ public class ProxyFluentTest {
     @Test
     public void constructorArgumentTest() throws Exception {
         String string = "someString";
-        NonEmptyConstructor nonEmptyConstructor = with(NonEmptyConstructor.class, string)
-                .interceptAll(emptyInterceptor).get();
+        NonEmptyConstructor nonEmptyConstructor = with(NonEmptyConstructor.class, string).interceptAll(emptyInterceptor)
+                .get();
         Assert.assertEquals(nonEmptyConstructor.get(), string);
     }
 
@@ -80,8 +80,7 @@ public class ProxyFluentTest {
 
     @Test
     public void notCallingConstructorWithArgumentTest() throws Exception {
-        NonEmptyConstructor nonEmptyConstructor = with(NonEmptyConstructor.class)
-                .interceptAll(emptyInterceptor).get();
+        NonEmptyConstructor nonEmptyConstructor = with(NonEmptyConstructor.class).interceptAll(emptyInterceptor).get();
         Assert.assertEquals(nonEmptyConstructor.get(), null);
     }
 
@@ -96,8 +95,8 @@ public class ProxyFluentTest {
     public void constructorObjectArgumentTest() throws Exception {
         Size10 size10 = new Size10();
         WrapperObject wrapperObject = new NonEmptyConstructorWithObject.WrapperObject(size10);
-        NonEmptyConstructorWithObject object = with(NonEmptyConstructorWithObject.class, wrapperObject).interceptAll(
-                emptyInterceptor).get();
+        NonEmptyConstructorWithObject object = with(NonEmptyConstructorWithObject.class, wrapperObject)
+                .interceptAll(emptyInterceptor).get();
         Assert.assertEquals(object.getWrapperObject(), wrapperObject);
     }
 
@@ -138,32 +137,25 @@ public class ProxyFluentTest {
 
     @Test
     public void oneInterceptor() throws Exception {
-        List<String> list = with(new ArrayList<String>())
-                .interceptAll(size10Interceptor).get();
+        List<String> list = with(new ArrayList<String>()).interceptAll(size10Interceptor).get();
         assertEquals(list.size(), 10);
     }
 
     @Test
     public void twoInterceptors() {
-        List<String> list = with(new ArrayList<String>())
-                .interceptAll(size10Interceptor)
-                .interceptAll(sizeTimesTwoInterceptor)
-                .get();
+        List<String> list = with(new ArrayList<String>()).interceptAll(size10Interceptor)
+                .interceptAll(sizeTimesTwoInterceptor).get();
         assertEquals(list.size(), 20);
 
-        List<String> list2 = with(new ArrayList<String>())
-                .interceptAll(sizeTimesTwoInterceptor)
-                .interceptAll(size10Interceptor)
-                .get();
+        List<String> list2 = with(new ArrayList<String>()).interceptAll(sizeTimesTwoInterceptor)
+                .interceptAll(size10Interceptor).get();
         assertEquals(list2.size(), 10);
     }
 
     @Test
     public void oneSingleMethodInterceptor() throws Exception {
         List<String> list = with(new ArrayList<String>())
-                .interceptMethod(return10InterceptorWithoutMethodFiltering,
-                        List.class.getMethod("size"))
-                .get();
+                .interceptMethod(return10InterceptorWithoutMethodFiltering, List.class.getMethod("size")).get();
         assertEquals(list.size(), 10);
         assertTrue(list.add("hello"));
     }
@@ -171,8 +163,7 @@ public class ProxyFluentTest {
     private class MyInvoctionHandler implements InvocationHandler {
 
         @Override
-        public Object invoke(Object proxy, Method method, Object[] args)
-                throws Throwable {
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             return "" + method.getName() + args[0];
         }
     }
@@ -185,8 +176,7 @@ public class ProxyFluentTest {
     }
 
     @Test
-    public void invocationHandlerAdapterMethodTest() throws SecurityException,
-            NoSuchMethodException {
+    public void invocationHandlerAdapterMethodTest() throws SecurityException, NoSuchMethodException {
         List<String> list = with(new ArrayList<String>())
                 .interceptMethod(new MyInvoctionHandler(), List.class.getMethod("get", int.class)).get();
         assertEquals(list.get(5), "get5");
@@ -194,29 +184,26 @@ public class ProxyFluentTest {
             list.remove(0);
             fail();
         } catch (IndexOutOfBoundsException e) {
-            //this is expected!
+            // this is expected!
         }
     }
 
     @Test
     public void delegateBlockAdd() throws Exception {
-        List<String> list = with(new ArrayList<String>()).delegate(
-                new AddBlocker()).get();
+        List<String> list = with(new ArrayList<String>()).delegate(new AddBlocker()).get();
         list.add("hello");
         assertEquals(list.size(), 0);
     }
 
     @Test
     public void delegateSize10() throws Exception {
-        List<String> list = with(new ArrayList<String>()).delegate(
-                new Size10()).get();
+        List<String> list = with(new ArrayList<String>()).delegate(new Size10()).get();
         assertEquals(list.size(), 10);
     }
 
     @Test
     public void interfaceInterception() throws Exception {
-        List<String> list = with(List.class)
-                .interceptAll(size10Interceptor).get();
+        List<String> list = with(List.class).interceptAll(size10Interceptor).get();
         assertEquals(list.size(), 10);
     }
 

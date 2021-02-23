@@ -29,9 +29,8 @@ import com.ericsson.commonlibrary.proxy.Invocation;
 import com.ericsson.commonlibrary.proxy.Proxy;
 
 /**
- * Not delegating correctly in cases of a base class.
- * Was a problem with latest javaassit 3.18. going back to 3.12 solves the problem.
- * This is also solved in: 3.21.0-GA
+ * Not delegating correctly in cases of a base class. Was a problem with latest javaassit 3.18. going back to 3.12
+ * solves the problem. This is also solved in: 3.21.0-GA
  * 
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */

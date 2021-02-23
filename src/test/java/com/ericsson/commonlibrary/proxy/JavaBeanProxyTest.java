@@ -205,8 +205,7 @@ public class JavaBeanProxyTest {
             @Override
             public Object intercept(Invocation data) throws Throwable {
 
-                if (data.getParameters().length > 0
-                        && data.getParameters()[0].equals("elis")) {
+                if (data.getParameters().length > 0 && data.getParameters()[0].equals("elis")) {
                     data.getParameters()[0] = "elis edlund";
                     PersonBean.class.cast(data.getThis()).setMale(true);
                 }
@@ -251,8 +250,7 @@ public class JavaBeanProxyTest {
         arrayList.add("world");
         assertEquals(arrayList.size(), 2);
 
-        final List<String> listProxyAndPerson = Proxy.delegate(arrayList,
-                person);
+        final List<String> listProxyAndPerson = Proxy.delegate(arrayList, person);
 
         assertEquals(listProxyAndPerson.size(), 2);
 
@@ -275,8 +273,7 @@ public class JavaBeanProxyTest {
         assertEquals(arrayList.size(), 2);
         arrayList = Proxy.addTimerToMethods(arrayList);
 
-        final List<String> listProxyAndPerson = Proxy.delegate(arrayList,
-                person);
+        final List<String> listProxyAndPerson = Proxy.delegate(arrayList, person);
 
         assertEquals(listProxyAndPerson.size(), 2);
 
@@ -290,8 +287,7 @@ public class JavaBeanProxyTest {
         final PersonBean person = Proxy.javaBean(PersonBean.class);
         ArrayList<String> arrayList = new ArrayList<String>();
         arrayList = Proxy.addTimerToMethods(arrayList);
-        final List<String> listProxyAndPerson = Proxy.delegate(arrayList,
-                person);
+        final List<String> listProxyAndPerson = Proxy.delegate(arrayList, person);
     }
 
 }

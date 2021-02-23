@@ -88,7 +88,7 @@ public class MDCPackageIssueTest {
         small.contains("");
         small = Proxy.mdcLogging(small, "id", "any");
         small.inList("");
-        small.contains(""); //This throwed exception before
+        small.contains(""); // This throwed exception before
     }
 
     public static class SmallClass {
@@ -104,22 +104,22 @@ public class MDCPackageIssueTest {
         }
     }
 
-    //    @Test
-    //    public void testFind() throws NoSuchMethodException, SecurityException {
-    //        PackageMethod f = ClassFactory.newPackageMethod();
+    // @Test
+    // public void testFind() throws NoSuchMethodException, SecurityException {
+    // PackageMethod f = ClassFactory.newPackageMethod();
     //
-    //        f = Proxy.intercept(f, new Interceptor() {
+    // f = Proxy.intercept(f, new Interceptor() {
     //
-    //            @Override
-    //            public Object intercept(Invocation invocation) throws Throwable {
-    //                System.out.println("m:" + invocation.getMethodName());
-    //                return invocation.invoke();
-    //            }
-    //        });
-    //        f.foo();
-    //        Method method = f.getClass().getDeclaredMethod("foo");
-    //        Method findMethodWithSignatureInClass = Util.findMethodWithSignatureInClass(method, PackageMethod.class);
-    //        System.out.println(Util.isToStringOrHashcodeOrEqualsMethod(method));
-    //        System.out.println(findMethodWithSignatureInClass);
-    //    }
+    // @Override
+    // public Object intercept(Invocation invocation) throws Throwable {
+    // System.out.println("m:" + invocation.getMethodName());
+    // return invocation.invoke();
+    // }
+    // });
+    // f.foo();
+    // Method method = f.getClass().getDeclaredMethod("foo");
+    // Method findMethodWithSignatureInClass = Util.findMethodWithSignatureInClass(method, PackageMethod.class);
+    // System.out.println(Util.isToStringOrHashcodeOrEqualsMethod(method));
+    // System.out.println(findMethodWithSignatureInClass);
+    // }
 }

@@ -22,8 +22,7 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 package com.ericsson.commonlibrary.proxy;
 
 /**
- * Internal exceptions that is thrown by the InterceptorDelegate when no method to delegate to was
- * found
+ * Internal exceptions that is thrown by the InterceptorDelegate when no method to delegate to was found
  * 
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */

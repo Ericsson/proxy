@@ -23,9 +23,9 @@ package com.ericsson.commonlibrary.proxy.helpobjects;
 
 public abstract class JavaBeanAbstractWithSet {
 
-    //        public JavaBeanA2() {
+    // public JavaBeanA2() {
     //
-    //        }
+    // }
     public abstract String getName();
 
     public abstract void setName(String s);

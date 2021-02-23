@@ -29,9 +29,8 @@ import java.util.Deque;
 import java.util.List;
 
 /**
- * Represents a single invocation of a method.
- * It also holds all related data to the invocations with could be useful for the interceptor that
- * wants to alter the invocation behavior in some way.
+ * Represents a single invocation of a method. It also holds all related data to the invocations with could be useful
+ * for the interceptor that wants to alter the invocation behavior in some way.
  * 
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */
@@ -46,15 +45,13 @@ public final class Invocation {
     private static Method interceptMethod;
     static {
         try {
-            interceptMethod = Interceptor.class.getMethod("intercept",
-                    Invocation.class);
+            interceptMethod = Interceptor.class.getMethod("intercept", Invocation.class);
         } catch (SecurityException | NoSuchMethodException e) {
             ProxyException.throwThisShouldNeverHappen(e);
         }
     }
 
-    Invocation(Object target, Method method, Method proceed, Object[] targetArgs,
-            Deque<Interceptor> interceptorStack) {
+    Invocation(Object target, Method method, Method proceed, Object[] targetArgs, Deque<Interceptor> interceptorStack) {
         this.target = target;
         this.method = method;
         this.proceed = proceed;
@@ -73,7 +70,7 @@ public final class Invocation {
      * @return the method that was intercepted.
      */
     public Method getMethod() {
-        //when javassist fixes  https://issues.jboss.org/browse/JASSIST-219 this can be changed to "return method;"
+        // when javassist fixes https://issues.jboss.org/browse/JASSIST-219 this can be changed to "return method;"
         List<Class<?>> interfaceList = new ArrayList<>();
         Class<?> superclass = getThis().getClass().getSuperclass();
         while (superclass != Object.class) {
@@ -86,8 +83,7 @@ public final class Invocation {
             Class<?>[] interfacesImplemented = Util.getInterfacesImplementedByObjects(getThis());
             Class<?>[] superClassAndObjectClass = new Class<?>[] { getThis().getClass().getSuperclass(), Object.class };
             Class<?>[] classArray = Util.concatArrays(interfacesImplemented, superClassAndObjectClass);
-            return Util.findMethodWithSignatureInClass(method,
-                    classArray); // method from Class hierarchy
+            return Util.findMethodWithSignatureInClass(method, classArray); // method from Class hierarchy
         }
         return methodFromInterfaceHierarchy;
     }
@@ -131,27 +127,29 @@ public final class Invocation {
      * Invokes the method. Which may be another interceptor or the concrete object
      * 
      * @return the return value from next interceptor or original object method call.
-     * @throws Throwable any type of exception/error including actual ones from the method called.
+     * 
+     * @throws Throwable
+     *             any type of exception/error including actual ones from the method called.
      */
     public Object invoke() throws Throwable {
 
         if (interceptorStack.isEmpty()) {
             if (Util.isMethodWithImplementation(method)) {
                 try {
-                    return proceed.invoke(target, parameters); //invoke original
+                    return proceed.invoke(target, parameters); // invoke original
                 } catch (InvocationTargetException e) {
                     Util.filterExceptionAndRethrowCorrect(e);
                 }
             }
             throw new UnsupportedOperationException(
-                    "There exist's no implementation of method: " + this.getMethodName()
-                            + "(...) to delegate to.");
+                    "There exist's no implementation of method: " + this.getMethodName() + "(...) to delegate to.");
         }
 
-        //TODO handle if null was returned for a primitive.
+        // TODO handle if null was returned for a primitive.
         try {
-            //if concrete object has been used for proxy creation the last interceptor is a InterceptorDelegator to this object
-            return interceptMethod.invoke(interceptorStack.pop(), this); //invokes next interceptor.
+            // if concrete object has been used for proxy creation the last interceptor is a InterceptorDelegator to
+            // this object
+            return interceptMethod.invoke(interceptorStack.pop(), this); // invokes next interceptor.
         } catch (InvocationTargetException e) {
             Util.filterExceptionAndRethrowCorrect(e);
             throw ProxyException.returnThisShouldNeverHappen("Failed to re-throw real exception: ", e);

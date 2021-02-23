@@ -108,8 +108,7 @@ public class InterceptClassTest {
             }
         };
 
-        List<String> list = Proxy.intercept(ArrayList.class,
-                addInterceptor);
+        List<String> list = Proxy.intercept(ArrayList.class, addInterceptor);
         Proxy.intercept(list, addInterceptor);
         Proxy.intercept(list, addInterceptor);
         list.add("hello");
@@ -155,11 +154,10 @@ public class InterceptClassTest {
             }
         };
 
-        List<String> list = Proxy.intercept(ArrayList.class,
-                addInterceptor);
+        List<String> list = Proxy.intercept(ArrayList.class, addInterceptor);
         Proxy.intercept(list, addInterceptor);
 
-        //        System.out.println("" + list);
+        // System.out.println("" + list);
         list.add("hello");
 
         List<Integer> correctList = new ArrayList<Integer>();
@@ -195,8 +193,7 @@ public class InterceptClassTest {
             }
         };
 
-        List<String> list = Proxy.intercept(ArrayList.class,
-                addInterceptor);
+        List<String> list = Proxy.intercept(ArrayList.class, addInterceptor);
         Proxy.intercept(list, emptyInterceptor);
         Proxy.intercept(list, addInterceptor);
 
@@ -213,8 +210,7 @@ public class InterceptClassTest {
 
     @Test
     public void oneInterceptor() throws Exception {
-        List<String> list = Proxy.intercept(ArrayList.class,
-                size10Interceptor);
+        List<String> list = Proxy.intercept(ArrayList.class, size10Interceptor);
         assertEquals(list.size(), 10);
     }
 
@@ -225,23 +221,20 @@ public class InterceptClassTest {
 
     @Test
     public void ableToInterceptObjectWithNonEmptyConstructorObjectParam() throws Exception {
-        NonEmptyConstructorWithObject obj = Proxy.intercept(NonEmptyConstructorWithObject.class,
-                emptyInterceptor);
+        NonEmptyConstructorWithObject obj = Proxy.intercept(NonEmptyConstructorWithObject.class, emptyInterceptor);
     }
 
     @Test
     public void defaultValueIfOnFields() throws Exception {
         NonEmptyConstructor obj = Proxy.intercept(NonEmptyConstructor.class, emptyInterceptor,
-                NonEmptyConstructor.class
-                        .getMethod("get"));
+                NonEmptyConstructor.class.getMethod("get"));
         assertNotEquals(obj.get(), "");
         assertEquals(obj.get(), null);
     }
 
     @Test
     public void oneSingleMethodInterceptor() throws Exception {
-        List<String> list = Proxy.intercept(ArrayList.class,
-                return10InterceptorWithoutMethodFiltering,
+        List<String> list = Proxy.intercept(ArrayList.class, return10InterceptorWithoutMethodFiltering,
                 List.class.getMethod("size"));
         assertEquals(list.size(), 10);
         assertTrue(list.add("hello"));
@@ -249,14 +242,12 @@ public class InterceptClassTest {
 
     @Test
     public void twoSingleMethodInterceptor() throws Exception {
-        List<String> list = Proxy.intercept(ArrayList.class,
-                return10InterceptorWithoutMethodFiltering,
+        List<String> list = Proxy.intercept(ArrayList.class, return10InterceptorWithoutMethodFiltering,
                 List.class.getMethod("size"));
         assertEquals(list.size(), 10);
         assertTrue(list.add("hello"));
 
-        list = Proxy.intercept(list,
-                returnFalseInterceptorWithoutMethodFiltering,
+        list = Proxy.intercept(list, returnFalseInterceptorWithoutMethodFiltering,
                 List.class.getMethod("add", Object.class));
 
         assertEquals(list.size(), 10);
@@ -271,31 +262,26 @@ public class InterceptClassTest {
 
     @Test
     public void failingConstructorNotCalled() throws Exception {
-        ConstructorThrowsException obj = Proxy.intercept(ConstructorThrowsException.class,
-                emptyInterceptor);
+        ConstructorThrowsException obj = Proxy.intercept(ConstructorThrowsException.class, emptyInterceptor);
     }
 
     @Test
     public void twoInterceptors() {
-        List<String> list = Proxy.intercept(ArrayList.class,
-                size10Interceptor);
+        List<String> list = Proxy.intercept(ArrayList.class, size10Interceptor);
         Proxy.intercept(list, sizeTimesTwoInterceptor);
         assertEquals(list.size(), 20);
 
-        List<String> list2 = Proxy.intercept(ArrayList.class,
-                sizeTimesTwoInterceptor);
+        List<String> list2 = Proxy.intercept(ArrayList.class, sizeTimesTwoInterceptor);
         Proxy.intercept(list2, size10Interceptor);
         assertEquals(list2.size(), 10);
     }
 
     @Test
     public void sameInterceptorOnTwoObjects() {
-        List<String> list = Proxy.intercept(ArrayList.class,
-                size10Interceptor);
+        List<String> list = Proxy.intercept(ArrayList.class, size10Interceptor);
         assertEquals(list.size(), 10);
 
-        List<String> list2 = Proxy.intercept(ArrayList.class,
-                size10Interceptor);
+        List<String> list2 = Proxy.intercept(ArrayList.class, size10Interceptor);
         assertEquals(list2.size(), 10);
         assertEquals(list.size(), 10);
     }
@@ -303,24 +289,23 @@ public class InterceptClassTest {
     @Test
     public void implInAbstractClassTest() {
         final String notimpl = "notimpl";
-        AbstractClassWithImpl impl = Proxy.intercept(AbstractClassWithImpl.class,
-                new Interceptor() {
+        AbstractClassWithImpl impl = Proxy.intercept(AbstractClassWithImpl.class, new Interceptor() {
 
-                    @Override
-                    public Object intercept(Invocation invocation) throws Throwable {
-                        if (invocation.getMethodName().contains("getNotImpl")) {
-                            return notimpl;
-                        }
-                        return invocation.invoke();
-                    }
-                });
+            @Override
+            public Object intercept(Invocation invocation) throws Throwable {
+                if (invocation.getMethodName().contains("getNotImpl")) {
+                    return notimpl;
+                }
+                return invocation.invoke();
+            }
+        });
         assertEquals(impl.getNotImpl(), notimpl);
         assertEquals(impl.getImpl(), "impl");
     }
 
     @Test
     public void polymorfismBehaviorOnClassInterceptionTest() throws Exception {
-        //without interception
+        // without interception
         PolymorfismOnClassInterception normalObject = new PolymorfismOnClassInterception();
         assertEquals(normalObject.returnString1(), "1");
         assertEquals(normalObject.returnString2(), "2");
@@ -346,6 +331,6 @@ public class InterceptClassTest {
     @Test
     public void canProxyClassWithPrivateConstructorTest() throws Exception {
         PrivateConstructor pc = Proxy.intercept(PrivateConstructor.class, emptyInterceptor);
-        assertFalse(pc.wasConstuctorCalled()); //constructor should not be called.
+        assertFalse(pc.wasConstuctorCalled()); // constructor should not be called.
     }
 }

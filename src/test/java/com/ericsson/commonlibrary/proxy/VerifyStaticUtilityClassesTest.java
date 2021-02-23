@@ -55,36 +55,31 @@ public class VerifyStaticUtilityClassesTest {
     }
 
     /**
-     * Verify that there only one private constructor. Also invoke this private
-     * constructor to get full code coverage but not because its really needed
-     * but because of the warm feeling 100% coverage gives ;)
+     * Verify that there only one private constructor. Also invoke this private constructor to get full code coverage
+     * but not because its really needed but because of the warm feeling 100% coverage gives ;)
      * 
      * @throws IllegalArgumentException
      * @throws InstantiationException
      * @throws IllegalAccessException
      * @throws InvocationTargetException
      */
-    public static void assertUtilityClassShouldOnlyHaveOnePrivateConstructor(
-            final Class<?> clazz) throws IllegalArgumentException,
-            InstantiationException, IllegalAccessException,
-            InvocationTargetException {
+    public static void assertUtilityClassShouldOnlyHaveOnePrivateConstructor(final Class<?> clazz)
+            throws IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
         final Constructor<?>[] constructors = clazz.getDeclaredConstructors();
 
-        assertEquals(constructors.length, 1,
-                "Utility class should only have one constructor");
+        assertEquals(constructors.length, 1, "Utility class should only have one constructor");
 
         final Constructor<?> constructor = constructors[0];
-        assertFalse(constructor.isAccessible(),
-                "Utility class constructor should be inaccessible");
+        assertFalse(constructor.isAccessible(), "Utility class constructor should be inaccessible");
 
         try {
             constructor.newInstance();
-            fail(); //it should not be possible to create a instance.
+            fail(); // it should not be possible to create a instance.
         } catch (final Exception e) {
-            //pass.
+            // pass.
         }
 
-        //Hack to make private constructor usable. == coverage.
+        // Hack to make private constructor usable. == coverage.
         constructor.setAccessible(true);
         assertEquals(constructor.newInstance().getClass(), clazz,
                 "You'd expect the construct to return the expected type");
@@ -99,14 +94,11 @@ public class VerifyStaticUtilityClassesTest {
      * @throws IllegalAccessException
      * @throws InvocationTargetException
      */
-    public static void assertUtilityClassShouldOnlyHaveStaticMethods(
-            final Class<?> clazz) throws IllegalArgumentException,
-            InstantiationException, IllegalAccessException,
-            InvocationTargetException {
+    public static void assertUtilityClassShouldOnlyHaveStaticMethods(final Class<?> clazz)
+            throws IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
 
         for (final Method method : clazz.getMethods()) {
-            if (!Modifier.isStatic(method.getModifiers())
-                    && method.getDeclaringClass().equals(clazz)) {
+            if (!Modifier.isStatic(method.getModifiers()) && method.getDeclaringClass().equals(clazz)) {
                 fail("there exists a non-static method:" + method);
             }
         }

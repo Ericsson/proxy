@@ -27,9 +27,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A delegator interceptor. It will just delegate every call to a other objects.
- * if no method is found it will call the next interceptor or the original
- * method.
+ * A delegator interceptor. It will just delegate every call to a other objects. if no method is found it will call the
+ * next interceptor or the original method.
  * 
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */
@@ -43,8 +42,7 @@ final class InterceptorDelegator implements Interceptor {
     }
 
     /**
-     * Delegate if possible all method calls to some concrete delegate
-     * implementation.
+     * Delegate if possible all method calls to some concrete delegate implementation.
      */
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -53,15 +51,13 @@ final class InterceptorDelegator implements Interceptor {
 
         if (Util.isToStringOrHashcodeOrEqualsMethod(method)) {
             for (Object object : implementations) {
-                Method methodToRun = Util.findMethodWithSignature(method,
-                        object);
-                if (methodToRun != null
-                        && !isMethodDeclaredInObjectClass(methodToRun)) {
+                Method methodToRun = Util.findMethodWithSignature(method, object);
+                if (methodToRun != null && !isMethodDeclaredInObjectClass(methodToRun)) {
                     methodToRun.setAccessible(true);
                     return methodToRun.invoke(object, args);
                 }
             }
-            return invocation.invoke(); //invokes the next interceptor or original
+            return invocation.invoke(); // invokes the next interceptor or original
         }
 
         try {

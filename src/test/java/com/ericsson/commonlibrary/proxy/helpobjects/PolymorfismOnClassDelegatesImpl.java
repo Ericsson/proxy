@@ -23,7 +23,8 @@ package com.ericsson.commonlibrary.proxy.helpobjects;
 
 public class PolymorfismOnClassDelegatesImpl {
 
-    public PolymorfismOnClassDelegatesImpl() {}
+    public PolymorfismOnClassDelegatesImpl() {
+    }
 
     public String returnString1() {
         return "1";

@@ -30,12 +30,14 @@ package com.ericsson.commonlibrary.proxy;
 public interface InterceptorConsumer {
 
     /**
-     * Entry point of a method interception. It lets you alter every aspect of a
-     * method call. To do nothing and just do the original invocation do the following:
-     * "invocation.invoke();"
+     * Entry point of a method interception. It lets you alter every aspect of a method call. To do nothing and just do
+     * the original invocation do the following: "invocation.invoke();"
      * 
-     * @param invocation object that represents a method invocation and associated data.
-     * @throws Throwable methods could of course throw any kind of Throwable
+     * @param invocation
+     *            object that represents a method invocation and associated data.
+     * 
+     * @throws Throwable
+     *             methods could of course throw any kind of Throwable
      */
     void intercept(Invocation invocation) throws Throwable;
 }

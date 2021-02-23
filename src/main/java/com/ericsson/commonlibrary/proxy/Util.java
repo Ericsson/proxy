@@ -51,22 +51,25 @@ public final class Util {
     private static final Logger LOG = LoggerFactory.getLogger(Util.class);
 
     private Util() {
-        //hidden
+        // hidden
     }
 
     /**
      * Check if the given object implements the given set of interfaces.
      * 
-     * @param <T> target object type
-     * @param object to check if it implement interfaces
-     * @param interfaces that the object should implement
+     * @param <T>
+     *            target object type
+     * @param object
+     *            to check if it implement interfaces
+     * @param interfaces
+     *            that the object should implement
+     * 
      * @return if the object implements all interfaces
      */
-    public static <T> boolean isObjectImplementingAllInterfaces(final T object,
-            Class<?>... interfaces) {
+    public static <T> boolean isObjectImplementingAllInterfaces(final T object, Class<?>... interfaces) {
         for (Class<?> class1 : interfaces) {
             if (!class1.isAssignableFrom(object.getClass())) {
-                return false; //object did not implement all interfaces.
+                return false; // object did not implement all interfaces.
             }
         }
 
@@ -74,19 +77,25 @@ public final class Util {
     }
 
     /**
-     * Find and invoke the first found method that is matching the given methodSignature.
-     * notice the methodSignature does not have the same Method object so declaredClass and
-     * returntype is not part of signature matching.
+     * Find and invoke the first found method that is matching the given methodSignature. notice the methodSignature
+     * does not have the same Method object so declaredClass and returntype is not part of signature matching.
      * 
-     * @param methodSignature a method signature that you want to find and invoke,
-     * @param args argument to send to the method
-     * @param objectsToLookIn objects to look for the method in.
+     * @param methodSignature
+     *            a method signature that you want to find and invoke,
+     * @param args
+     *            argument to send to the method
+     * @param objectsToLookIn
+     *            objects to look for the method in.
+     * 
      * @return the returned value of the invoked method
-     * @throws MethodWithSignatureNotFoundException if the no method was found
-     * @throws Throwable any type of exception/error including actual ones from the method called.
+     * 
+     * @throws MethodWithSignatureNotFoundException
+     *             if the no method was found
+     * @throws Throwable
+     *             any type of exception/error including actual ones from the method called.
      */
-    static Object invokeMethodWithSignature(Method methodSignature, Object[] args,
-            Object... objectsToLookIn) throws Throwable {
+    static Object invokeMethodWithSignature(Method methodSignature, Object[] args, Object... objectsToLookIn)
+            throws Throwable {
         for (Object object : objectsToLookIn) {
             Method methodInObject = findMethodWithSignature(methodSignature, object);
             if (methodInObject != null) {
@@ -94,8 +103,7 @@ public final class Util {
             }
         }
         throw new MethodWithSignatureNotFoundException(
-                "Was not able to find a implementation for the method:" + methodSignature.getName()
-                        + "(...)");
+                "Was not able to find a implementation for the method:" + methodSignature.getName() + "(...)");
     }
 
     @SuppressWarnings({ "squid:S1166", "squid:S00112" })
@@ -118,24 +126,28 @@ public final class Util {
     /**
      * Get all interfaces implemented by the passed in objects.
      * 
-     * @param objects that you want to take all the interfaces from.
+     * @param objects
+     *            that you want to take all the interfaces from.
+     * 
      * @return interfaces.
      */
     public static Class<?>[] getInterfacesImplementedByObjects(Object... objects) {
         Class<?>[] interfaces = new Class[0];
         for (Object delegate : objects) {
-            interfaces = Util.concatArrays(interfaces, delegate.getClass()
-                    .getInterfaces());
+            interfaces = Util.concatArrays(interfaces, delegate.getClass().getInterfaces());
         }
         return interfaces;
     }
 
     /**
-     * Check if two methods have the same signature. Return type(not part of the
-     * signature) and declaring class is ignored
+     * Check if two methods have the same signature. Return type(not part of the signature) and declaring class is
+     * ignored
      * 
-     * @param method first method to compare
-     * @param method2 second method to compare
+     * @param method
+     *            first method to compare
+     * @param method2
+     *            second method to compare
+     * 
      * @return if the methods was equals or not.
      */
     public static boolean methodSignatureEquals(Method method, final Method method2) {
@@ -143,16 +155,16 @@ public final class Util {
         return nameEq && methodParamsEquals(method, method2);
     }
 
-    private static boolean methodParamsEquals(Method method,
-            final Method methodsInObject) {
-        return Arrays.deepEquals(methodsInObject.getParameterTypes(),
-                method.getParameterTypes());
+    private static boolean methodParamsEquals(Method method, final Method methodsInObject) {
+        return Arrays.deepEquals(methodsInObject.getParameterTypes(), method.getParameterTypes());
     }
 
     /**
      * Checks if a method is declared in an Abstract class or interface
      * 
-     * @param method to check
+     * @param method
+     *            to check
+     * 
      * @return true if its declared in an Abstract class or interface
      */
     public static boolean isMethodDeclaredInInterfaceOrAnAbstractMethod(Method method) {
@@ -162,7 +174,9 @@ public final class Util {
     /**
      * Checks if a method is an abstract or declared in interface(and not a default implementation)
      *
-     * @param method to check
+     * @param method
+     *            to check
+     * 
      * @return true if it has a implementation(which might be empty!)
      */
     public static boolean isMethodWithImplementation(Method method) {
@@ -175,7 +189,9 @@ public final class Util {
     /**
      * Check if the provided class is and interface or and abstract class.
      * 
-     * @param clazz to check
+     * @param clazz
+     *            to check
+     * 
      * @return true if interface or abstract class
      */
     public static boolean isClassAInterfaceOrAbstract(Class<?> clazz) {
@@ -183,10 +199,12 @@ public final class Util {
     }
 
     /**
-     * Check if the method is a toString() hashcode() or equals(o) method,
-     * These are the non final methods of Object.class
+     * Check if the method is a toString() hashcode() or equals(o) method, These are the non final methods of
+     * Object.class
      * 
-     * @param method to check
+     * @param method
+     *            to check
+     * 
      * @return true if one of these methods
      */
     public static boolean isToStringOrHashcodeOrEqualsMethod(Method method) {
@@ -200,14 +218,19 @@ public final class Util {
     }
 
     /**
-     * Utility method to help convert a String to an actual object of other common types.
-     * Like all primitives type(and object variants) Enums,Files and some simple Collections support
-     * to convert comma separated string into List of one of the supported simple types.
+     * Utility method to help convert a String to an actual object of other common types. Like all primitives type(and
+     * object variants) Enums,Files and some simple Collections support to convert comma separated string into List of
+     * one of the supported simple types.
      * 
-     * @param <T> target object type
-     * @param stringToCast the string that you want to convert to another type.
-     * @param classToCastTo resulting Clas of the object you want to convert the String to
-     * @param invocation only needed for Collection types.
+     * @param <T>
+     *            target object type
+     * @param stringToCast
+     *            the string that you want to convert to another type.
+     * @param classToCastTo
+     *            resulting Clas of the object you want to convert the String to
+     * @param invocation
+     *            only needed for Collection types.
+     * 
      * @return actual object with the provided type.
      */
     public static <T> T castStringValueToObject(String stringToCast, Class<T> classToCastTo, Invocation invocation) {
@@ -219,12 +242,16 @@ public final class Util {
     }
 
     /**
-     * Utility method to help convert a String to an actual object of other common types.
-     * Like all primitives type(and object variants) Enums, Files.
+     * Utility method to help convert a String to an actual object of other common types. Like all primitives type(and
+     * object variants) Enums, Files.
      * 
-     * @param <T> target object type
-     * @param stringToCast the string that you want to convert to another type.
-     * @param classToCastTo resulting Clas of the object you want to convert the String to
+     * @param <T>
+     *            target object type
+     * @param stringToCast
+     *            the string that you want to convert to another type.
+     * @param classToCastTo
+     *            resulting Clas of the object you want to convert the String to
+     * 
      * @return actual object with the provided type.
      */
     public static <T> T castStringValueToObject(String stringToCast, Class<T> classToCastTo) {
@@ -232,15 +259,19 @@ public final class Util {
     }
 
     /**
-     * Utility method to help convert a String to an actual object of other common types.
-     * Like all primitives type(and object variants) Enums, Files and some simple Collections
-     * support
-     * to convert comma separated string into List of one of the supported simple types.
+     * Utility method to help convert a String to an actual object of other common types. Like all primitives type(and
+     * object variants) Enums, Files and some simple Collections support to convert comma separated string into List of
+     * one of the supported simple types.
      * 
-     * @param <T> target object type
-     * @param stringToCast the string that you want to convert to another type.
-     * @param classToCastTo resulting Clas of the object you want to convert the String to
-     * @param method only needed for Collection types.
+     * @param <T>
+     *            target object type
+     * @param stringToCast
+     *            the string that you want to convert to another type.
+     * @param classToCastTo
+     *            resulting Clas of the object you want to convert the String to
+     * @param method
+     *            only needed for Collection types.
+     * 
      * @return actual object with the provided type.
      */
     @SuppressWarnings("squid:S3776")
@@ -278,8 +309,7 @@ public final class Util {
             }
         } else if (classToCastTo.equals(File.class)) {
             return (T) new File(stringToCast);
-        } else if (classToCastTo.equals(List.class)
-                || classToCastTo.equals(Collection.class)
+        } else if (classToCastTo.equals(List.class) || classToCastTo.equals(Collection.class)
                 || classToCastTo.equals(Iterable.class)) {
             return (T) castStringListToObjectList(stringToCast, method);
         } else if (classToCastTo.equals(Map.class)) {
@@ -289,7 +319,8 @@ public final class Util {
         } else if (classToCastTo.isArray()) {
             return (T) castStringToArray(stringToCast, method, classToCastTo.getComponentType());
         } else {
-            //TODO handle constructors that takes String by default with reflection. and common fromString method factories?
+            // TODO handle constructors that takes String by default with reflection. and common fromString method
+            // factories?
             throw new UnsupportedOperationException(
                     "Received type that is not supported! Type: " + classToCastTo.getSimpleName());
         }
@@ -298,10 +329,14 @@ public final class Util {
     /**
      * Will default null values for collections types (and arrays) to an empty variant of that type.
      *
-     * @param <T> target object type
-     * @param collectionClass the collection class
-     * @param value the collection which will be unchanged and this method will only return a empty
-     *        collection if the this given value is null.
+     * @param <T>
+     *            target object type
+     * @param collectionClass
+     *            the collection class
+     * @param value
+     *            the collection which will be unchanged and this method will only return a empty collection if the this
+     *            given value is null.
+     * 
      * @return original value or empty collections instead of null
      */
     public static <T> T defaultToEmptyCollectionsOnNullValue(Class<T> collectionClass, T value) {
@@ -373,12 +408,8 @@ public final class Util {
                 genericTypeOfValue = getSecondGenericTypeOfReturnType(method);
             }
 
-            Object keyAsObject = castStringValueToMethodReturnType(key,
-                    genericTypeOfKey,
-                    method);
-            Object valueAsObject = castStringValueToMethodReturnType(value,
-                    genericTypeOfValue,
-                    method);
+            Object keyAsObject = castStringValueToMethodReturnType(key, genericTypeOfKey, method);
+            Object valueAsObject = castStringValueToMethodReturnType(value, genericTypeOfValue, method);
             returnMap.put(keyAsObject, valueAsObject);
         }
         return returnMap;
@@ -391,40 +422,40 @@ public final class Util {
         }
         List<String> valueList = Arrays.asList(commaSeparatedArray.split(","));
         for (String singleValueString : valueList) {
-            returnList.add(castStringValueToMethodReturnType(singleValueString,
-                    arrayType,
-                    method));
+            returnList.add(castStringValueToMethodReturnType(singleValueString, arrayType, method));
         }
         return returnList.toArray((T[]) Array.newInstance(arrayType, returnList.size()));
     }
 
     /**
-     * Get the generic return type of the provided method,
-     * Meaning the String.class from a method like  {@code public List<String> method() }
+     * Get the generic return type of the provided method, Meaning the String.class from a method like
+     * {@code public List<String> method() }
      * 
-     * and String.class from a method like  {@code public Map<String,Integer> method() }
+     * and String.class from a method like {@code public Map<String,Integer> method() }
      * 
-     * @param method to fetch return type from
+     * @param method
+     *            to fetch return type from
+     * 
      * @return generic type of the return type
      */
     public static Class<?> getGenericTypeOfReturnType(Method method) {
-        Type[] actualTypeArguments = ((ParameterizedType) method.getGenericReturnType())
-                .getActualTypeArguments();
+        Type[] actualTypeArguments = ((ParameterizedType) method.getGenericReturnType()).getActualTypeArguments();
 
         Type type = actualTypeArguments[0];
         return getGenericTypeOfReturnType(method, type);
     }
 
     /**
-     * Get the second generic return type of the provided method,
-     * Meaning the Integer.class from a method like: {@code public Map<String,Integer> method()}
+     * Get the second generic return type of the provided method, Meaning the Integer.class from a method like:
+     * {@code public Map<String,Integer> method()}
      * 
-     * @param method to fetch return type from
+     * @param method
+     *            to fetch return type from
+     * 
      * @return second generic type of the return type
      */
     public static Class<?> getSecondGenericTypeOfReturnType(Method method) {
-        Type[] actualTypeArguments = ((ParameterizedType) method.getGenericReturnType())
-                .getActualTypeArguments();
+        Type[] actualTypeArguments = ((ParameterizedType) method.getGenericReturnType()).getActualTypeArguments();
         Type type = actualTypeArguments[1];
         return getGenericTypeOfReturnType(method, type);
     }
@@ -443,25 +474,24 @@ public final class Util {
     }
 
     /**
-     * Find the first found method that is matching the given methodSignature.
-     * notice the methodSignature does not have be same Method object, So declaredClass and
-     * returntype is not part of signature matching.
+     * Find the first found method that is matching the given methodSignature. notice the methodSignature does not have
+     * be same Method object, So declaredClass and returntype is not part of signature matching.
      * 
-     * @param methodSignature a method signature that you want to find and invoke,
-     * @param classesToLookIn classes to look for the method in.
+     * @param methodSignature
+     *            a method signature that you want to find and invoke,
+     * @param classesToLookIn
+     *            classes to look for the method in.
+     * 
      * @return the first found method, or null if none was found
      */
-    public static Method findMethodWithSignatureInClass(Method methodSignature,
-            Class<?>... classesToLookIn) {
+    public static Method findMethodWithSignatureInClass(Method methodSignature, Class<?>... classesToLookIn) {
         for (Class<?> classToLookIn : classesToLookIn) {
-            for (final Method methodInObject : classToLookIn
-                    .getMethods()) {
+            for (final Method methodInObject : classToLookIn.getMethods()) {
                 if (methodSignatureEquals(methodSignature, methodInObject)) {
                     return methodInObject;
                 }
             }
-            for (final Method methodInObject : classToLookIn
-                    .getDeclaredMethods()) {
+            for (final Method methodInObject : classToLookIn.getDeclaredMethods()) {
                 if (methodSignatureEquals(methodSignature, methodInObject)) {
                     return methodInObject;
                 }
@@ -470,8 +500,7 @@ public final class Util {
         return null;
     }
 
-    static Method findMethodWithSignature(Method method,
-            Object objectToLookIn) {
+    static Method findMethodWithSignature(Method method, Object objectToLookIn) {
         return findMethodWithSignatureInClass(method, objectToLookIn.getClass());
     }
 
@@ -513,11 +542,14 @@ public final class Util {
     }
 
     /**
-     * Concatenate two arrays into one.
-     * The passed in arrays will be unaltered. They will only be used in construction of a new array
+     * Concatenate two arrays into one. The passed in arrays will be unaltered. They will only be used in construction
+     * of a new array
      * 
-     * @param firstArray the first array
-     * @param varargsArrays the other arrays to concat to one large array
+     * @param firstArray
+     *            the first array
+     * @param varargsArrays
+     *            the other arrays to concat to one large array
+     * 
      * @return a new merged array
      */
     static <T> T[] concatArrays(final T[] firstArray, final T[]... varargsArrays) {
@@ -534,8 +566,7 @@ public final class Util {
         return result;
     }
 
-    static void cleanMethodNameField(Method met) throws NoSuchFieldException,
-            IllegalAccessException {
+    static void cleanMethodNameField(Method met) throws NoSuchFieldException, IllegalAccessException {
         if (met.getName().startsWith("_")) {
             final Class<?> secretClass = met.getClass();
             final Field namefield = secretClass.getDeclaredField("name");
@@ -548,8 +579,7 @@ public final class Util {
         return findMethodWithSignatureInClass(method, class1) != null;
     }
 
-    static void filterExceptionAndRethrowCorrect(
-            InvocationTargetException e) throws Throwable {
+    static void filterExceptionAndRethrowCorrect(InvocationTargetException e) throws Throwable {
         Throwable throwable = e;
         while (throwable instanceof InvocationTargetException) {
             throwable = throwable.getCause();
@@ -558,8 +588,7 @@ public final class Util {
     }
 
     @SuppressWarnings({ "squid:S1181", "squid:S1166" })
-    static Object tryToAddInterceptorToObject(Object object, Interceptor interceptor,
-            Invocation invocation,
+    static Object tryToAddInterceptorToObject(Object object, Interceptor interceptor, Invocation invocation,
             boolean shouldInterceptPrivateMethods) {
 
         if (object == null) {
@@ -568,8 +597,7 @@ public final class Util {
         if (!Util.isClassSafeFromPublicVariableProblems(object.getClass())) {
             LOG.debug(
                     "Class: {} is not safe to add an interceptor {} recursivly to. Will therefore not add the recursive interceptor",
-                    object.getClass().getSimpleName(),
-                    interceptor.getClass().getSimpleName());
+                    object.getClass().getSimpleName(), interceptor.getClass().getSimpleName());
             return object;
         }
         if (!shouldInterceptPrivateMethods && Modifier.isPrivate(invocation.getMethod().getModifiers())) {
@@ -583,8 +611,7 @@ public final class Util {
 
         } catch (Throwable t) {
             LOG.trace("Failed to add interceptor: {} to the return object of type: {} returned by method: {}",
-                    interceptor.getClass().getSimpleName(),
-                    invocation.getMethod().getReturnType().getSimpleName(),
+                    interceptor.getClass().getSimpleName(), invocation.getMethod().getReturnType().getSimpleName(),
                     invocation.getMethodName());
             return object;
         }

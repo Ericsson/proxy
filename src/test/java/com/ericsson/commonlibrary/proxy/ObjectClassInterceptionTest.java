@@ -40,13 +40,11 @@ public class ObjectClassInterceptionTest {
 
     @Test
     public void interfaceDelegateDefaultObjectMethodIfNotOverriden() throws Exception {
-        final MyInterface interfaceDelegator = Proxy.delegate(MyInterface.class,
-                new MySubImpl2(), new MySubImpl());
+        final MyInterface interfaceDelegator = Proxy.delegate(MyInterface.class, new MySubImpl2(), new MySubImpl());
         assertTrue(interfaceDelegator.toString().contains("MyInterface"));
         assertTrue(interfaceDelegator.equals(interfaceDelegator));
 
-        final MyInterface interfaceDelegator2 = Proxy.delegate(MyInterface.class,
-                new MySubImpl2(), new MySubImpl());
+        final MyInterface interfaceDelegator2 = Proxy.delegate(MyInterface.class, new MySubImpl2(), new MySubImpl());
         assertFalse(interfaceDelegator.equals(interfaceDelegator2));
 
         assertNotEquals(interfaceDelegator.hashCode(), interfaceDelegator2.hashCode());
@@ -55,16 +53,15 @@ public class ObjectClassInterceptionTest {
 
     @Test
     public void interfaceDelegateToString() throws Exception {
-        final MyInterface interfaceDelegator = Proxy.delegate(MyInterface.class,
-                new MySubImpl2(), new ToString(), new MySubImpl());
+        final MyInterface interfaceDelegator = Proxy.delegate(MyInterface.class, new MySubImpl2(), new ToString(),
+                new MySubImpl());
         assertEquals(interfaceDelegator.toString(), "ToString");
     }
 
     @Test
     public void objectDelegateToString() throws Exception {
         final ToString toString = new ToString("NOTPROXY");
-        final ToString toStringProxy = Proxy.delegate(toString, new HashCode(123456), new ToString(
-                "PROXY"));
+        final ToString toStringProxy = Proxy.delegate(toString, new HashCode(123456), new ToString("PROXY"));
         assertEquals(toString.toString(), "NOTPROXY");
         assertEquals(toStringProxy.toString(), "PROXY");
         assertEquals(toStringProxy.hashCode(), 123456);
@@ -73,36 +70,32 @@ public class ObjectClassInterceptionTest {
 
     @Test
     public void interfaceDelegateEquals() throws Exception {
-        //both true
-        MyInterface interfaceDelegator = Proxy.delegate(MyInterface.class,
-                new MySubImpl2(), new Equals(true), new MySubImpl());
+        // both true
+        MyInterface interfaceDelegator = Proxy.delegate(MyInterface.class, new MySubImpl2(), new Equals(true),
+                new MySubImpl());
 
-        MyInterface interfaceDelegator2 = Proxy.delegate(MyInterface.class,
-                new MySubImpl2(), new Equals(true), new MySubImpl());
+        MyInterface interfaceDelegator2 = Proxy.delegate(MyInterface.class, new MySubImpl2(), new Equals(true),
+                new MySubImpl());
 
         assertTrue(interfaceDelegator.equals(interfaceDelegator2));
         assertTrue(interfaceDelegator.equals(interfaceDelegator));
         assertTrue(interfaceDelegator2.equals(interfaceDelegator));
         assertTrue(interfaceDelegator2.equals(interfaceDelegator2));
 
-        //One false.
-        interfaceDelegator = Proxy.delegate(MyInterface.class,
-                new MySubImpl2(), new Equals(true), new MySubImpl());
+        // One false.
+        interfaceDelegator = Proxy.delegate(MyInterface.class, new MySubImpl2(), new Equals(true), new MySubImpl());
 
-        interfaceDelegator2 = Proxy.delegate(MyInterface.class,
-                new MySubImpl2(), new Equals(false), new MySubImpl());
+        interfaceDelegator2 = Proxy.delegate(MyInterface.class, new MySubImpl2(), new Equals(false), new MySubImpl());
 
         assertTrue(interfaceDelegator.equals(interfaceDelegator2));
         assertTrue(interfaceDelegator.equals(interfaceDelegator));
         assertFalse(interfaceDelegator2.equals(interfaceDelegator));
         assertFalse(interfaceDelegator2.equals(interfaceDelegator2));
 
-        //both false.
-        interfaceDelegator = Proxy.delegate(MyInterface.class,
-                new MySubImpl2(), new Equals(false), new MySubImpl());
+        // both false.
+        interfaceDelegator = Proxy.delegate(MyInterface.class, new MySubImpl2(), new Equals(false), new MySubImpl());
 
-        interfaceDelegator2 = Proxy.delegate(MyInterface.class,
-                new MySubImpl2(), new Equals(false), new MySubImpl());
+        interfaceDelegator2 = Proxy.delegate(MyInterface.class, new MySubImpl2(), new Equals(false), new MySubImpl());
 
         assertFalse(interfaceDelegator.equals(interfaceDelegator2));
         assertFalse(interfaceDelegator.equals(interfaceDelegator));
@@ -113,12 +106,10 @@ public class ObjectClassInterceptionTest {
     @Test
     public void objectDelegateEquals() throws Exception {
 
-        //both true
+        // both true
         Equals equals = new Equals(false);
-        Equals equalsProxy = Proxy.delegate(equals,
-                new MySubImpl2(), new Equals(true), new MySubImpl());
-        Equals equalsProxy2 = Proxy.delegate(equals,
-                new MySubImpl2(), new Equals(true), new MySubImpl());
+        Equals equalsProxy = Proxy.delegate(equals, new MySubImpl2(), new Equals(true), new MySubImpl());
+        Equals equalsProxy2 = Proxy.delegate(equals, new MySubImpl2(), new Equals(true), new MySubImpl());
 
         assertTrue(equalsProxy.equals(equalsProxy));
         assertTrue(equalsProxy.equals(equalsProxy2));
@@ -126,13 +117,11 @@ public class ObjectClassInterceptionTest {
         assertTrue(equalsProxy2.equals(equalsProxy2));
         assertTrue(equalsProxy2.equals(equalsProxy));
 
-        //One false.
-        //both false.
+        // One false.
+        // both false.
         equals = new Equals(true);
-        equalsProxy = Proxy.delegate(equals,
-                new MySubImpl2(), new Equals(true), new MySubImpl());
-        equalsProxy2 = Proxy.delegate(equals,
-                new MySubImpl2(), new Equals(false), new MySubImpl());
+        equalsProxy = Proxy.delegate(equals, new MySubImpl2(), new Equals(true), new MySubImpl());
+        equalsProxy2 = Proxy.delegate(equals, new MySubImpl2(), new Equals(false), new MySubImpl());
 
         assertTrue(equalsProxy.equals(equalsProxy));
         assertTrue(equalsProxy.equals(equalsProxy2));
@@ -140,12 +129,10 @@ public class ObjectClassInterceptionTest {
         assertFalse(equalsProxy2.equals(equalsProxy2));
         assertFalse(equalsProxy2.equals(equalsProxy));
 
-        //both false.
+        // both false.
         equals = new Equals(true);
-        equalsProxy = Proxy.delegate(equals,
-                new MySubImpl2(), new Equals(false), new MySubImpl());
-        equalsProxy2 = Proxy.delegate(equals,
-                new MySubImpl2(), new Equals(false), new MySubImpl());
+        equalsProxy = Proxy.delegate(equals, new MySubImpl2(), new Equals(false), new MySubImpl());
+        equalsProxy2 = Proxy.delegate(equals, new MySubImpl2(), new Equals(false), new MySubImpl());
 
         assertFalse(equalsProxy.equals(equalsProxy));
         assertFalse(equalsProxy.equals(equalsProxy2));
@@ -158,8 +145,8 @@ public class ObjectClassInterceptionTest {
     @Test
     public void interfaceDelegateHashCode() throws Exception {
 
-        final MyInterface interfaceDelegator = Proxy.delegate(MyInterface.class,
-                new MySubImpl2(), new HashCode(123456), new MySubImpl());
+        final MyInterface interfaceDelegator = Proxy.delegate(MyInterface.class, new MySubImpl2(), new HashCode(123456),
+                new MySubImpl());
 
         assertEquals(interfaceDelegator.hashCode(), 123456);
         assertEquals(interfaceDelegator.hashCode(), 123456);
@@ -168,8 +155,7 @@ public class ObjectClassInterceptionTest {
     @Test
     public void objectDelegateHashCode() throws Exception {
         final HashCode hashCode = new HashCode(111111);
-        final HashCode hashCodeProxy = Proxy.delegate(hashCode,
-                new HashCode(123456));
+        final HashCode hashCodeProxy = Proxy.delegate(hashCode, new HashCode(123456));
         assertEquals(hashCode.hashCode(), 111111);
         assertEquals(hashCodeProxy.hashCode(), 123456);
     }

@@ -18,15 +18,15 @@ public class MdcDangersExample {
 
         private static final Logger LOG = LoggerFactory.getLogger(SomeImpl.class);
 
-        //Not dangerous
+        // Not dangerous
         private static final String stringStaticFinal = "hello";
         private final String stringPrivate = "hello";
 
-        //dangerous. Will prevent Proxy from from adding mdc
-        //    private static String stringStatic;
-        //    public static String stringStaticPublic;
-        //    public String stringPublic;
-        //    public final String stringPublicFinal = "final";
+        // dangerous. Will prevent Proxy from from adding mdc
+        // private static String stringStatic;
+        // public static String stringStaticPublic;
+        // public String stringPublic;
+        // public final String stringPublicFinal = "final";
 
         public void log(String log) {
             LOG.info(log);

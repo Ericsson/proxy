@@ -47,20 +47,24 @@ public class PersonBeanClass {
         return null;
     }
 
-    public void setName(String name) {}
+    public void setName(String name) {
+    }
 
     public void setAddress(String address) {
 
     }
 
-    public void setPhoneNumber(String phoneNumber) {}
+    public void setPhoneNumber(String phoneNumber) {
+    }
 
-    public void setMale(boolean male) {}
+    public void setMale(boolean male) {
+    }
 
     public void setAge(int i) {
 
     }
 
-    public void setAgeInteger(Integer i) {}
+    public void setAgeInteger(Integer i) {
+    }
 
 }

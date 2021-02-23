@@ -25,10 +25,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A Interceptor that measures execution time of every method invocation it intercepts
- * This could be useful to for performance debugging purposes by adding it to specific
- * objects/classes that
- * you think are likely to be sucking up performance
+ * A Interceptor that measures execution time of every method invocation it intercepts This could be useful to for
+ * performance debugging purposes by adding it to specific objects/classes that you think are likely to be sucking up
+ * performance
  * 
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */
@@ -36,8 +35,7 @@ final class InterceptorMethodTimer implements Interceptor {
 
     private static final int LARGEST_ARG_STRING = 20;
     private static final int NANO_PER_MILLI = 1000000;
-    private static final Logger LOG = LoggerFactory
-            .getLogger(InterceptorMethodTimer.class);
+    private static final Logger LOG = LoggerFactory.getLogger(InterceptorMethodTimer.class);
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -52,9 +50,8 @@ final class InterceptorMethodTimer implements Interceptor {
         long timeNs = end - start;
         long timeMs = timeNs / NANO_PER_MILLI;
         if (LOG.isInfoEnabled()) {
-            LOG.info(String.format("%s.%s(%s) took %d ns | %s ms",
-                    getTargetClass(invocation), invocation.getMethod().getName(),
-                    createArgsString(invocation.getParameters()), timeNs, timeMs));
+            LOG.info(String.format("%s.%s(%s) took %d ns | %s ms", getTargetClass(invocation),
+                    invocation.getMethod().getName(), createArgsString(invocation.getParameters()), timeNs, timeMs));
         }
     }
 

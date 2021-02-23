@@ -45,80 +45,80 @@ public class SystemOutTest {
 
     @BeforeMethod
     public void beforeMethod() throws InterruptedException {
-        System.setOut(out);//restore
+        System.setOut(out);// restore
     }
 
-    //    @Test
-    //    public void interceptingSystemOut() throws Exception {
-    //        InterceptorSystemOut interceptor = new InterceptorSystemOut();
+    // @Test
+    // public void interceptingSystemOut() throws Exception {
+    // InterceptorSystemOut interceptor = new InterceptorSystemOut();
     //
-    //        Method methodToIntercept = System.out.getClass().getMethod("println", String.class);
-    //        PrintStream newOut = Proxy.intercept(System.out,
-    //                interceptor, methodToIntercept);
+    // Method methodToIntercept = System.out.getClass().getMethod("println", String.class);
+    // PrintStream newOut = Proxy.intercept(System.out,
+    // interceptor, methodToIntercept);
     //
-    //        System.out.println("1");
-    //        AssertJUnit.assertEquals(interceptor.getBuffer(), ""); //new system.out not set yet.
+    // System.out.println("1");
+    // AssertJUnit.assertEquals(interceptor.getBuffer(), ""); //new system.out not set yet.
     //
-    //        System.setOut(newOut);
+    // System.setOut(newOut);
     //
-    //        System.out.println("2");
-    //        AssertJUnit.assertEquals(interceptor.getBuffer(), "2");
-    //        System.out.println("3");
-    //        AssertJUnit.assertEquals(interceptor.getBuffer(), "23");
-    //        System.out.println("4");
-    //        AssertJUnit.assertEquals(interceptor.getBuffer(), "234");
+    // System.out.println("2");
+    // AssertJUnit.assertEquals(interceptor.getBuffer(), "2");
+    // System.out.println("3");
+    // AssertJUnit.assertEquals(interceptor.getBuffer(), "23");
+    // System.out.println("4");
+    // AssertJUnit.assertEquals(interceptor.getBuffer(), "234");
     //
-    //        //only println(String) and not println(int)
-    //        System.out.println(5);
-    //        AssertJUnit.assertEquals(interceptor.getBuffer(), "234");
+    // //only println(String) and not println(int)
+    // System.out.println(5);
+    // AssertJUnit.assertEquals(interceptor.getBuffer(), "234");
     //
-    //    }
+    // }
     //
-    //    @Test
-    //    public void interceptingSystemOut2() throws Exception {
-    //        InterceptorSystemOutOnlyPrintln interceptor = new InterceptorSystemOutOnlyPrintln();
+    // @Test
+    // public void interceptingSystemOut2() throws Exception {
+    // InterceptorSystemOutOnlyPrintln interceptor = new InterceptorSystemOutOnlyPrintln();
     //
-    //        PrintStream newOut = Proxy.intercept(System.out,
-    //                interceptor); //the interceptor itself filters the method println
+    // PrintStream newOut = Proxy.intercept(System.out,
+    // interceptor); //the interceptor itself filters the method println
     //
-    //        System.out.println("1");
-    //        AssertJUnit.assertEquals(interceptor.getBuffer(), ""); //new system.out not set yet.
+    // System.out.println("1");
+    // AssertJUnit.assertEquals(interceptor.getBuffer(), ""); //new system.out not set yet.
     //
-    //        System.setOut(newOut);
+    // System.setOut(newOut);
     //
-    //        System.out.println("2");
-    //        AssertJUnit.assertEquals(interceptor.getBuffer(), "2");
+    // System.out.println("2");
+    // AssertJUnit.assertEquals(interceptor.getBuffer(), "2");
     //
-    //        //work not just on string
-    //        System.out.println(3);
-    //        AssertJUnit.assertEquals(interceptor.getBuffer(), "23");
+    // //work not just on string
+    // System.out.println(3);
+    // AssertJUnit.assertEquals(interceptor.getBuffer(), "23");
     //
-    //        System.out.println(4L);
-    //        AssertJUnit.assertEquals(interceptor.getBuffer(), "234");
-    //    }
+    // System.out.println(4L);
+    // AssertJUnit.assertEquals(interceptor.getBuffer(), "234");
+    // }
     //
-    //    @Test
-    //    public void delegateSystemOut() throws Exception {
-    //        PrintlnDelegate systemOutDelegate = new PrintlnDelegate();
-    //        GetBuffer buffer = systemOutDelegate;
+    // @Test
+    // public void delegateSystemOut() throws Exception {
+    // PrintlnDelegate systemOutDelegate = new PrintlnDelegate();
+    // GetBuffer buffer = systemOutDelegate;
     //
-    //        PrintStream newOut = Proxy.delegate(System.out, systemOutDelegate);
+    // PrintStream newOut = Proxy.delegate(System.out, systemOutDelegate);
     //
-    //        System.out.println("1");
-    //        AssertJUnit.assertEquals(buffer.getBuffer(), ""); //new system.out not set yet.
+    // System.out.println("1");
+    // AssertJUnit.assertEquals(buffer.getBuffer(), ""); //new system.out not set yet.
     //
-    //        System.setOut(newOut);
+    // System.setOut(newOut);
     //
-    //        System.out.println("2");
-    //        AssertJUnit.assertEquals(buffer.getBuffer(), "2");
-    //        System.out.println("3");
-    //        AssertJUnit.assertEquals(buffer.getBuffer(), "23");
-    //        System.out.println("4");
-    //        AssertJUnit.assertEquals(buffer.getBuffer(), "234");
+    // System.out.println("2");
+    // AssertJUnit.assertEquals(buffer.getBuffer(), "2");
+    // System.out.println("3");
+    // AssertJUnit.assertEquals(buffer.getBuffer(), "23");
+    // System.out.println("4");
+    // AssertJUnit.assertEquals(buffer.getBuffer(), "234");
     //
-    //        //only println(String) and not println(int)
-    //        System.out.println(5);
-    //        AssertJUnit.assertEquals(buffer.getBuffer(), "234");
-    //    }
+    // //only println(String) and not println(int)
+    // System.out.println(5);
+    // AssertJUnit.assertEquals(buffer.getBuffer(), "234");
+    // }
 
 }

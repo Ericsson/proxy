@@ -49,16 +49,14 @@ public class DelegateProxyTest {
 
     @Test
     public void oneDelegateBlockAdd() throws Exception {
-        List<String> list = Proxy.delegate(new ArrayList<String>(),
-                new AddBlocker());
+        List<String> list = Proxy.delegate(new ArrayList<String>(), new AddBlocker());
         list.add("hello");
         assertEquals(list.size(), 0);
     }
 
     @Test
     public void oneDelegateSize10() throws Exception {
-        List<String> list = Proxy.delegate(new ArrayList<String>(),
-                new Size10());
+        List<String> list = Proxy.delegate(new ArrayList<String>(), new Size10());
         assertEquals(list.size(), 10);
     }
 
@@ -67,8 +65,7 @@ public class DelegateProxyTest {
         FinalMethod method = new FinalMethod();
         assertEquals(method.finalmethod(), "final");
         assertEquals(method.notfinalmethod(), "notfinal");
-        method = Proxy.delegate(method,
-                new OverrideFinalMethod());
+        method = Proxy.delegate(method, new OverrideFinalMethod());
 
         assertEquals(method.finalmethod(), "final");
         assertEquals(method.notfinalmethod(), "override");
@@ -94,9 +91,7 @@ public class DelegateProxyTest {
         ObjectReturnTrueFalse objFalse = new ObjectReturnTrueFalse(false);
         assertFalse(objFalse.returnBoolean());
 
-        ObjectReturnTrueFalse objProxy = Proxy.delegate(objFalse,
-                new ObjectReturnTrueFalse(
-                        true));
+        ObjectReturnTrueFalse objProxy = Proxy.delegate(objFalse, new ObjectReturnTrueFalse(true));
 
         assertTrue(objProxy.returnBoolean());
         assertFalse(objFalse.returnBoolean());
@@ -104,15 +99,13 @@ public class DelegateProxyTest {
 
     @Test
     public void interfaceDelegate() throws Exception {
-        MyInterface interfaceDelegator = Proxy.delegate(MyInterface.class,
-                new MySubImpl2(), new MySubImpl());
+        MyInterface interfaceDelegator = Proxy.delegate(MyInterface.class, new MySubImpl2(), new MySubImpl());
         assertEquals(interfaceDelegator.doSomething(), "MySubImpl");
         assertEquals(interfaceDelegator.doSomethingElse(), "MySubImpl2");
         assertEquals(interfaceDelegator.doSomethingWithInteger(1), 1);
 
         // Order matters. now it will find doSomethingElse in MyImpl first.
-        MyInterface interfaceDelegator2 = Proxy.delegate(MyInterface.class,
-                new MySubImpl(), new MySubImpl2());
+        MyInterface interfaceDelegator2 = Proxy.delegate(MyInterface.class, new MySubImpl(), new MySubImpl2());
         assertEquals(interfaceDelegator2.doSomething(), "MySubImpl");
         assertEquals(interfaceDelegator2.doSomethingElse(), "MySubImpl");
         assertEquals(interfaceDelegator2.doSomethingWithInteger(1), 1);
@@ -120,22 +113,20 @@ public class DelegateProxyTest {
 
     @Test
     public void interfaceDelegateToStringDefaultIfNotOverriden() throws Exception {
-        MyInterface interfaceDelegator = Proxy.delegate(MyInterface.class,
-                new MySubImpl2(), new MySubImpl());
+        MyInterface interfaceDelegator = Proxy.delegate(MyInterface.class, new MySubImpl2(), new MySubImpl());
         assertTrue(interfaceDelegator.toString().contains("MyInterface"));
 
     }
 
     @Test
     public void interfaceDelegateToString() throws Exception {
-        MyInterface interfaceDelegator = Proxy.delegate(MyInterface.class,
-                new MySubImpl2(), new ToString(), new MySubImpl());
+        MyInterface interfaceDelegator = Proxy.delegate(MyInterface.class, new MySubImpl2(), new ToString(),
+                new MySubImpl());
         assertEquals(interfaceDelegator.toString(), "ToString");
     }
 
     @Test(expectedExceptions = UnsupportedOperationException.class)
-    public void throwsExceptionIfMethodDoesNotExistInADelegate()
-            throws Exception {
+    public void throwsExceptionIfMethodDoesNotExistInADelegate() throws Exception {
         MyInterface interfaceDelegator = Proxy.delegate(MyInterface.class, new MySubImpl());
         interfaceDelegator.doSomething();
         interfaceDelegator.doSomethingWithInteger(1);
@@ -143,8 +134,7 @@ public class DelegateProxyTest {
 
     @Test
     public void delegateCombinedWithInterfaceNarrower() throws Exception {
-        List<String> list = Proxy.delegate(new ArrayList<String>(),
-                new AddBlocker());
+        List<String> list = Proxy.delegate(new ArrayList<String>(), new AddBlocker());
         assertFalse(list.add("hello"));
         IAdd addObject = Proxy.changeInterface(IAdd.class, list);
         assertFalse(addObject.add("world"));
@@ -170,8 +160,7 @@ public class DelegateProxyTest {
 
     @Test
     public void delegateThrowsException() throws Exception {
-        List<String> list = Proxy.delegate(new ArrayList<String>(),
-                new ContainsThrowsException());
+        List<String> list = Proxy.delegate(new ArrayList<String>(), new ContainsThrowsException());
         try {
             list.contains("hello");
             fail();
@@ -185,8 +174,7 @@ public class DelegateProxyTest {
 
     @Test
     public void twoDelegatesBlockAddAndSize10() throws Exception {
-        List<String> list = Proxy.delegate(new ArrayList<String>(),
-                new Size10(), new AddBlocker());
+        List<String> list = Proxy.delegate(new ArrayList<String>(), new Size10(), new AddBlocker());
         list.add("hello");
         assertEquals(list.size(), 10);
         assertFalse(list.contains("hello"));
@@ -194,8 +182,7 @@ public class DelegateProxyTest {
 
     @Test
     public void addDelegatesRuntime() throws Exception {
-        List<String> list = Proxy.delegate(new ArrayList<String>(),
-                new Size10());
+        List<String> list = Proxy.delegate(new ArrayList<String>(), new Size10());
         list.add("hello");
         assertEquals(list.size(), 10);
         assertTrue(list.contains("hello"));
@@ -210,8 +197,7 @@ public class DelegateProxyTest {
 
     @Test
     public void createNewProxyClass() throws Exception {
-        List<String> list = Proxy.delegate(ArrayList.class,
-                new Size10());
+        List<String> list = Proxy.delegate(ArrayList.class, new Size10());
         list.add("hello");
         assertEquals(list.size(), 10);
         assertTrue(list.contains("hello"));
@@ -220,8 +206,8 @@ public class DelegateProxyTest {
     @Test
     public void polymorfisitcBehaviorOnClassDelegatesTest() throws Exception {
 
-        PolymorfismOnClassDelegatesImpl proxy = Proxy.delegate(
-                PolymorfismOnClassDelegatesImpl.class, new ReturnString1("3"));
+        PolymorfismOnClassDelegatesImpl proxy = Proxy.delegate(PolymorfismOnClassDelegatesImpl.class,
+                new ReturnString1("3"));
         assertEquals(proxy.returnString1(), "3");
         assertEquals(proxy.returnString2(), "2");
         assertEquals(proxy.returnString1Times2(), "33");

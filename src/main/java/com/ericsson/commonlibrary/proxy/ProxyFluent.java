@@ -28,35 +28,31 @@ import java.lang.reflect.Method;
  * A fluent API to intercerpt an object or class
  * 
  * @author Elis Edlund (elis.edlund@ericsson.com)
- * @param <T> the actual type of the proxy object being built.
+ * 
+ * @param <T>
+ *            the actual type of the proxy object being built.
  */
 public final class ProxyFluent<T> {
 
     private InterceptableProxy proxy;
 
     /*
-     * TODO
-     * proxy(class).constructorWithArgs(args...)
-     * proxy(class).recursiveSafeApplyOnReturnValues()
-     * proxy().defaultConstructorOnly()
-     * proxy().setClassnamePrefix
-     * proxy().setClassnameSuffix
+     * TODO proxy(class).constructorWithArgs(args...) proxy(class).recursiveSafeApplyOnReturnValues()
+     * proxy().defaultConstructorOnly() proxy().setClassnamePrefix proxy().setClassnameSuffix
      * proxy.build(wantedInterface)
      */
-    //TODO do not create the proxy until get() is called, to enable delegate() to be able to behave polymorphically on Class proxies
+    // TODO do not create the proxy until get() is called, to enable delegate() to be able to behave polymorphically on
+    // Class proxies
 
     ProxyFluent(T o) {
-        proxy = (InterceptableProxy) InterceptableProxyFactory
-                .createANewObjectProxyIfNeeded(o);
+        proxy = (InterceptableProxy) InterceptableProxyFactory.createANewObjectProxyIfNeeded(o);
     }
 
     ProxyFluent(Class<T> clazz) {
         if (clazz.isInterface()) {
-            proxy = InterceptableProxyFactory
-                    .createANewInterfaceProxy(clazz);
+            proxy = InterceptableProxyFactory.createANewInterfaceProxy(clazz);
         } else { // was a class
-            proxy = (InterceptableProxy) InterceptableProxyFactory
-                    .createANewClassProxy(clazz);
+            proxy = (InterceptableProxy) InterceptableProxyFactory.createANewClassProxy(clazz);
         }
     }
 
@@ -65,8 +61,8 @@ public final class ProxyFluent<T> {
             throw new ProxyException("the provided interface: " + clazz.getName()
                     + " does not need constructor arguments as it can not use them!");
         } else { // was a class
-            proxy = (InterceptableProxy) InterceptableProxyFactory
-                    .createANewClassProxyWithArguments(clazz, constructorArgs);
+            proxy = (InterceptableProxy) InterceptableProxyFactory.createANewClassProxyWithArguments(clazz,
+                    constructorArgs);
         }
     }
 
@@ -80,7 +76,9 @@ public final class ProxyFluent<T> {
     /**
      * Add an {@link Interceptor} that intercepts all methods.
      *
-     * @param interceptor to add
+     * @param interceptor
+     *            to add
+     * 
      * @return the API itself (used for chaining)
      */
     public ProxyFluent<T> interceptAll(Interceptor interceptor) {
@@ -89,11 +87,12 @@ public final class ProxyFluent<T> {
     }
 
     /**
-     * Add an {@link InterceptorConsumer} is adapted to {@link Interceptor} without a return value,
-     * that
-     * intercepts all methods.
+     * Add an {@link InterceptorConsumer} is adapted to {@link Interceptor} without a return value, that intercepts all
+     * methods.
      * 
-     * @param interceptor to add
+     * @param interceptor
+     *            to add
+     * 
      * @return the API itself (used for chaining)
      */
     public ProxyFluent<T> interceptAll(InterceptorConsumer interceptor) {
@@ -105,13 +104,15 @@ public final class ProxyFluent<T> {
     }
 
     /**
-     * Add an {@link InterceptorConsumer} is adapted to {@link Interceptor} without a return value,
-     * that
-     * intercepts one or more specific methods
+     * Add an {@link InterceptorConsumer} is adapted to {@link Interceptor} without a return value, that intercepts one
+     * or more specific methods
      * 
-     * @param interceptor to add
-     * @param methodsToIntercept varargs of the methods you want the interceptor
-     *        to intercept. Specifying none means that it will intercept all.
+     * @param interceptor
+     *            to add
+     * @param methodsToIntercept
+     *            varargs of the methods you want the interceptor to intercept. Specifying none means that it will
+     *            intercept all.
+     * 
      * @return the API itself (used for chaining)
      */
     public ProxyFluent<T> interceptMethod(InterceptorConsumer interceptor, Method... methodsToIntercept) {
@@ -125,9 +126,12 @@ public final class ProxyFluent<T> {
     /**
      * Add an {@link Interceptor} that intercepts one or more specific methods
      * 
-     * @param interceptor to add
-     * @param methodsToIntercept varargs of the methods you want the interceptor
-     *        to intercept. Specifying none means that it will intercept all.
+     * @param interceptor
+     *            to add
+     * @param methodsToIntercept
+     *            varargs of the methods you want the interceptor to intercept. Specifying none means that it will
+     *            intercept all.
+     * 
      * @return the API itself (used for chaining)
      */
     public ProxyFluent<T> interceptMethod(Interceptor interceptor, Method... methodsToIntercept) {
@@ -138,7 +142,9 @@ public final class ProxyFluent<T> {
     /**
      * Add an {@link InvocationHandler} that intercepts all methods.
      * 
-     * @param interceptor to add
+     * @param interceptor
+     *            to add
+     * 
      * @return the API itself (used for chaining)
      */
     public ProxyFluent<T> interceptAll(InvocationHandler interceptor) {
@@ -149,9 +155,12 @@ public final class ProxyFluent<T> {
     /**
      * Add an {@link InvocationHandler} that intercepts one or more specific methods
      * 
-     * @param interceptor to add
-     * @param methodsToIntercept varargs of the methods you want the interceptor
-     *        to intercept. Specifying none means that it will intercept all.
+     * @param interceptor
+     *            to add
+     * @param methodsToIntercept
+     *            varargs of the methods you want the interceptor to intercept. Specifying none means that it will
+     *            intercept all.
+     * 
      * @return the API itself (used for chaining)
      */
     public ProxyFluent<T> interceptMethod(InvocationHandler interceptor, Method... methodsToIntercept) {
@@ -160,10 +169,12 @@ public final class ProxyFluent<T> {
     }
 
     /**
-     * Delegate all method calls to the provided delegator objects passed in as parameters.
-     * Warning your proxy will not behave polymorphically.
+     * Delegate all method calls to the provided delegator objects passed in as parameters. Warning your proxy will not
+     * behave polymorphically.
      * 
-     * @param delegates objects to merge into one. 
+     * @param delegates
+     *            objects to merge into one.
+     * 
      * @return the API itself (used for chaining)
      */
     public ProxyFluent<T> delegate(Object... delegates) {

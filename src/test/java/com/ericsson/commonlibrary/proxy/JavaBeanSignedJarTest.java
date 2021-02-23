@@ -32,59 +32,58 @@ import java.net.URL;
 import org.testng.annotations.Test;
 
 public class JavaBeanSignedJarTest {
-	private static final String TCSH = "/bin/tcsh";
+    private static final String TCSH = "/bin/tcsh";
     private static final String BASH = "/bin/bash";
-    
-	private String shellPath;
+
+    private String shellPath;
 
     @Test
     public void javaBeanSingedJar() {
-    	assertTrue(runCmd("external-sign.jar").contains("Setter for proxy bean works."));
+        assertTrue(runCmd("external-sign.jar").contains("Setter for proxy bean works."));
     }
-    
+
     @Test
     public void javaBeanNotSingedJar() {
-    	assertTrue(runCmd("external.jar").contains("Setter for proxy bean works."));
+        assertTrue(runCmd("external.jar").contains("Setter for proxy bean works."));
     }
-    
+
     private String getFilePath(String resource) {
-    	URL url = getClass().getClassLoader().getResource(resource);
-    	return url.getFile();
+        URL url = getClass().getClassLoader().getResource(resource);
+        return url.getFile();
     }
-    
+
     private String runCmd(String externalJar) {
-    	String delimeter = ":";
-    	if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
-    		delimeter = ";";
-    	}
-    	String classPath = System.getProperty("java.class.path");
-    	String javaHome = System.getProperty("java.home");
-    	String startCmd = javaHome + File.separator + "bin" + File.separator + "java -cp "
-    						+ classPath + delimeter + getFilePath(externalJar)
-    						+ " com.ericsson.commonlibrary.proxy.external.ExternalEntry";
-        System.out.println("Java command is: " + startCmd);  
+        String delimeter = ":";
+        if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
+            delimeter = ";";
+        }
+        String classPath = System.getProperty("java.class.path");
+        String javaHome = System.getProperty("java.home");
+        String startCmd = javaHome + File.separator + "bin" + File.separator + "java -cp " + classPath + delimeter
+                + getFilePath(externalJar) + " com.ericsson.commonlibrary.proxy.external.ExternalEntry";
+        System.out.println("Java command is: " + startCmd);
         String[] osCmd;
         if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
             osCmd = new String[] { "cmd.exe", "/c", startCmd };
         } else {
-        	osCmd = new String[] { getShellPath(), "-c", startCmd };            
+            osCmd = new String[] { getShellPath(), "-c", startCmd };
         }
         return startProcess(new ProcessBuilder(osCmd));
     }
-    
+
     private String getShellPath() {
-    	if (shellPath == null) {    		
-    		if (new File(TCSH).exists()) {
+        if (shellPath == null) {
+            if (new File(TCSH).exists()) {
                 shellPath = TCSH;
             } else if (new File(BASH).exists()) {
                 shellPath = BASH;
             } else {
                 throw new RuntimeException("Didn't find any usable shell program");
             }
-    	}
+        }
         return shellPath;
     }
-    
+
     private String startProcess(ProcessBuilder builder) {
         try {
             Process process = builder.start();
@@ -110,11 +109,10 @@ public class JavaBeanSignedJarTest {
             }
 
         } catch (IOException ioe) {
-        	System.out.println("Could not read from process" + ioe.toString());
+            System.out.println("Could not read from process" + ioe.toString());
         }
 
         return out.toString();
     }
 
-    
 }

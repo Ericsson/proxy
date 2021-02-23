@@ -24,8 +24,8 @@ package com.ericsson.commonlibrary.proxy;
 import java.util.Deque;
 
 /**
- * Interface with methods an intercepteable proxy should implement to be able to
- * add/remove {@link Interceptor}s dynamically.
+ * Interface with methods an intercepteable proxy should implement to be able to add/remove {@link Interceptor}s
+ * dynamically.
  * 
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */
@@ -34,14 +34,16 @@ public interface InterceptableProxy {
     /**
      * Adds a {@link Interceptor} to the proxy.
      * 
-     * @param interceptor to add
+     * @param interceptor
+     *            to add
      */
     void addInterceptor(Interceptor interceptor);
 
     /**
      * Removes a specific {@link Interceptor} from the proxy.
      * 
-     * @param interceptor to remove
+     * @param interceptor
+     *            to remove
      */
     void removeInterceptor(Interceptor interceptor);
 

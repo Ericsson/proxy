@@ -24,8 +24,7 @@ package com.ericsson.commonlibrary.proxy;
 import java.lang.reflect.Method;
 
 /**
- * A utility decoration {@link Interceptor} that can make other interceptors specific to certain
- * methods.
+ * A utility decoration {@link Interceptor} that can make other interceptors specific to certain methods.
  * 
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */

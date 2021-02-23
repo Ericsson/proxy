@@ -31,24 +31,23 @@ import com.ericsson.commonlibrary.proxy.Interceptor;
 import com.ericsson.commonlibrary.proxy.Invocation;
 import com.ericsson.commonlibrary.proxy.Proxy;
 
-
 public class CountDownCollectionRecursionExample {
     public static void main(String[] args) {
-        //Anonymous class, should usually be put in a separate class.
+        // Anonymous class, should usually be put in a separate class.
         Interceptor countDown = new Interceptor() {
 
             @Override
             public Object intercept(Invocation invocation) throws Throwable {
                 if (invocation.getMethodName().contains("add")) {
-                    invocation.invoke(); //invoke original
+                    invocation.invoke(); // invoke original
                     Integer val = (Integer) invocation.getParameter0();
                     if (val > 0) {
                         Collection list = (Collection) invocation.getThis();
-                        return list.add(val - 1); //invoke proxy again.
+                        return list.add(val - 1); // invoke proxy again.
                     }
                     return true;
                 }
-                return invocation.invoke(); //invokes method as normal
+                return invocation.invoke(); // invokes method as normal
             }
         };
 

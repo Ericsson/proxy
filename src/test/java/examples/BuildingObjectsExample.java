@@ -5,7 +5,8 @@ import com.ericsson.commonlibrary.proxy.Proxy;
 public class BuildingObjectsExample {
 
     public static void main(String[] args) {
-        //Building all possible combinations of Algorithm. this would not be possible with inheritance without duplication
+        // Building all possible combinations of Algorithm. this would not be possible with inheritance without
+        // duplication
         Algorithm obj1 = Proxy.delegate(Algorithm.class, new Sort1(), new Reverse1());
         Algorithm obj2 = Proxy.delegate(Algorithm.class, new Sort1(), new Reverse2());
         Algorithm obj3 = Proxy.delegate(Algorithm.class, new Sort2(), new Reverse1());
@@ -21,21 +22,22 @@ public class BuildingObjectsExample {
         System.out.println(obj4.algorithmSort("obj4"));
         System.out.println("-----------");
 
-        //Object methods are handled a bit special. Here it will use the toString() impl in ToString class even if all the other delegate objects contain a toString() method inherited from class Object.
+        // Object methods are handled a bit special. Here it will use the toString() impl in ToString class even if all
+        // the other delegate objects contain a toString() method inherited from class Object.
         Algorithm objWithSpecialToString = Proxy.delegate(Algorithm.class, new Sort2(), new ToString(), new Reverse1());
         System.out.println(objWithSpecialToString);
         System.out.println(objWithSpecialToString.algorithmReverse("objWithSpecialToString"));
         System.out.println(objWithSpecialToString.algorithmSort("objWithSpecialToString"));
         System.out.println("-----------");
 
-        //You can replace specific parts of existing implementations
+        // You can replace specific parts of existing implementations
         Algorithm changeExistingImplClass = Proxy.delegate(AlgorithmImpl.class, new Sort2());
         System.out.println(changeExistingImplClass);
         System.out.println(changeExistingImplClass.algorithmReverse("changeExistingImplClass"));
         System.out.println(changeExistingImplClass.algorithmSort("changeExistingImplClass"));
         System.out.println("-----------");
 
-        //You can even replace specific parts of existing objects
+        // You can even replace specific parts of existing objects
         Algorithm changeExistingImplObject = Proxy.delegate(new AlgorithmImpl(), new Reverse1());
         System.out.println(changeExistingImplObject);
         System.out.println(changeExistingImplObject.algorithmReverse("changeExistingImplObject"));

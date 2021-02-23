@@ -20,307 +20,343 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.ericsson.commonlibrary</groupId>
-    <artifactId>proxy</artifactId>
-    <version>1.2.5-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    <name>Proxy</name>
-    <description>A small yet powerful interception library that lets you manipulate existing objects and classes behavior runtime, It's achieving this by using javassist to do bytecode manipulation</description>
-    <url>${scm.repo.url.web}</url>
-    <organization>
-        <name>Ericsson</name>
-        <url>http://www.ericsson.com/</url>
-    </organization>
-    <prerequisites>
-        <maven>3.3.9</maven>
-    </prerequisites>
-    <licenses>
-        <license>
-            <name>MIT License</name>
-            <url>https://opensource.org/licenses/MIT</url>
-        </license>
-    </licenses>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.ericsson.commonlibrary</groupId>
+	<artifactId>proxy</artifactId>
+	<version>1.2.5-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>Proxy</name>
+	<description>A small yet powerful interception library that lets you manipulate existing objects and classes behavior runtime, It's achieving this by using javassist to do bytecode manipulation</description>
+	<url>${scm.repo.url.web}</url>
+	<organization>
+		<name>Ericsson</name>
+		<url>http://www.ericsson.com/</url>
+	</organization>
+	<prerequisites>
+		<maven>3.3.9</maven>
+	</prerequisites>
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>https://opensource.org/licenses/MIT</url>
+		</license>
+	</licenses>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <scm.repo.url>scm:git:git@github.com:Ericsson/${project.artifactId}.git</scm.repo.url>
-        <scm.repo.url.web>https://github.com/Ericsson/${project.artifactId}</scm.repo.url.web>
+		<scm.repo.url>scm:git:git@github.com:Ericsson/${project.artifactId}.git</scm.repo.url>
+		<scm.repo.url.web>https://github.com/Ericsson/${project.artifactId}</scm.repo.url.web>
 
-        <!-- Dependency versions -->
-        <slf4j.version>1.7.26</slf4j.version>
-        <testng.version>6.14.2</testng.version>
-        <log4j2.version>2.13.3</log4j2.version>
-        <objenesis.version>3.0.1</objenesis.version>
-        <javassist.version>3.27.0-GA</javassist.version> 
-    
-        <!-- Plugin versions -->
-        <maven.deploy.plugin.version>3.0.0-M1</maven.deploy.plugin.version>
-        <maven.javadoc.plugin.version>3.1.1</maven.javadoc.plugin.version>
-        <maven.source.plugin.version>3.2.1</maven.source.plugin.version> <!-- Problems with 3.0.0 and 3.0.1 being slow. -->
-        <maven.jar.plugin.version>3.2.0</maven.jar.plugin.version> <!-- Problems with 2.4, 3.0.0 and 3.0.2 being slow. -->
-        <maven.release.plugin.version>3.0.0-M1</maven.release.plugin.version>
-        <maven.surefire.plugin.version>3.0.0-M4</maven.surefire.plugin.version>
-        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
-        <maven.enforcer.plugin.version>3.0.0-M3</maven.enforcer.plugin.version>
-        <maven.enforcer.plugin.disabled>false</maven.enforcer.plugin.disabled>
-    
-        <!--Java version-->
-        <java.version>1.8</java.version>
-        <compiler.source.java.version>${java.version}</compiler.source.java.version>
-        <compiler.target.java.version>${java.version}</compiler.target.java.version>
-        <compiler.compliance.java.version>${java.version}</compiler.compliance.java.version>
-        
-                <!-- Maven Site -->
-        <maven.site.plugin.version>3.7</maven.site.plugin.version>
-        <maven.javadoc.plugin.version>3.0.0</maven.javadoc.plugin.version>
-        <maven.project.info.reports.plugin.version>2.9</maven.project.info.reports.plugin.version>
-        <maven.project.info.reports.version>2.9</maven.project.info.reports.version>
-        <doxia.include.macro.version>1.1</doxia.include.macro.version>
-    </properties>
+		<!-- Dependency versions -->
+		<slf4j.version>1.7.26</slf4j.version>
+		<testng.version>6.14.2</testng.version>
+		<log4j2.version>2.11.2</log4j2.version>
+		<objenesis.version>3.0.1</objenesis.version>
+		<javassist.version>3.27.0-GA</javassist.version>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.objenesis</groupId>
-            <artifactId>objenesis</artifactId>
-            <version>${objenesis.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>${javassist.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-        
-        <!-- Test scope dependencies -->
-        <dependency> <!-- slf4j to log4j2 adapter -->
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
-            <version>${log4j2.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency> <!-- log4j2 Logging implementation -->
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>${log4j2.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>${testng.version}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+		<!-- Plugin versions -->
+		<maven.deploy.plugin.version>3.0.0-M1</maven.deploy.plugin.version>
+		<maven.javadoc.plugin.version>3.1.1</maven.javadoc.plugin.version>
+		<maven.source.plugin.version>3.2.1</maven.source.plugin.version>
+		<!-- Problems with 3.0.0 and 3.0.1 being slow. -->
+		<maven.jar.plugin.version>3.2.0</maven.jar.plugin.version>
+		<!-- Problems with 2.4, 3.0.0 and 3.0.2 being slow. -->
+		<maven.release.plugin.version>3.0.0-M1</maven.release.plugin.version>
+		<maven.surefire.plugin.version>3.0.0-M4</maven.surefire.plugin.version>
+		<maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+		<maven.enforcer.plugin.version>3.0.0-M3</maven.enforcer.plugin.version>
+		<maven.enforcer.plugin.disabled>false</maven.enforcer.plugin.disabled>
+		<maven.formatter.plugin.version>2.14.0</maven.formatter.plugin.version>
 
-    <build>
-        <testResources>
-            <testResource>
-                <directory>src/site</directory>
-            </testResource>
-            <testResource>
-                <directory>src/test/resources</directory>
-            </testResource>
-        </testResources>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.plugin.version}</version>
-                <configuration>
-                    <source>${compiler.source.java.version}</source>
-                    <target>${compiler.target.java.version}</target>
-                </configuration>
-            </plugin>
-            <plugin> <!-- maven test -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven.surefire.plugin.version}</version>
-                <configuration>
-                    <excludes>
-                        <exclude>%regex[.*examples.*]</exclude>
-                    </excludes>
-                    <skip>false</skip>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <version>${maven.enforcer.plugin.version}</version>
-                <configuration>
-                    <rules>
-                        <requireReleaseDeps />
-                        <requireReleaseVersion />
-                        <dependencyConvergence />
-                    </rules>
-                    <fail>true</fail>
-                    <skip>${maven.enforcer.plugin.disabled}</skip>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>${maven.release.plugin.version}</version>
-                <configuration>
-                    <preparationGoals>clean verify</preparationGoals>
-                    <goals>deploy</goals>
-                    <autoVersionSubmodules>true</autoVersionSubmodules>
-                    <checkModificationExcludes>
-                        <checkModificationExclude>surefire.properties</checkModificationExclude>
-                        <checkModificationExclude>surefire-classloader.properties</checkModificationExclude>
-                    </checkModificationExcludes>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>${maven.jar.plugin.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>${maven.deploy.plugin.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven.javadoc.plugin.version}</version>
-                <configuration>
-                    <source>8</source>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>${maven.source.plugin.version}</version>
-                <configuration>
-                </configuration>
-                <executions>
-                    <execution>
-                        <!-- This id must match the -Prelease-profile id value or else sources will be "uploaded" twice, which causes ARM to fail -->
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>  <!-- Maven generated website -->
-                <artifactId>maven-site-plugin</artifactId>
-                <version>${maven.site.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>attach-descriptor</id>
-                        <goals>
-                            <goal>attach-descriptor</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <outputDirectory>docs/</outputDirectory>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.tinyjee.dim</groupId>
-                        <artifactId>doxia-include-macro</artifactId>
-                        <version>${doxia.include.macro.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-        </plugins>
-    </build>
-    <profiles>
-      <profile>
-        <id>deploy</id>
-        <build>
-          <plugins>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-gpg-plugin</artifactId>
-              <version>1.6</version>
-              <executions>
-                <execution>
-                  <id>sign-artifacts</id>
-                  <phase>verify</phase>
-                  <goals>
-                    <goal>sign</goal>
-                  </goals>
-                </execution>
-              </executions>
-            </plugin>
-          </plugins>
-        </build>
-      </profile>
-    </profiles>
+		<!--Java version-->
+		<java.version>1.8</java.version>
+		<compiler.source.java.version>${java.version}</compiler.source.java.version>
+		<compiler.target.java.version>${java.version}</compiler.target.java.version>
+		<compiler.compliance.java.version>${java.version}</compiler.compliance.java.version>
 
-    <reporting> <!-- Configuration for the maven site -->
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>${maven.project.info.reports.plugin.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven.javadoc.plugin.version}</version>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>javadoc</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-        </plugins>
-    </reporting>
+		<!-- Maven Site -->
+		<maven.site.plugin.version>3.7</maven.site.plugin.version>
+		<maven.javadoc.plugin.version>3.0.0</maven.javadoc.plugin.version>
+		<maven.project.info.reports.plugin.version>2.9</maven.project.info.reports.plugin.version>
+		<maven.project.info.reports.version>2.9</maven.project.info.reports.version>
+		<doxia.include.macro.version>1.1</doxia.include.macro.version>
+	</properties>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
-    
-    <developers>
-        <developer>
-            <email>common-library-team@googlegroups.com</email>
-        </developer>
-    </developers>
+	<dependencies>
+		<dependency>
+			<groupId>org.objenesis</groupId>
+			<artifactId>objenesis</artifactId>
+			<version>${objenesis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>${javassist.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
 
-    <scm>
-        <connection>${scm.repo.url}</connection>
-        <url>${scm.repo.url.web}</url>
-        <developerConnection>${scm.repo.url}</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
+		<!-- Test scope dependencies -->
+		<dependency>
+			<!-- slf4j to log4j2 adapter -->
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${log4j2.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<!-- log4j2 Logging implementation -->
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j2.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>${testng.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
-    <issueManagement>
-        <url>https://github.com/Ericsson/${project.artifactId}/issues</url>
-        <system>github</system>
-    </issueManagement>
+	<build>
+		<testResources>
+			<testResource>
+				<directory>src/site</directory>
+			</testResource>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
+		</testResources>
+		<plugins>
+			<plugin>
+				<groupId>net.revelc.code.formatter</groupId>
+				<artifactId>formatter-maven-plugin</artifactId>
+				<version>${maven.formatter.plugin.version}</version>
+				<configuration>
+					<lineEnding>LF</lineEnding>
+					<compilerSource>${compiler.source.java.version}</compilerSource>
+					<compilerCompliance>${compiler.compliance.java.version}</compilerCompliance>
+					<compilerTargetPlatform>${compiler.target.java.version}</compilerTargetPlatform>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<skipCssFormatting>true</skipCssFormatting>
+					<directories>
+						<directory>${basedir}</directory>
+					</directories>
+					<excludes>
+						<exclude>**/docs/**</exclude>
+						<exclude>**/target/**</exclude>
+						<exclude>**/test-output/**</exclude>
+					</excludes>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>format</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven.compiler.plugin.version}</version>
+				<configuration>
+					<source>${compiler.source.java.version}</source>
+					<target>${compiler.target.java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<!-- maven test -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven.surefire.plugin.version}</version>
+				<configuration>
+					<excludes>
+						<exclude>%regex[.*examples.*]</exclude>
+					</excludes>
+					<skip>false</skip>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>${maven.enforcer.plugin.version}</version>
+				<configuration>
+					<rules>
+						<requireReleaseDeps />
+						<requireReleaseVersion />
+						<dependencyConvergence />
+					</rules>
+					<fail>true</fail>
+					<skip>${maven.enforcer.plugin.disabled}</skip>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>${maven.release.plugin.version}</version>
+				<configuration>
+					<preparationGoals>clean verify</preparationGoals>
+					<goals>deploy</goals>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<checkModificationExcludes>
+						<checkModificationExclude>surefire.properties</checkModificationExclude>
+						<checkModificationExclude>surefire-classloader.properties</checkModificationExclude>
+					</checkModificationExcludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>${maven.jar.plugin.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>${maven.deploy.plugin.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${maven.javadoc.plugin.version}</version>
+				<configuration>
+					<source>8</source>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>${maven.source.plugin.version}</version>
+				<configuration>
+				</configuration>
+				<executions>
+					<execution>
+						<!-- This id must match the -Prelease-profile id value or else sources will be "uploaded" twice, which causes ARM to fail -->
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<!-- Maven generated website -->
+				<artifactId>maven-site-plugin</artifactId>
+				<version>${maven.site.plugin.version}</version>
+				<executions>
+					<execution>
+						<id>attach-descriptor</id>
+						<goals>
+							<goal>attach-descriptor</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<outputDirectory>docs/</outputDirectory>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.tinyjee.dim</groupId>
+						<artifactId>doxia-include-macro</artifactId>
+						<version>${doxia.include.macro.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+			<id>deploy</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
-    <ciManagement>
-        <system>Travis CI</system>
-        <url>https://travis-ci.org/Ericsson/proxy</url>
-    </ciManagement>
+	<reporting>
+		<!-- Configuration for the maven site -->
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>${maven.project.info.reports.plugin.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${maven.javadoc.plugin.version}</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>javadoc</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+		</plugins>
+	</reporting>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+
+	<developers>
+		<developer>
+			<email>common-library-team@googlegroups.com</email>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>${scm.repo.url}</connection>
+		<url>${scm.repo.url.web}</url>
+		<developerConnection>${scm.repo.url}</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
+	<issueManagement>
+		<url>https://github.com/Ericsson/${project.artifactId}/issues</url>
+		<system>github</system>
+	</issueManagement>
+
+	<ciManagement>
+		<system>Travis CI</system>
+		<url>https://travis-ci.org/Ericsson/proxy</url>
+	</ciManagement>
 
 </project>

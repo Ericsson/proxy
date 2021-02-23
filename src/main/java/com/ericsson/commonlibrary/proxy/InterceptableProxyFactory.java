@@ -54,13 +54,10 @@ final class InterceptableProxyFactory {
 
     private static final String ADDITIONAL_METHODS_SUFFIX = "ExtendedByProxy";
 
-    private static final Logger LOG = LoggerFactory
-            .getLogger(InterceptableProxyFactory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(InterceptableProxyFactory.class);
 
     private enum ProxyType {
-        OBJECT,
-        INTERFACE,
-        CLASS
+        OBJECT, INTERFACE, CLASS
     }
 
     private static final MethodFilter METHOD_FILTER = new MethodFilter() {
@@ -68,8 +65,7 @@ final class InterceptableProxyFactory {
         @Override
         public boolean isHandled(final Method method) {
             // if not overridable Object.class method
-            if (method.getDeclaringClass().equals(Object.class)
-                    && !Util.isToStringOrHashcodeOrEqualsMethod(method)) {
+            if (method.getDeclaringClass().equals(Object.class) && !Util.isToStringOrHashcodeOrEqualsMethod(method)) {
                 return false;
             }
             return true;
@@ -98,7 +94,8 @@ final class InterceptableProxyFactory {
     }
 
     void setSuperclass(Class<?> classToIntercept) {
-        if (ProxyObject.class.isAssignableFrom(classToIntercept)) { // Because it's not possible to proxy a proxy class because of setHandler duplicate exception.
+        if (ProxyObject.class.isAssignableFrom(classToIntercept)) { // Because it's not possible to proxy a proxy class
+                                                                    // because of setHandler duplicate exception.
             factory.setSuperclass(classToIntercept.getSuperclass());
         } else {
             factory.setSuperclass(classToIntercept);
@@ -109,12 +106,13 @@ final class InterceptableProxyFactory {
 
         CtClass cc = null;
         try {
-            return Thread.currentThread().getContextClassLoader().loadClass(javaBean.getCanonicalName() + ADDITIONAL_METHODS_SUFFIX);
-        } catch (ClassNotFoundException e) { //NOSONAR
+            return Thread.currentThread().getContextClassLoader()
+                    .loadClass(javaBean.getCanonicalName() + ADDITIONAL_METHODS_SUFFIX);
+        } catch (ClassNotFoundException e) { // NOSONAR
             LOG.trace(javaBean.getCanonicalName() + ADDITIONAL_METHODS_SUFFIX + " did not exist. Creates one");
             cc = createNewClass(javaBean);
             addAdditionalSetMethodsTo(cc);
-        } catch (RuntimeException e) { //NOSONAR (workaround) Powermock's classloader throws RuntimeException.
+        } catch (RuntimeException e) { // NOSONAR (workaround) Powermock's classloader throws RuntimeException.
             if (e.getCause() != null && e.getCause() instanceof NotFoundException) {
                 LOG.trace(javaBean.getCanonicalName() + ADDITIONAL_METHODS_SUFFIX + " did not exist. Creates one");
                 cc = createNewClass(javaBean);
@@ -122,12 +120,12 @@ final class InterceptableProxyFactory {
             }
         }
         try {
-        	double javaSpecVersion = Double.parseDouble(System.getProperty("java.specification.version"));
-        	if (javaSpecVersion > 10) { // Use different API on Java11 and later versions.
-        		return cc.toClass(javaBean);
-        	} else {        		
-        		return cc.toClass(Thread.currentThread().getContextClassLoader(), javaBean.getProtectionDomain());
-        	}
+            double javaSpecVersion = Double.parseDouble(System.getProperty("java.specification.version"));
+            if (javaSpecVersion > 10) { // Use different API on Java11 and later versions.
+                return cc.toClass(javaBean);
+            } else {
+                return cc.toClass(Thread.currentThread().getContextClassLoader(), javaBean.getProtectionDomain());
+            }
         } catch (CannotCompileException e) {
             LOG.warn(
                     "Was not able to create new proxy class. Will use the provided one instead which won't have the additional methods.",
@@ -174,9 +172,8 @@ final class InterceptableProxyFactory {
                 CtMethod newMethod = null;
                 try {
                     CtClass[] param = new CtClass[] { method.getReturnType() };
-                    newMethod = CtNewMethod.abstractMethod(
-                            ClassPool.getDefault().get(Void.class.getCanonicalName()), newMethodName, param, null,
-                            classToAddMethodTo);
+                    newMethod = CtNewMethod.abstractMethod(ClassPool.getDefault().get(Void.class.getCanonicalName()),
+                            newMethodName, param, null, classToAddMethodTo);
                 } catch (NotFoundException e) {
                     ProxyException.throwThisShouldNeverHappen(e);
                 }
@@ -214,36 +211,33 @@ final class InterceptableProxyFactory {
     }
 
     @SuppressWarnings("unchecked")
-    private <T> T createProxyObject(ProxyType type) throws InstantiationException,
-            IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+    private <T> T createProxyObject(ProxyType type)
+            throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 
         if (type == ProxyType.OBJECT) {
             try {
-                return createProxyWithObjenesis(); //will not call a constructor.
-            } catch (Throwable t) { //NOSONAR
+                return createProxyWithObjenesis(); // will not call a constructor.
+            } catch (Throwable t) { // NOSONAR
                 return createProxyObject(ProxyType.CLASS);
             }
         } else if (type == ProxyType.INTERFACE) {
-            return (T) factory.create(null, null,
-                    new JavassistInterceptorMethodHandler());
-        } else { //ProxyType.CLASS
+            return (T) factory.create(null, null, new JavassistInterceptorMethodHandler());
+        } else { // ProxyType.CLASS
 
-            //DONE 1 use constructor arguments.
-            //DONE 2 use default constructor
-            //DONE 3 use objenesis
+            // DONE 1 use constructor arguments.
+            // DONE 2 use default constructor
+            // DONE 3 use objenesis
             if (constructorArgs != null) {
                 return (T) factory.create(findConstructorParameterTypes(factory.getSuperclass(), constructorArgs),
-                        constructorArgs,
-                        new JavassistInterceptorMethodHandler());
+                        constructorArgs, new JavassistInterceptorMethodHandler());
             }
 
             try {
                 // Create object with methodHandler, used the empty constructor.
-                return (T) factory.create(null, null,
-                        new JavassistInterceptorMethodHandler());
+                return (T) factory.create(null, null, new JavassistInterceptorMethodHandler());
             } catch (NoSuchMethodException e) {
-                LOG
-                        .debug("Was not able to create proxy with constructor or it does not exist. Will try to construct without constructor");
+                LOG.debug(
+                        "Was not able to create proxy with constructor or it does not exist. Will try to construct without constructor");
                 return createProxyWithObjenesis();
             }
         }
@@ -251,13 +245,12 @@ final class InterceptableProxyFactory {
 
     private Class<?>[] findConstructorParameterTypes(Class<?> clazz, Object... args) {
 
-        for (Constructor<?> constructor : clazz
-                .getDeclaredConstructors()) {
+        for (Constructor<?> constructor : clazz.getDeclaredConstructors()) {
             Class<?>[] parameterTypes = constructor.getParameterTypes();
             boolean matchingArgs = false;
             for (int i = 0; i < parameterTypes.length; i++) {
                 if (args[i] == null && !parameterTypes[i].isPrimitive()) {
-                    matchingArgs = true; //null should match all Object types
+                    matchingArgs = true; // null should match all Object types
                 } else if (parameterTypes[i].isAssignableFrom(args[i].getClass())) {
                     matchingArgs = true;
                 } else {
@@ -279,26 +272,22 @@ final class InterceptableProxyFactory {
         return (T) obj;
     }
 
-    static <T> T createANewInterfaceProxy(
-            Class<?>... interfaces) {
+    static <T> T createANewInterfaceProxy(Class<?>... interfaces) {
         InterceptableProxyFactory builder = new InterceptableProxyFactory(ProxyType.INTERFACE);
         builder.setInterfaces(filterOnlyAccessableInterfaces(interfaces[0], interfaces));
         return builder.build();
     }
 
-    static <T> T createANewInterfaceJavaBeanProxy(
-            Class<?> toJavaBeanify) {
+    static <T> T createANewInterfaceJavaBeanProxy(Class<?> toJavaBeanify) {
         return createANewInterfaceProxy(addAdditionalSetMethodsToClass(toJavaBeanify));
     }
 
-    static <T> T createANewClassJavaBeanProxy(
-            Class<?> toJavaBeanify, Class<?>... interfaces) {
+    static <T> T createANewClassJavaBeanProxy(Class<?> toJavaBeanify, Class<?>... interfaces) {
         Class<?> modifiedClass = addAdditionalSetMethodsToClass(toJavaBeanify);
         return (T) createANewClassProxy(modifiedClass, interfaces);
     }
 
-    static <T> T createANewObjectProxyIfNeeded(final T objectToIntercept,
-            Class<?>... interfaces) {
+    static <T> T createANewObjectProxyIfNeeded(final T objectToIntercept, Class<?>... interfaces) {
         if (!Util.isNewProxyNeeded(objectToIntercept, makeAValidInterfaceArray(interfaces))) {
             return objectToIntercept;
         }
@@ -309,13 +298,11 @@ final class InterceptableProxyFactory {
         builder.setSuperclass(objectToIntercept.getClass());
         builder.setInterfaces(filterOnlyAccessableInterfaces(objectToIntercept.getClass(), interfaces));
         T proxy = builder.build();
-        Proxy.getProxyInterface(proxy).addInterceptor(
-                new InterceptorDelegator(objectToIntercept));
+        Proxy.getProxyInterface(proxy).addInterceptor(new InterceptorDelegator(objectToIntercept));
         return proxy;
     }
 
-    static <T> T createANewClassProxy(final Class<T> classToIntercept,
-            Class<?>... interfaces) {
+    static <T> T createANewClassProxy(final Class<T> classToIntercept, Class<?>... interfaces) {
         InterceptableProxyFactory builder = new InterceptableProxyFactory(ProxyType.CLASS);
         builder.setSuperclass(classToIntercept);
         builder.setInterfaces(filterOnlyAccessableInterfaces(classToIntercept, interfaces));
@@ -330,20 +317,16 @@ final class InterceptableProxyFactory {
         return builder.build();
     }
 
-    private static class JavassistInterceptorMethodHandler implements
-            MethodHandler {
+    private static class JavassistInterceptorMethodHandler implements MethodHandler {
 
         private static Method addInterceptorMethod;
         private static Method removeInterceptorMethod;
         private static Method getInterceptorListMethod;
         static {
             try {
-                addInterceptorMethod = InterceptableProxy.class.getMethod(
-                        "addInterceptor", Interceptor.class);
-                removeInterceptorMethod = InterceptableProxy.class.getMethod(
-                        "removeInterceptor", Interceptor.class);
-                getInterceptorListMethod = InterceptableProxy.class
-                        .getMethod("getInterceptorList");
+                addInterceptorMethod = InterceptableProxy.class.getMethod("addInterceptor", Interceptor.class);
+                removeInterceptorMethod = InterceptableProxy.class.getMethod("removeInterceptor", Interceptor.class);
+                getInterceptorListMethod = InterceptableProxy.class.getMethod("getInterceptorList");
             } catch (SecurityException | NoSuchMethodException e) {
                 ProxyException.throwThisShouldNeverHappen(e);
             }
@@ -352,8 +335,7 @@ final class InterceptableProxyFactory {
         private final ArrayDeque<Interceptor> interceptorStack = new ArrayDeque<>();
 
         @Override
-        public Object invoke(Object self, Method method, Method proceed,
-                Object[] args) throws Throwable {
+        public Object invoke(Object self, Method method, Method proceed, Object[] args) throws Throwable {
 
             if (Util.methodSignatureEquals(method, addInterceptorMethod)) {
                 interceptorStack.push((Interceptor) args[0]);
@@ -368,7 +350,7 @@ final class InterceptableProxyFactory {
             }
 
             return new Invocation(self, method, proceed, args, interceptorStack.clone()).invoke();
-            //TODO wrap the checked exception if it is thrown even if its not declared in the interface.
+            // TODO wrap the checked exception if it is thrown even if its not declared in the interface.
         }
     }
 }

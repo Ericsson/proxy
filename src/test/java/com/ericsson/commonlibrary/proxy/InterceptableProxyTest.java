@@ -49,7 +49,7 @@ public class InterceptableProxyTest {
         PersonBean bean = Proxy.javaBean(PersonBean.class);
         InterceptableProxy proxy = Proxy.getProxyInterface(bean);
         assertFalse(proxy.getInterceptorList().isEmpty());
-        //should only contain javabeanInterceptor and no delegate interctor.
+        // should only contain javabeanInterceptor and no delegate interctor.
         assertEquals(proxy.getInterceptorList().size(), 1);
         assertTrue(proxy.getInterceptorList().peekFirst() instanceof InterceptorJavaBean);
 
@@ -74,12 +74,12 @@ public class InterceptableProxyTest {
         proxy.removeInterceptor(empty);
         assertFalse(proxy.getInterceptorList().contains(empty));
 
-        //do it again 2X
+        // do it again 2X
         proxy.addInterceptor(empty);
         proxy.addInterceptor(empty);
         assertTrue(proxy.getInterceptorList().contains(empty));
         proxy.removeInterceptor(empty);
-        assertTrue(proxy.getInterceptorList().contains(empty)); //still one left.
+        assertTrue(proxy.getInterceptorList().contains(empty)); // still one left.
         proxy.removeInterceptor(empty);
         assertFalse(proxy.getInterceptorList().contains(empty));
     }

@@ -34,8 +34,7 @@ public class MethodScopeRelatedTest {
 
         assertEquals(method.publicReturnString(), "public");
 
-        method = Proxy.delegate(method,
-                new PublicMethod("override"));
+        method = Proxy.delegate(method, new PublicMethod("override"));
 
         assertEquals(method.returnString(), "override");
         assertEquals(method.publicReturnString(), "public");
@@ -46,8 +45,7 @@ public class MethodScopeRelatedTest {
         PublicMethod method = new PublicMethod("public");
         assertEquals(method.returnString(), "public");
 
-        method = Proxy.delegate(method,
-                new PackagePrivateMethod("override"));
+        method = Proxy.delegate(method, new PackagePrivateMethod("override"));
 
         assertEquals(method.returnString(), "override");
     }

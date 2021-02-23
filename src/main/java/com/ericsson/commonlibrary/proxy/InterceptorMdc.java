@@ -26,14 +26,14 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
 /**
- * A {@link Interceptor} that add/restores/removes MDC logging information to the context of your
- * object and its child objects
+ * A {@link Interceptor} that add/restores/removes MDC logging information to the context of your object and its child
+ * objects
  * 
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */
 final class InterceptorMdc implements Interceptor {
 
-    //TODO use recursiveIntercept instead, InterceptorMdc have to be modified.
+    // TODO use recursiveIntercept instead, InterceptorMdc have to be modified.
     private static final Logger LOG = LoggerFactory.getLogger(InterceptorMdc.class);
 
     private final String key;
