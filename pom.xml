@@ -46,7 +46,7 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<scm.repo.url>scm:git:git@github.com:Ericsson/${project.artifactId}.git</scm.repo.url>
+		<scm.repo.url>scm:git:https://github.com/Ericsson/${project.artifactId}.git</scm.repo.url>
 		<scm.repo.url.web>https://github.com/Ericsson/${project.artifactId}</scm.repo.url.web>
 
 		<!-- Dependency versions -->
