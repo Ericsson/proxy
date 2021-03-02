@@ -1,7 +1,5 @@
-# This workflow will build a Java project with Maven
+# This workflow will release project to Sonatype.
 # For more information see: https://docs.github.com/en/actions/guides/publishing-java-packages-with-maven
-
-# This file has not been finished, just one draft.
 
 name: Publish to the Maven Central Repository
 
@@ -22,8 +20,17 @@ jobs:
           server-id: ossrh
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
-      - name: Publish package
-        run: mvn --batch-mode deploy
+          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE 
+      - name: Configure Git User
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          
+      - name: Release and deploy to Sonatype repo
+        run: mvn --batch-mode release:prepare release:perform -Dgoals=deploy -DdryRun=false -Dresume=false '-Darguments=-DskipTests -Dformatter.skip=true' -P deploy
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+          GITHUB_TOKEN: ${{ github.token }}
