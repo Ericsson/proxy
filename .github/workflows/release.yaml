@@ -10,15 +10,15 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    steps:
-      - name: Configure Git User
-        run: |
-          git config user.email "ning.n.zhang@ericsson.com"
-          git config user.name "NingZhang-e"
+    steps:      
       - uses: actions/checkout@v2
         with:
           ref: master
           token: ${{ secrets.PAT }}
+      - name: Configure Git User
+        run: |
+          git config user.email "ning.n.zhang@ericsson.com"
+          git config user.name "NingZhang-e"
       - name: Set up Java and Maven Central Repository
         uses: actions/setup-java@v1
         with:
