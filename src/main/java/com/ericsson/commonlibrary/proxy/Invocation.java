@@ -70,22 +70,7 @@ public final class Invocation {
      * @return the method that was intercepted.
      */
     public Method getMethod() {
-        // when javassist fixes https://issues.jboss.org/browse/JASSIST-219 this can be changed to "return method;"
-        List<Class<?>> interfaceList = new ArrayList<>();
-        Class<?> superclass = getThis().getClass().getSuperclass();
-        while (superclass != Object.class) {
-            interfaceList.addAll(Arrays.asList(superclass.getInterfaces()));
-            superclass = superclass.getSuperclass();
-        }
-        Method methodFromInterfaceHierarchy = Util.findMethodWithSignatureInClass(method,
-                interfaceList.toArray(new Class<?>[interfaceList.size()]));
-        if (methodFromInterfaceHierarchy == null) {
-            Class<?>[] interfacesImplemented = Util.getInterfacesImplementedByObjects(getThis());
-            Class<?>[] superClassAndObjectClass = new Class<?>[] { getThis().getClass().getSuperclass(), Object.class };
-            Class<?>[] classArray = Util.concatArrays(interfacesImplemented, superClassAndObjectClass);
-            return Util.findMethodWithSignatureInClass(method, classArray); // method from Class hierarchy
-        }
-        return methodFromInterfaceHierarchy;
+        return method;
     }
 
     /**
