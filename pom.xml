@@ -49,9 +49,9 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		<scm.repo.url.web>https://github.com/Ericsson/${project.artifactId}</scm.repo.url.web>
 
 		<!-- Dependency versions -->
-		<slf4j.version>1.7.26</slf4j.version>
-		<testng.version>6.14.2</testng.version>
-		<log4j2.version>2.17.1</log4j2.version>
+		<slf4j.version>1.7.36</slf4j.version>
+		<testng.version>7.5</testng.version>
+		<log4j2.version>2.18.0</log4j2.version>
 		<objenesis.version>3.0.1</objenesis.version>
 		<javassist.version>3.28.0-GA</javassist.version>
 
