@@ -468,6 +468,8 @@ public final class Util {
             return (Class<?>) wildType.getUpperBounds()[0];
         } else if (type instanceof ParameterizedType) {
             return ((Class) ((ParameterizedType) type).getRawType());
+        } else if (type instanceof TypeVariable) {
+            return (Class) ((TypeVariable) type).getBounds()[0]; //ignore the others, (typically only one anyway)
         }
         throw new IllegalArgumentException(
                 "Was not able to figure out the generic type of method: " + method.getName());
