@@ -44,7 +44,7 @@ final class InterceptorJavaBean implements Interceptor {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        if (!Util.isMethodExistingInClass(invocation.getMethod(), beanInterface)) {
+        if (!Util.isMethodExistingInClass(invocation.getMethod(), beanInterface) || invocation.getMethod().isDefault()) {
             return invocation.invoke();
         }
 
