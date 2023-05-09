@@ -50,7 +50,7 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 		<!-- Dependency versions -->
 		<slf4j.version>1.7.36</slf4j.version>
-		<testng.version>7.5</testng.version>
+		<testng.version>7.5.1</testng.version>
 		<log4j2.version>2.18.0</log4j2.version>
 		<objenesis.version>3.0.1</objenesis.version>
 		<javassist.version>3.28.0-GA</javassist.version>
