@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
  * A Interceptor that measures execution time of every method invocation it intercepts This could be useful to for
  * performance debugging purposes by adding it to specific objects/classes that you think are likely to be sucking up
  * performance
- * 
+ *
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */
 final class InterceptorMethodTimer implements Interceptor {

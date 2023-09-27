@@ -26,7 +26,7 @@ import java.lang.reflect.Method;
 
 /**
  * A {@link Interceptor} that adapts standard InvocationHandler for java to the interceptor interface
- * 
+ *
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */
 final class InterceptorInvocationHandler implements Interceptor {

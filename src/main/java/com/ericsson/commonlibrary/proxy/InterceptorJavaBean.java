@@ -26,7 +26,7 @@ import java.util.Map;
 
 /**
  * A {@link Interceptor} that lets you create javabean without providing a implementation.
- * 
+ *
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */
 final class InterceptorJavaBean implements Interceptor {
@@ -44,7 +44,8 @@ final class InterceptorJavaBean implements Interceptor {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        if (!Util.isMethodExistingInClass(invocation.getMethod(), beanInterface) || invocation.getMethod().isDefault()) {
+        if (!Util.isMethodExistingInClass(invocation.getMethod(), beanInterface)
+                || invocation.getMethod().isDefault()) {
             return invocation.invoke();
         }
 

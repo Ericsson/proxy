@@ -30,7 +30,7 @@ import com.ericsson.commonlibrary.proxy.Proxy;
 
 /**
  * Was never an issue. It has always worked.
- * 
+ *
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */
 public class IssueNotDelegatingToBaseClasses {

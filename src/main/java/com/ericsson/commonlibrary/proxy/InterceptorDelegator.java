@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 /**
  * A delegator interceptor. It will just delegate every call to a other objects. if no method is found it will call the
  * next interceptor or the original method.
- * 
+ *
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */
 final class InterceptorDelegator implements Interceptor {

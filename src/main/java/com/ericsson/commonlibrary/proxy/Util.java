@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Collection of utilities that could be useful in the interception domain.
- * 
+ *
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */
 public final class Util {
@@ -57,14 +57,14 @@ public final class Util {
 
     /**
      * Check if the given object implements the given set of interfaces.
-     * 
+     *
      * @param <T>
      *            target object type
      * @param object
      *            to check if it implement interfaces
      * @param interfaces
      *            that the object should implement
-     * 
+     *
      * @return if the object implements all interfaces
      */
     public static <T> boolean isObjectImplementingAllInterfaces(final T object, Class<?>... interfaces) {
@@ -80,16 +80,16 @@ public final class Util {
     /**
      * Find and invoke the first found method that is matching the given methodSignature. notice the methodSignature
      * does not have the same Method object so declaredClass and returntype is not part of signature matching.
-     * 
+     *
      * @param methodSignature
      *            a method signature that you want to find and invoke,
      * @param args
      *            argument to send to the method
      * @param objectsToLookIn
      *            objects to look for the method in.
-     * 
+     *
      * @return the returned value of the invoked method
-     * 
+     *
      * @throws MethodWithSignatureNotFoundException
      *             if the no method was found
      * @throws Throwable
@@ -126,10 +126,10 @@ public final class Util {
 
     /**
      * Get all interfaces implemented by the passed in objects.
-     * 
+     *
      * @param objects
      *            that you want to take all the interfaces from.
-     * 
+     *
      * @return interfaces.
      */
     public static Class<?>[] getInterfacesImplementedByObjects(Object... objects) {
@@ -143,12 +143,12 @@ public final class Util {
     /**
      * Check if two methods have the same signature. Return type(not part of the signature) and declaring class is
      * ignored
-     * 
+     *
      * @param method
      *            first method to compare
      * @param method2
      *            second method to compare
-     * 
+     *
      * @return if the methods was equals or not.
      */
     public static boolean methodSignatureEquals(Method method, final Method method2) {
@@ -162,10 +162,10 @@ public final class Util {
 
     /**
      * Checks if a method is declared in an Abstract class or interface
-     * 
+     *
      * @param method
      *            to check
-     * 
+     *
      * @return true if its declared in an Abstract class or interface
      */
     public static boolean isMethodDeclaredInInterfaceOrAnAbstractMethod(Method method) {
@@ -177,7 +177,7 @@ public final class Util {
      *
      * @param method
      *            to check
-     * 
+     *
      * @return true if it has a implementation(which might be empty!)
      */
     public static boolean isMethodWithImplementation(Method method) {
@@ -189,10 +189,10 @@ public final class Util {
 
     /**
      * Check if the provided class is and interface or and abstract class.
-     * 
+     *
      * @param clazz
      *            to check
-     * 
+     *
      * @return true if interface or abstract class
      */
     public static boolean isClassAInterfaceOrAbstract(Class<?> clazz) {
@@ -202,10 +202,10 @@ public final class Util {
     /**
      * Check if the method is a toString() hashcode() or equals(o) method, These are the non final methods of
      * Object.class
-     * 
+     *
      * @param method
      *            to check
-     * 
+     *
      * @return true if one of these methods
      */
     public static boolean isToStringOrHashcodeOrEqualsMethod(Method method) {
@@ -222,7 +222,7 @@ public final class Util {
      * Utility method to help convert a String to an actual object of other common types. Like all primitives type(and
      * object variants) Enums,Files and some simple Collections support to convert comma separated string into List of
      * one of the supported simple types.
-     * 
+     *
      * @param <T>
      *            target object type
      * @param stringToCast
@@ -231,7 +231,7 @@ public final class Util {
      *            resulting Clas of the object you want to convert the String to
      * @param invocation
      *            only needed for Collection types.
-     * 
+     *
      * @return actual object with the provided type.
      */
     public static <T> T castStringValueToObject(String stringToCast, Class<T> classToCastTo, Invocation invocation) {
@@ -245,14 +245,14 @@ public final class Util {
     /**
      * Utility method to help convert a String to an actual object of other common types. Like all primitives type(and
      * object variants) Enums, Files.
-     * 
+     *
      * @param <T>
      *            target object type
      * @param stringToCast
      *            the string that you want to convert to another type.
      * @param classToCastTo
      *            resulting Clas of the object you want to convert the String to
-     * 
+     *
      * @return actual object with the provided type.
      */
     public static <T> T castStringValueToObject(String stringToCast, Class<T> classToCastTo) {
@@ -263,7 +263,7 @@ public final class Util {
      * Utility method to help convert a String to an actual object of other common types. Like all primitives type(and
      * object variants) Enums, Files and some simple Collections support to convert comma separated string into List of
      * one of the supported simple types.
-     * 
+     *
      * @param <T>
      *            target object type
      * @param stringToCast
@@ -272,7 +272,7 @@ public final class Util {
      *            resulting Clas of the object you want to convert the String to
      * @param method
      *            only needed for Collection types.
-     * 
+     *
      * @return actual object with the provided type.
      */
     @SuppressWarnings("squid:S3776")
@@ -337,7 +337,7 @@ public final class Util {
      * @param value
      *            the collection which will be unchanged and this method will only return a empty collection if the this
      *            given value is null.
-     * 
+     *
      * @return original value or empty collections instead of null
      */
     public static <T> T defaultToEmptyCollectionsOnNullValue(Class<T> collectionClass, T value) {
@@ -431,12 +431,12 @@ public final class Util {
     /**
      * Get the generic return type of the provided method, Meaning the String.class from a method like
      * {@code public List<String> method() }
-     * 
+     *
      * and String.class from a method like {@code public Map<String,Integer> method() }
-     * 
+     *
      * @param method
      *            to fetch return type from
-     * 
+     *
      * @return generic type of the return type
      */
     public static Class<?> getGenericTypeOfReturnType(Method method) {
@@ -449,10 +449,10 @@ public final class Util {
     /**
      * Get the second generic return type of the provided method, Meaning the Integer.class from a method like:
      * {@code public Map<String,Integer> method()}
-     * 
+     *
      * @param method
      *            to fetch return type from
-     * 
+     *
      * @return second generic type of the return type
      */
     public static Class<?> getSecondGenericTypeOfReturnType(Method method) {
@@ -470,7 +470,7 @@ public final class Util {
         } else if (type instanceof ParameterizedType) {
             return ((Class) ((ParameterizedType) type).getRawType());
         } else if (type instanceof TypeVariable) {
-            return (Class) ((TypeVariable) type).getBounds()[0]; //ignore the others, (typically only one anyway)
+            return (Class) ((TypeVariable) type).getBounds()[0]; // ignore the others, (typically only one anyway)
         }
         throw new IllegalArgumentException(
                 "Was not able to figure out the generic type of method: " + method.getName());
@@ -479,12 +479,12 @@ public final class Util {
     /**
      * Find the first found method that is matching the given methodSignature. notice the methodSignature does not have
      * be same Method object, So declaredClass and returntype is not part of signature matching.
-     * 
+     *
      * @param methodSignature
      *            a method signature that you want to find and invoke,
      * @param classesToLookIn
      *            classes to look for the method in.
-     * 
+     *
      * @return the first found method, or null if none was found
      */
     public static Method findMethodWithSignatureInClass(Method methodSignature, Class<?>... classesToLookIn) {
@@ -547,12 +547,12 @@ public final class Util {
     /**
      * Concatenate two arrays into one. The passed in arrays will be unaltered. They will only be used in construction
      * of a new array
-     * 
+     *
      * @param firstArray
      *            the first array
      * @param varargsArrays
      *            the other arrays to concat to one large array
-     * 
+     *
      * @return a new merged array
      */
     static <T> T[] concatArrays(final T[] firstArray, final T[]... varargsArrays) {

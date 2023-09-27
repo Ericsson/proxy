@@ -23,7 +23,7 @@ package com.ericsson.commonlibrary.proxy;
 
 /**
  * Interface that lets you intercept invocations of method calls.
- * 
+ *
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */
 @FunctionalInterface
@@ -32,12 +32,12 @@ public interface Interceptor {
     /**
      * Entry point of a method interception. It lets you alter every aspect of a method call. To do nothing and just do
      * the original invocation do the following: "return invocation.invoke();"
-     * 
+     *
      * @param invocation
      *            object that represents a method invocation and associated data.
-     * 
+     *
      * @return object that will be the intercepted method return value.
-     * 
+     *
      * @throws Throwable
      *             methods could of course throw any kind of Throwable
      */

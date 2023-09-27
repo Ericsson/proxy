@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The proxy library's only entry point. All features that Proxy library has can be reached from here.
- * 
+ *
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */
 public final class Proxy {
@@ -54,14 +54,14 @@ public final class Proxy {
     /**
      * Create a object with a specific interface/class that delegates all method calls to the delegator objects passed
      * in as parameters. Notice that you can get polymorphic behavior with this delegation method.
-     * 
+     *
      * @param <T>
      *            target object type
      * @param proxyInterface
      *            interface/class of the returned class.
      * @param delegates
      *            Objects that implements the methods that should be used as delegate methods.
-     * 
+     *
      * @return a proxy object that delegates method calls to it's delegates.
      */
     public static <T> T delegate(Class<T> proxyInterface, Object... delegates) {
@@ -91,14 +91,14 @@ public final class Proxy {
     /**
      * Let a existing object delegate all or some of its method calls to some delegate objects passed in as parameters.
      * Warning your proxy will not behave polymorphically.
-     * 
+     *
      * @param <T>
      *            target object type
      * @param objectThatShouldDelegate
      *            object that should delegate to other objects.
      * @param delegates
      *            Objects that that implements some methods.
-     * 
+     *
      * @return a proxy object that delegates all/some method calls to it's delegates.
      */
     public static <T> T delegate(T objectThatShouldDelegate, Object... delegates) {
@@ -113,12 +113,12 @@ public final class Proxy {
      * Creates a java bean object from a interface or a abstract class. (java bean=class with getX(),setX(),isX()
      * methods) If the interface/abstract class does not contain corresponding setX method for a getX method the setX
      * method will be generated. These generated set methods will only be available with reflection.
-     * 
+     *
      * @param <T>
      *            target object type
      * @param classToProxy
      *            the interface/abstract you want to create a java bean from.
-     * 
+     *
      * @return a concrete usable java bean object.
      */
     public static <T> T javaBean(Class<T> classToProxy) {
@@ -129,14 +129,14 @@ public final class Proxy {
      * Creates a java bean object from a interface or a abstract class. (java bean=class with getX(),setX(),isX()
      * methods) If the interface/abstract class does not contain corresponding setX method for a getX method the setX
      * method will be generated. These generated set methods will only be available with reflection.
-     * 
+     *
      * @param <T>
      *            target object type
      * @param classToProxy
      *            the interface/abstract you want to create a java bean from.
      * @param primitiveDefaultIsException
      *            if primitives should default to exceptions instead of (0, false 0L etc)
-     * 
+     *
      * @return a concrete usable java bean object.
      */
     public static <T> T javaBean(Class<T> classToProxy, boolean primitiveDefaultIsException) {
@@ -158,12 +158,12 @@ public final class Proxy {
 
     /**
      * Add a performance timer to a object. The performance timer uses slf4j to print stats about a method invocations.
-     * 
+     *
      * @param <T>
      *            target object type
      * @param objectToBenchmark
      *            object that will be intercepted with method timings.
-     * 
+     *
      * @return a proxy object
      */
     public static <T> T addTimerToMethods(T objectToBenchmark) {
@@ -172,7 +172,7 @@ public final class Proxy {
 
     /**
      * Set a MDC key to a specific value while inside the object.
-     * 
+     *
      * @param <T>
      *            target object type
      * @param objectInNeedOfMdc
@@ -181,7 +181,7 @@ public final class Proxy {
      *            mdc key
      * @param value
      *            mdc value
-     * 
+     *
      * @return a proxy object
      */
     public static <T> T mdcLogging(T objectInNeedOfMdc, String key, String value) {
@@ -196,14 +196,14 @@ public final class Proxy {
     /**
      * Let's you add an interceptor recursively to a existing object. Meaning that the interceptor will add itself to
      * every returned object.
-     * 
+     *
      * @param <T>
      *            target object type
      * @param objectToIntercept
      *            the object you what do add a interceptor recursively to.
      * @param interceptor
      *            the interceptor you want to add.
-     * 
+     *
      * @return a proxy object with the interceptor added.
      */
     public static <T> T recursiveIntercept(T objectToIntercept, Interceptor interceptor) {
@@ -218,7 +218,7 @@ public final class Proxy {
     /**
      * Let's you add a interceptor to a existing object. It's possible to specify which methods the inteceptor should
      * intercept and if no method is specified all methods will be intercepted.
-     * 
+     *
      * @param <T>
      *            target object type
      * @param objectToIntercept
@@ -228,7 +228,7 @@ public final class Proxy {
      * @param methodsToIntercept
      *            varargs of the methods you want the interceptor to intercept. Specifying none means that it will
      *            intercept all.
-     * 
+     *
      * @return a proxy object with the interceptor added.
      */
     public static <T> T intercept(T objectToIntercept, Interceptor interceptor, Method... methodsToIntercept) {
@@ -253,7 +253,7 @@ public final class Proxy {
      * part of the java API and can not be used to intercept concrete objects (with this library it can). Lets you add a
      * InvocationHandler to a existing object. It possible to specify which methods the invocationHandler should
      * intercept and if no method is specified all methods will be intercepted.
-     * 
+     *
      * @param <T>
      *            target object type
      * @param objectToIntercept
@@ -263,7 +263,7 @@ public final class Proxy {
      * @param methodsToIntercept
      *            varargs of the methods you want the interceptor to intercept. Specifying none means that it will
      *            intercept all.
-     * 
+     *
      * @return a proxy object with the interceptor added.
      */
     public static <T> T intercept(T objectToIntercept, InvocationHandler invocationHandler,
@@ -274,7 +274,7 @@ public final class Proxy {
     /**
      * Let's you add a interceptor to a proxy object created from the specified class/interface. It's possible to
      * specify which methods the inteceptor should intercept. if no method is specified all methods will be intercepted.
-     * 
+     *
      * @param <T>
      *            target object type
      * @param classToIntercept
@@ -284,7 +284,7 @@ public final class Proxy {
      * @param methodsToIntercept
      *            varargs of the methods you want the interceptor to intercept. Specifying none means that it will
      *            intercept all.
-     * 
+     *
      * @return a proxy object with the interceptor added.
      */
     public static <T> T intercept(Class<T> classToIntercept, Interceptor interceptor, Method... methodsToIntercept) {
@@ -303,7 +303,7 @@ public final class Proxy {
      * part of the java API and can not be used to intercept concrete objects or for non interfaces (with this library
      * it can). Lets you add a InvocationHandler to a classes/interfaces. It possible to specify which methods the
      * invocationHandler should intercept and if no method is specified all methods will be intercepted.
-     * 
+     *
      * @param <T>
      *            target object type
      * @param classToIntercept
@@ -313,7 +313,7 @@ public final class Proxy {
      * @param methodsToIntercept
      *            varargs of the methods you want the interceptor to intercept. Specifying none means that it will
      *            intercept all.
-     * 
+     *
      * @return a proxy object with the interceptor added.
      */
     public static <T> T intercept(Class<T> classToIntercept, InvocationHandler invocationHandler,
@@ -323,10 +323,10 @@ public final class Proxy {
 
     /**
      * Returns the same proxy object as you passed in but with the {@link InterceptableProxy} interface
-     * 
+     *
      * @param proxy
      *            an object that is already has been proxied.
-     * 
+     *
      * @return the provided object but with the {@link InterceptableProxy} interface.
      */
     public static InterceptableProxy getProxyInterface(Object proxy) {
@@ -338,14 +338,14 @@ public final class Proxy {
 
     /**
      * Allows you to change the interface of a object to one that it does not implement. Duck Typing,
-     * 
+     *
      * @param <T>
      *            target object type
      * @param newInterface
      *            the new java interface proxy should implement.
      * @param objectToChangeInterfaceOn
      *            object that could that has methods an unimplemented interface has.
-     * 
+     *
      * @return a proxy object with another interface than the original.
      */
     public static <T> T changeInterface(Class<T> newInterface, final Object objectToChangeInterfaceOn) {

@@ -23,7 +23,7 @@ package com.ericsson.commonlibrary.proxy;
 
 /**
  * Proxy base exception. Could be used to catch all Proxy exceptions.
- * 
+ *
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */
 public class ProxyException extends RuntimeException {
@@ -35,7 +35,7 @@ public class ProxyException extends RuntimeException {
      * <p>
      * Note that the detail message associated with <code>cause</code> is <i>not</i> automatically incorporated in this
      * exception's detail message.
-     * 
+     *
      * @param message
      *            the detail message (which is saved for later retrieval by the {@link #getMessage()} method).
      * @param cause
@@ -48,7 +48,7 @@ public class ProxyException extends RuntimeException {
 
     /**
      * Constructs a new exception with the specified detail message.
-     * 
+     *
      * @param message
      *            the detail message. The detail message is saved for later retrieval by the {@link #getMessage()}
      *            method.

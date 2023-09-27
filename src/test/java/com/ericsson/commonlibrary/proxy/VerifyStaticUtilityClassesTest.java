@@ -57,7 +57,7 @@ public class VerifyStaticUtilityClassesTest {
     /**
      * Verify that there only one private constructor. Also invoke this private constructor to get full code coverage
      * but not because its really needed but because of the warm feeling 100% coverage gives ;)
-     * 
+     *
      * @throws IllegalArgumentException
      * @throws InstantiationException
      * @throws IllegalAccessException
@@ -88,7 +88,7 @@ public class VerifyStaticUtilityClassesTest {
 
     /**
      * Verify that the class only have static methods
-     * 
+     *
      * @throws IllegalArgumentException
      * @throws InstantiationException
      * @throws IllegalAccessException

@@ -25,7 +25,7 @@ import java.lang.reflect.Method;
 
 /**
  * A utility decoration {@link Interceptor} that can make other interceptors specific to certain methods.
- * 
+ *
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */
 final class InterceptorMethod implements Interceptor {

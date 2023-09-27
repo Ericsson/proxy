@@ -25,7 +25,7 @@ package com.ericsson.commonlibrary.proxy;
  * An utility decoration {@link Interceptor} that makes itself and the real provided {@link Interceptor} to be added to
  * every returned object on the intercepted Object, t this will make the this interceptor spread itself in the object
  * tree.
- * 
+ *
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */
 final class InterceptorRecursive implements Interceptor {
