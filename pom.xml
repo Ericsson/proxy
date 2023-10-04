@@ -19,7 +19,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ericsson.commonlibrary</groupId>
 	<artifactId>proxy</artifactId>
@@ -33,7 +34,7 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		<url>http://www.ericsson.com/</url>
 	</organization>
 	<prerequisites>
-		<maven>3.3.9</maven>
+		<maven>3.6.3</maven>
 	</prerequisites>
 	<licenses>
 		<license>
@@ -56,18 +57,17 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		<javassist.version>3.28.0-GA</javassist.version>
 
 		<!-- Plugin versions -->
-		<maven.deploy.plugin.version>3.0.0-M1</maven.deploy.plugin.version>
-		<maven.javadoc.plugin.version>3.1.1</maven.javadoc.plugin.version>
-		<maven.source.plugin.version>3.2.1</maven.source.plugin.version>
+		<maven.deploy.plugin.version>3.1.1</maven.deploy.plugin.version>
+		<maven.source.plugin.version>3.3.0</maven.source.plugin.version>
 		<!-- Problems with 3.0.0 and 3.0.1 being slow. -->
-		<maven.jar.plugin.version>3.2.0</maven.jar.plugin.version>
+		<maven.jar.plugin.version>3.3.0</maven.jar.plugin.version>
 		<!-- Problems with 2.4, 3.0.0 and 3.0.2 being slow. -->
-		<maven.release.plugin.version>3.0.0-M1</maven.release.plugin.version>
-		<maven.surefire.plugin.version>3.0.0-M4</maven.surefire.plugin.version>
-		<maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
-		<maven.enforcer.plugin.version>3.0.0-M3</maven.enforcer.plugin.version>
+		<maven.release.plugin.version>3.0.1</maven.release.plugin.version>
+		<maven.surefire.plugin.version>3.1.2</maven.surefire.plugin.version>
+		<maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
+		<maven.enforcer.plugin.version>3.4.1</maven.enforcer.plugin.version>
 		<maven.enforcer.plugin.disabled>false</maven.enforcer.plugin.disabled>
-		<maven.formatter.plugin.version>2.14.0</maven.formatter.plugin.version>
+		<maven.formatter.plugin.version>2.22.0</maven.formatter.plugin.version>
 
 		<!--Java version-->
 		<java.version>1.8</java.version>
@@ -76,11 +76,13 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		<compiler.compliance.java.version>${java.version}</compiler.compliance.java.version>
 
 		<!-- Maven Site -->
-		<maven.site.plugin.version>3.7</maven.site.plugin.version>
-		<maven.javadoc.plugin.version>3.0.0</maven.javadoc.plugin.version>
-		<maven.project.info.reports.plugin.version>2.9</maven.project.info.reports.plugin.version>
-		<maven.project.info.reports.version>2.9</maven.project.info.reports.version>
+		<maven.site.plugin.version>3.12.1</maven.site.plugin.version>
+		<maven.javadoc.plugin.version>3.6.0</maven.javadoc.plugin.version>
+		<maven.project.info.reports.plugin.version>3.4.5</maven.project.info.reports.plugin.version>
+		<maven.project.info.reports.version>3.4.5</maven.project.info.reports.version>
 		<doxia.include.macro.version>1.1</doxia.include.macro.version>
+
+		<maven.gpg.plugin.version>3.1.0</maven.gpg.plugin.version>
 	</properties>
 
 	<dependencies>
@@ -285,12 +287,12 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.6</version>
+						<version>${maven.gpg.plugin.version}</version>
 						<configuration>
-						  <gpgArguments>
-							  <arg>--pinentry-mode</arg>
-							  <arg>loopback</arg>
-						  </gpgArguments>
+							<gpgArguments>
+								<arg>--pinentry-mode</arg>
+								<arg>loopback</arg>
+							</gpgArguments>
 						</configuration>
 						<executions>
 							<execution>

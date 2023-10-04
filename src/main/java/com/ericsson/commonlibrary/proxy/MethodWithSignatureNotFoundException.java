@@ -23,14 +23,14 @@ package com.ericsson.commonlibrary.proxy;
 
 /**
  * Internal exceptions that is thrown by the InterceptorDelegate when no method to delegate to was found
- * 
+ *
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */
 class MethodWithSignatureNotFoundException extends ProxyException {
 
     /**
      * Constructs an MethodWithSignatureNotFoundException with message.
-     * 
+     *
      * @param message
      */
     MethodWithSignatureNotFoundException(String message) {

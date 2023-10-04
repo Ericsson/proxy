@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * Represents a single invocation of a method. It also holds all related data to the invocations with could be useful
  * for the interceptor that wants to alter the invocation behavior in some way.
- * 
+ *
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */
 public final class Invocation {
@@ -110,9 +110,9 @@ public final class Invocation {
 
     /**
      * Invokes the method. Which may be another interceptor or the concrete object
-     * 
+     *
      * @return the return value from next interceptor or original object method call.
-     * 
+     *
      * @throws Throwable
      *             any type of exception/error including actual ones from the method called.
      */

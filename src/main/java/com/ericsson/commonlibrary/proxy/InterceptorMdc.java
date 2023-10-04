@@ -28,7 +28,7 @@ import org.slf4j.MDC;
 /**
  * A {@link Interceptor} that add/restores/removes MDC logging information to the context of your object and its child
  * objects
- * 
+ *
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */
 final class InterceptorMdc implements Interceptor {

@@ -14,7 +14,7 @@
 	<skin>
 		<groupId>org.apache.maven.skins</groupId>
 		<artifactId>maven-fluido-skin</artifactId>
-		<version>1.7</version>
+		<version>1.12.0</version>
 	</skin>
 	<custom>
 		<fluidoSkin>
@@ -37,7 +37,7 @@
 			<item name="User Guide" href="index.html" />
 			<item name="Project Information" href="./project-info.html" />
 			<item name="Javadoc" href="./apidocs/index.html" />
-			<item name="Get Source" href="./source-repository.html" />
+			<item name="Get Source" href="./scm.html" />
 		</menu>
 	</body>
 

@@ -26,14 +26,14 @@ import java.util.Deque;
 /**
  * Interface with methods an intercepteable proxy should implement to be able to add/remove {@link Interceptor}s
  * dynamically.
- * 
+ *
  * @author Elis Edlund (elis.edlund@ericsson.com)
  */
 public interface InterceptableProxy {
 
     /**
      * Adds a {@link Interceptor} to the proxy.
-     * 
+     *
      * @param interceptor
      *            to add
      */
@@ -41,7 +41,7 @@ public interface InterceptableProxy {
 
     /**
      * Removes a specific {@link Interceptor} from the proxy.
-     * 
+     *
      * @param interceptor
      *            to remove
      */
