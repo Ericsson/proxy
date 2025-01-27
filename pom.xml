@@ -51,10 +51,10 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 		<!-- Dependency versions -->
 		<slf4j.version>1.7.36</slf4j.version>
-		<testng.version>7.5</testng.version>
-		<log4j2.version>2.18.0</log4j2.version>
+		<testng.version>7.10.2</testng.version>
+		<log4j2.version>2.20.0</log4j2.version>
 		<objenesis.version>3.0.1</objenesis.version>
-		<javassist.version>3.28.0-GA</javassist.version>
+		<javassist.version>3.30.2-GA</javassist.version>
 
 		<!-- Plugin versions -->
 		<maven.deploy.plugin.version>3.1.1</maven.deploy.plugin.version>
