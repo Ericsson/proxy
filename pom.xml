@@ -19,12 +19,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ericsson.commonlibrary</groupId>
 	<artifactId>proxy</artifactId>
-	<version>1.2.17-SNAPSHOT</version>
+	<version>1.2.17</version>
 	<packaging>jar</packaging>
 	<name>Proxy</name>
 	<description>A small yet powerful interception library that lets you manipulate existing objects and classes behavior runtime, It's achieving this by using javassist to do bytecode manipulation</description>
@@ -353,7 +352,7 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		<connection>${scm.repo.url}</connection>
 		<url>${scm.repo.url.web}</url>
 		<developerConnection>${scm.repo.url}</developerConnection>
-		<tag>HEAD</tag>
+		<tag>proxy-1.2.17</tag>
 	</scm>
 
 	<issueManagement>
