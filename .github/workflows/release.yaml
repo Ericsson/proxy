@@ -14,7 +14,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: master
-          token: ${{ secrets.PAT_PROXY2 }}
       - name: Configure Git User
         run: |
           git config user.email "elis.edlund@ericsson.com"
@@ -30,7 +29,7 @@ jobs:
           gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
       - name: Release and deploy to Sonatype repo
-        run: git config --global url.https://$token@github.com/.insteadOf https://github.com/ && mvn --batch-mode release:prepare release:perform -Dusername=Elisedlund-ericsson -Dgoals=deploy -DdryRun=false -Dresume=false '-Darguments=-DskipTests -Dformatter.skip=true' -P deploy
+        run: mvn --batch-mode release:prepare release:perform -Dusername=Elisedlund-ericsson -Dgoals=deploy -DdryRun=false -Dresume=false '-Darguments=-DskipTests -Dformatter.skip=true' -P deploy
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
