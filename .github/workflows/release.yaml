@@ -17,8 +17,8 @@ jobs:
           token: ${{ secrets.PAT }}
       - name: Configure Git User
         run: |
-          git config user.email "ning.n.zhang@ericsson.com"
-          git config user.name "NingZhang-e"
+          git config user.email "elis.edlund@ericsson.com"
+          git config user.name "Elisedlund-ericsson"
       - name: Set up Java and Maven Central Repository
         uses: actions/setup-java@v1
         with:
@@ -30,7 +30,7 @@ jobs:
           gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
       - name: Release and deploy to Sonatype repo
-        run: mvn --batch-mode release:prepare release:perform -Dusername=NingZhang-e -Dgoals=deploy -DdryRun=false -Dresume=false '-Darguments=-DskipTests -Dformatter.skip=true' -P deploy
+        run: mvn --batch-mode release:prepare release:perform -Dusername=Elisedlund-ericsson -Dgoals=deploy -DdryRun=false -Dresume=false '-Darguments=-DskipTests -Dformatter.skip=true' -P deploy
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
