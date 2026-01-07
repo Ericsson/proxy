@@ -32,9 +32,6 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		<name>Ericsson</name>
 		<url>http://www.ericsson.com/</url>
 	</organization>
-	<prerequisites>
-		<maven>3.6.3</maven>
-	</prerequisites>
 	<licenses>
 		<license>
 			<name>MIT License</name>
@@ -49,38 +46,34 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		<scm.repo.url.web>https://github.com/Ericsson/${project.artifactId}</scm.repo.url.web>
 
 		<!-- Dependency versions -->
-		<slf4j.version>1.7.36</slf4j.version>
-		<testng.version>7.10.2</testng.version>
-		<log4j2.version>2.20.0</log4j2.version>
+		<slf4j.version>2.0.17</slf4j.version>
+		<testng.version>7.11.0</testng.version>
+		<log4j2.version>2.25.2</log4j2.version>
 		<objenesis.version>3.0.1</objenesis.version>
 		<javassist.version>3.30.2-GA</javassist.version>
 
 		<!-- Plugin versions -->
-		<maven.deploy.plugin.version>3.1.1</maven.deploy.plugin.version>
-		<maven.source.plugin.version>3.3.0</maven.source.plugin.version>
-		<!-- Problems with 3.0.0 and 3.0.1 being slow. -->
-		<maven.jar.plugin.version>3.3.0</maven.jar.plugin.version>
-		<!-- Problems with 2.4, 3.0.0 and 3.0.2 being slow. -->
-		<maven.release.plugin.version>3.0.1</maven.release.plugin.version>
-		<maven.surefire.plugin.version>3.1.2</maven.surefire.plugin.version>
-		<maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
-		<maven.enforcer.plugin.version>3.4.1</maven.enforcer.plugin.version>
+		<maven.deploy.plugin.version>3.1.4</maven.deploy.plugin.version>
+		<maven.source.plugin.version>3.3.1</maven.source.plugin.version>
+		<maven.jar.plugin.version>3.5.0</maven.jar.plugin.version>
+		<maven.release.plugin.version>3.2.0</maven.release.plugin.version>
+		<maven.surefire.plugin.version>3.5.4</maven.surefire.plugin.version>
+		<maven.compiler.plugin.version>3.14.1</maven.compiler.plugin.version>
+		<maven.enforcer.plugin.version>3.6.2</maven.enforcer.plugin.version>
 		<maven.enforcer.plugin.disabled>false</maven.enforcer.plugin.disabled>
 		<maven.formatter.plugin.version>2.22.0</maven.formatter.plugin.version>
 
 		<!--Java version-->
-		<java.version>1.8</java.version>
+		<java.version>11</java.version>
 		<compiler.source.java.version>${java.version}</compiler.source.java.version>
 		<compiler.target.java.version>${java.version}</compiler.target.java.version>
 		<compiler.compliance.java.version>${java.version}</compiler.compliance.java.version>
 
 		<!-- Maven Site -->
-		<maven.site.plugin.version>3.12.1</maven.site.plugin.version>
-		<maven.javadoc.plugin.version>3.6.0</maven.javadoc.plugin.version>
-		<maven.project.info.reports.plugin.version>3.4.5</maven.project.info.reports.plugin.version>
-		<maven.project.info.reports.version>3.4.5</maven.project.info.reports.version>
+		<maven.site.plugin.version>3.21.0</maven.site.plugin.version>
+		<maven.javadoc.plugin.version>3.12.0</maven.javadoc.plugin.version>
+		<maven.project.info.reports.plugin.version>3.9.0</maven.project.info.reports.plugin.version>
 		<doxia.include.macro.version>1.1</doxia.include.macro.version>
-
 		<maven.gpg.plugin.version>3.1.0</maven.gpg.plugin.version>
 	</properties>
 
@@ -105,7 +98,7 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		<dependency>
 			<!-- slf4j to log4j2 adapter -->
 			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-slf4j-impl</artifactId>
+			<artifactId>log4j-slf4j2-impl</artifactId>
 			<version>${log4j2.version}</version>
 			<scope>test</scope>
 		</dependency>
@@ -192,6 +185,9 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						<requireReleaseDeps />
 						<requireReleaseVersion />
 						<dependencyConvergence />
+						<requireMavenVersion>
+                        	<version>[3.8.1,4.0.0)</version>
+                        </requireMavenVersion>
 					</rules>
 					<fail>true</fail>
 					<skip>${maven.enforcer.plugin.disabled}</skip>
@@ -352,7 +348,7 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		<connection>${scm.repo.url}</connection>
 		<url>${scm.repo.url.web}</url>
 		<developerConnection>${scm.repo.url}</developerConnection>
-		<tag>proxy-1.2.17</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<issueManagement>
