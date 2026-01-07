@@ -48,7 +48,7 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		<!-- Dependency versions -->
 		<slf4j.version>2.0.17</slf4j.version>
 		<testng.version>7.11.0</testng.version>
-		<log4j2.version>2.25.2</log4j2.version>
+		<log4j2.version>2.25.3</log4j2.version>
 		<objenesis.version>3.4</objenesis.version>
 		<javassist.version>3.30.2-GA</javassist.version>
 
