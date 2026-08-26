@@ -25,7 +25,8 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 # Proxy
 A small yet powerful interception library that lets you manipulate existing objects and classes behavior runtime, 
-It's achieving this by using [javassist](http://jboss-javassist.github.io/javassist/) to do bytecode manipulation,
+It's achieving this by using [javassist](http://jboss-javassist.github.io/javassist/) or [Byte Buddy](https://bytebuddy.net/)
+to do bytecode manipulation (see [Bytecode engines](#bytecode-engines)),
 Proxy has a [fluent](http://en.wikipedia.org/wiki/Fluent_interface) interception API:
 
 ```java
@@ -105,6 +106,44 @@ Proxy is a great building block for creating other innovative solutions.
   * Proxy is much more lightweight in comparison.
   * It does bytecode manipulation with cglib similarly to how Proxy does the same with Javassist
   * It is missing features like: __recursive interception__ and __delegation__ and **object interception**
+
+## Bytecode engines
+
+Proxy ships with two interchangeable bytecode manipulation engines. They implement the same behavior, so the engine is
+purely an implementation detail: no code that uses `Proxy` has to change when you switch.
+
+| Engine | Name | Notes |
+|---|---|---|
+| [Javassist](http://jboss-javassist.github.io/javassist/) | `javassist` | The default, used by Proxy since its first release |
+| [Byte Buddy](https://bytebuddy.net/) | `bytebuddy` | Alternative engine, useful if your application already depends on Byte Buddy or you hit a Javassist limitation |
+
+Select the engine for the whole JVM with a system property:
+
+```bash
+java -Dproxy.engine=bytebuddy your.Application
+```
+
+Or at runtime, which affects every proxy created afterwards:
+
+```java
+import com.ericsson.commonlibrary.proxy.ProxyConfiguration;
+import com.ericsson.commonlibrary.proxy.ProxyConfiguration.Engine;
+
+ProxyConfiguration.setEngine(Engine.BYTEBUDDY);
+ProxyConfiguration.reset(); // back to -Dproxy.engine, or javassist when that is unset
+```
+
+Or for a single call only, without affecting other threads:
+
+```java
+SomeImpl obj = ProxyConfiguration.callWithEngine(Engine.BYTEBUDDY,
+        () -> Proxy.with(SomeImpl.class).interceptAll(i -> i.invoke()).get());
+```
+
+Proxies from both engines can be mixed freely in the same JVM, and a proxy created by one engine can be proxied again by
+the other. Already created proxies keep the engine they were created with.
+
+The whole test suite is executed twice by the build, once per engine, so both engines are verified to behave the same.
 
 ## User Guide 
 **Under Construction**:  https://ericsson.github.io/proxy

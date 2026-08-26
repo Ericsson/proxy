@@ -19,14 +19,15 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ericsson.commonlibrary</groupId>
 	<artifactId>proxy</artifactId>
 	<version>1.2.29-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Proxy</name>
-	<description>A small yet powerful interception library that lets you manipulate existing objects and classes behavior runtime, It's achieving this by using javassist to do bytecode manipulation</description>
+	<description>A small yet powerful interception library that lets you manipulate existing objects and classes behavior runtime, It's achieving this by using javassist or Byte Buddy to do bytecode manipulation</description>
 	<url>${scm.repo.url.web}</url>
 	<organization>
 		<name>Ericsson</name>
@@ -51,6 +52,7 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		<log4j2.version>2.25.3</log4j2.version>
 		<objenesis.version>3.4</objenesis.version>
 		<javassist.version>3.30.2-GA</javassist.version>
+		<bytebuddy.version>1.18.12</bytebuddy.version>
 
 		<!-- Plugin versions -->
 		<maven.deploy.plugin.version>3.1.4</maven.deploy.plugin.version>
@@ -58,6 +60,8 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		<maven.jar.plugin.version>3.5.0</maven.jar.plugin.version>
 		<maven.release.plugin.version>3.2.0</maven.release.plugin.version>
 		<maven.surefire.plugin.version>3.5.4</maven.surefire.plugin.version>
+		<!-- Set to true to skip the second test run that executes the whole suite on the byte-buddy engine -->
+		<skip.bytebuddy.tests>false</skip.bytebuddy.tests>
 		<maven.compiler.plugin.version>3.14.1</maven.compiler.plugin.version>
 		<maven.enforcer.plugin.version>3.6.2</maven.enforcer.plugin.version>
 		<maven.enforcer.plugin.disabled>false</maven.enforcer.plugin.disabled>
@@ -87,6 +91,11 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			<groupId>org.javassist</groupId>
 			<artifactId>javassist</artifactId>
 			<version>${javassist.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>net.bytebuddy</groupId>
+			<artifactId>byte-buddy</artifactId>
+			<version>${bytebuddy.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -175,6 +184,35 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					</excludes>
 					<skip>false</skip>
 				</configuration>
+				<executions>
+					<execution>
+						<!-- The whole suite on the default (javassist) proxy engine -->
+						<id>default-test</id>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<systemPropertyVariables>
+								<proxy.engine>javassist</proxy.engine>
+							</systemPropertyVariables>
+						</configuration>
+					</execution>
+					<execution>
+						<!-- The exact same suite on the byte-buddy proxy engine -->
+						<id>bytebuddy-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<skip>${skip.bytebuddy.tests}</skip>
+							<systemPropertyVariables>
+								<proxy.engine>bytebuddy</proxy.engine>
+							</systemPropertyVariables>
+							<reportsDirectory>${project.build.directory}/surefire-reports-bytebuddy</reportsDirectory>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -186,8 +224,8 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						<requireReleaseVersion />
 						<dependencyConvergence />
 						<requireMavenVersion>
-                        	<version>[3.8.1,4.0.0)</version>
-                        </requireMavenVersion>
+							<version>[3.8.1,4.0.0)</version>
+						</requireMavenVersion>
 					</rules>
 					<fail>true</fail>
 					<skip>${maven.enforcer.plugin.disabled}</skip>
