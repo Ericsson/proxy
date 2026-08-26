@@ -5,7 +5,8 @@
 ## Introduction
 
 A small yet powerful interception library that lets you manipulate existing objects and classes behavior runtime, 
-It's achieving this by using [javassist](http://jboss-javassist.github.io/javassist/) to do bytecode manipulation,
+It's achieving this by using [javassist](http://jboss-javassist.github.io/javassist/) or
+[Byte Buddy](https://bytebuddy.net/) to do bytecode manipulation, see [Bytecode engines](#bytecode-engines),
 
 ### Interesting features
 
@@ -64,3 +65,24 @@ See more info at: [MDC logging](http://www.baeldung.com/mdc-in-log4j-2-logback)
 ### Example: Simplified explaination on how you can visualize how Proxy actually working.
 
 <!-- MACRO{include|source=examples.InterceptionInnerWorkingsExplaination} --> 
+
+## Bytecode engines
+
+Proxy ships with two interchangeable bytecode manipulation engines,
+[javassist](http://jboss-javassist.github.io/javassist/) and [Byte Buddy](https://bytebuddy.net/).
+They implement the same behavior, so the engine is purely an implementation detail and no code that uses `Proxy`
+has to change when you switch. The whole test suite is executed twice by the build, once per engine, to keep it that way.
+
+Javassist is the default. Select another engine for the whole JVM with a system property:
+
+```bash
+java -Dproxy.engine=bytebuddy your.Application
+```
+
+Or select it from code, globally, per thread, or for a single call:
+
+<!-- MACRO{include|source=examples.ProxyEngineExample} --> 
+
+Proxies from both engines can be mixed freely in the same JVM, and a proxy created by one engine can be proxied again by
+the other. Already created proxies keep the engine they were created with.
+

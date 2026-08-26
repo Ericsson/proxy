@@ -119,7 +119,7 @@ public final class Invocation {
     public Object invoke() throws Throwable {
 
         if (interceptorStack.isEmpty()) {
-            if (Util.isMethodWithImplementation(method)) {
+            if (proceed != null && Util.isMethodWithImplementation(method)) {
                 try {
                     return proceed.invoke(target, parameters); // invoke original
                 } catch (InvocationTargetException e) {
