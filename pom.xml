@@ -19,7 +19,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ericsson.commonlibrary</groupId>
 	<artifactId>proxy</artifactId>
@@ -46,20 +47,20 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		<scm.repo.url.web>https://github.com/Ericsson/${project.artifactId}</scm.repo.url.web>
 
 		<!-- Dependency versions -->
-		<slf4j.version>2.0.17</slf4j.version>
-		<testng.version>7.11.0</testng.version>
-		<log4j2.version>2.25.3</log4j2.version>
-		<objenesis.version>3.4</objenesis.version>
-		<javassist.version>3.30.2-GA</javassist.version>
+		<slf4j.version>2.0.20</slf4j.version>
+		<testng.version>7.12.0</testng.version>
+		<log4j2.version>2.26.1</log4j2.version>
+		<objenesis.version>3.6</objenesis.version>
+		<javassist.version>3.33.0-GA</javassist.version>
 
 		<!-- Plugin versions -->
-		<maven.deploy.plugin.version>3.1.4</maven.deploy.plugin.version>
-		<maven.source.plugin.version>3.3.1</maven.source.plugin.version>
-		<maven.jar.plugin.version>3.5.0</maven.jar.plugin.version>
-		<maven.release.plugin.version>3.2.0</maven.release.plugin.version>
-		<maven.surefire.plugin.version>3.5.4</maven.surefire.plugin.version>
-		<maven.compiler.plugin.version>3.14.1</maven.compiler.plugin.version>
-		<maven.enforcer.plugin.version>3.6.2</maven.enforcer.plugin.version>
+		<maven.deploy.plugin.version>3.2.0</maven.deploy.plugin.version>
+		<maven.source.plugin.version>3.4.0</maven.source.plugin.version>
+		<maven.jar.plugin.version>3.5.1</maven.jar.plugin.version>
+		<maven.release.plugin.version>3.3.1</maven.release.plugin.version>
+		<maven.surefire.plugin.version>3.5.6</maven.surefire.plugin.version>
+		<maven.compiler.plugin.version>3.16.0</maven.compiler.plugin.version>
+		<maven.enforcer.plugin.version>3.7.0</maven.enforcer.plugin.version>
 		<maven.enforcer.plugin.disabled>false</maven.enforcer.plugin.disabled>
 		<maven.formatter.plugin.version>2.22.0</maven.formatter.plugin.version>
 
@@ -70,11 +71,11 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		<compiler.compliance.java.version>${java.version}</compiler.compliance.java.version>
 
 		<!-- Maven Site -->
-		<maven.site.plugin.version>3.21.0</maven.site.plugin.version>
+		<maven.site.plugin.version>3.22.0</maven.site.plugin.version>
 		<maven.javadoc.plugin.version>3.12.0</maven.javadoc.plugin.version>
 		<maven.project.info.reports.plugin.version>3.9.0</maven.project.info.reports.plugin.version>
 		<doxia.include.macro.version>1.1</doxia.include.macro.version>
-		<maven.gpg.plugin.version>3.1.0</maven.gpg.plugin.version>
+		<maven.gpg.plugin.version>3.2.8</maven.gpg.plugin.version>
 	</properties>
 
 	<dependencies>
@@ -186,8 +187,8 @@ SOFTWARE. SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 						<requireReleaseVersion />
 						<dependencyConvergence />
 						<requireMavenVersion>
-                        	<version>[3.8.1,4.0.0)</version>
-                        </requireMavenVersion>
+							<version>[3.8.1,4.0.0)</version>
+						</requireMavenVersion>
 					</rules>
 					<fail>true</fail>
 					<skip>${maven.enforcer.plugin.disabled}</skip>
